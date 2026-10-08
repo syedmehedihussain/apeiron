@@ -153,7 +153,7 @@ export function ApprovalCard({ approval, now, onAnswer, autoFocus, compact }: Ap
   );
 }
 
-function FileDiff({ file, defaultOpen }: { file: ApprovalFile; defaultOpen: boolean }) {
+export function FileDiff({ file, defaultOpen }: { file: ApprovalFile; defaultOpen: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
   const [all, setAll] = useState(false);
   const shown = all ? file.lines : file.lines.slice(0, PREVIEW_LINES);

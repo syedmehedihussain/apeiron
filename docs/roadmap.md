@@ -78,7 +78,7 @@ workspace at phase Design.
 
 ## M7 — Background agents
 
-- [ ] Worktrees, AgentManager, agent cards, approvals from agents, diff review, accept/discard,
+- [x] Worktrees, AgentManager, agent cards, approvals from agents, diff review, accept/discard,
       retry, max running.
 
 **Done when:** "write tests for X" runs on the side while you chat, and Accept lands it on your

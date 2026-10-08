@@ -1,4 +1,4 @@
-import { Plus, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { create } from 'zustand';
@@ -7,6 +7,7 @@ import { useLiveProject, useProjectDetail } from '../../api/workspace.ts';
 import { FileTree } from '../../components/FileTree/FileTree.tsx';
 import { FileViewer } from '../../components/FileViewer/FileViewer.tsx';
 import { GitPanel } from '../../components/GitHubBox/GitPanel.tsx';
+import { AgentsPanel } from '../../components/AgentsPanel/AgentsPanel.tsx';
 import { StatusBlock } from '../../components/StatusBlock/StatusBlock.tsx';
 import { TopBar } from '../../components/TopBar/TopBar.tsx';
 import { tildify } from '../../lib/paths.ts';
@@ -203,7 +204,16 @@ export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
           <div className={styles.rightTop}>
             <GitPanel key={id} projectId={id} now={now} />
           </div>
-          {right ? right(id) : <RightTabsSoon />}
+          {right ? (
+            right(id)
+          ) : (
+            <AgentsPanel
+              projectId={id}
+              branch={detail.data?.card.git?.branch ?? null}
+              now={now}
+              magnet={<div className={styles.soon}>Magnet arrives with milestone M8.</div>}
+            />
+          )}
         </aside>
       </div>
     </div>
@@ -215,29 +225,5 @@ function TabLink({ to, active, children }: { to: string; active: boolean; childr
     <Link to={to} className={styles.tab} aria-current={active ? 'page' : undefined}>
       {children}
     </Link>
-  );
-}
-
-function RightTabsSoon() {
-  return (
-    <>
-      <nav className={styles.rightTabs} aria-label="Agents and Magnet">
-        <span className={styles.rightTab} aria-current="page">
-          Agents <span className={styles.count}>0</span>
-        </span>
-        <span className={styles.rightTab}>Magnet</span>
-      </nav>
-      <div className={styles.rightBody}>
-        <button
-          type="button"
-          className={styles.newAgent}
-          disabled
-          title="Background agents arrive in milestone M7"
-        >
-          <Plus size={14} aria-hidden="true" />
-          New agent
-        </button>
-      </div>
-    </>
   );
 }

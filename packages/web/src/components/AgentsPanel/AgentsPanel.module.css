@@ -1,0 +1,158 @@
+.tabs {
+  flex: none;
+  display: flex;
+  gap: 4px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--b);
+}
+.tab {
+  padding: 10px;
+  font: inherit;
+  font-weight: 500;
+  color: var(--t2);
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.tab[aria-selected='true'] {
+  color: var(--t1);
+  border-bottom-color: var(--t1);
+}
+.count {
+  font-size: var(--fs-2xs);
+  color: var(--t2);
+  background: var(--s3);
+  border-radius: var(--r-pill);
+  padding: 1px 6px;
+}
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.newAgent {
+  height: 36px;
+  flex: none;
+  border-radius: var(--r-pill);
+  border: 1px dashed var(--bs);
+  background: transparent;
+  color: var(--t1);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.newAgent:hover {
+  background: var(--s2);
+}
+.empty,
+.hint {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--t3);
+  line-height: 1.5;
+}
+.form {
+  background: var(--s1);
+  border: 1px solid var(--bs);
+  border-radius: var(--r-xl);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: none;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: var(--fs-sm);
+  color: var(--t2);
+}
+.field textarea {
+  background: var(--s2);
+  border: 1px solid var(--b);
+  border-radius: var(--r-lg);
+  color: var(--t1);
+  font: inherit;
+  font-size: var(--fs-md);
+  padding: 8px 10px;
+  resize: vertical;
+}
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent-border);
+}
+.formRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.model select {
+  height: 30px;
+  background: var(--s2);
+  color: var(--t1);
+  border: 1px solid var(--b);
+  border-radius: var(--r-pill);
+  padding: 0 10px;
+  font: inherit;
+  font-size: var(--fs-sm);
+}
+.spacer {
+  flex: 1;
+}
+.error {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--danger-text);
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+.dialog {
+  width: min(960px, calc(100vw - 64px));
+  max-height: calc(100vh - 96px);
+  background: var(--s1);
+  border: 1px solid var(--bs);
+  border-radius: var(--r-2xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.dialogHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--b);
+}
+.dialogHead h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.dialogBody {
+  overflow: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

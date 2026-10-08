@@ -1,5 +1,39 @@
 [
   {
+    "match": "background agent working in your own git worktree",
+    "steps": [
+      {
+        "tool": {
+          "name": "Read",
+          "input": {
+            "file_path": "lib/streaks.ts"
+          }
+        }
+      },
+      {
+        "tool": {
+          "name": "Write",
+          "input": {
+            "file_path": "tests/streaks.test.ts",
+            "content": "import { streaks } from '../lib/streaks';\n\ntest('streaks', () => expect(streaks).toBe(1));\n"
+          }
+        }
+      },
+      {
+        "tool": {
+          "name": "Bash",
+          "input": {
+            "command": "npm test"
+          }
+        },
+        "output": "Tests 1 passed"
+      },
+      {
+        "text": "Added a test for the streak counter."
+      }
+    ]
+  },
+  {
     "match": "this is step 2 of a short survey",
     "steps": [
       {

@@ -16,6 +16,8 @@ import { calibrateRoutes } from './routes/calibrate.ts';
 import { CalibrationService } from './calibrate/service.ts';
 import { surveyRoutes } from './routes/survey.ts';
 import { gitRoutes } from './routes/git.ts';
+import { agentRoutes } from './routes/agents.ts';
+import { AgentManager } from './agents/manager.ts';
 import { GitActions, type PrLister } from './projects/git-actions.ts';
 import { SurveyService, ghCli, type SurveyGitHub } from './survey/service.ts';
 import { ChatService } from './chat/service.ts';
@@ -37,6 +39,7 @@ export interface Daemon {
   decisions: DecisionBroker;
   calibration: CalibrationService;
   survey: SurveyService;
+  agents: AgentManager;
   projects: ProjectService;
   health: HealthService;
   cliSecret: string;
@@ -104,6 +107,15 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     opts.github ?? ghCli,
   );
 
+  const agents = new AgentManager(
+    config,
+    db,
+    hub,
+    approvals,
+    decisions,
+    opts.runner ?? sdkRunner,
+    opts.home,
+  );
   const gitActions = new GitActions(config, hub, approvals, gitInfo, opts.prList);
 
   const app = buildServer({
@@ -122,6 +134,7 @@ export function createDaemon(opts: DaemonOptions): Daemon {
       calibrateRoutes(calibration),
       surveyRoutes(survey),
       gitRoutes(gitActions),
+      agentRoutes(agents),
     ],
   });
 
@@ -148,9 +161,11 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     decisions,
     calibration,
     survey,
+    agents,
     async close() {
       await chat.stopAll();
       await survey.stopAll();
+      await agents.stopAll();
       approvals.cancel(undefined, 'Apeiron restarted');
       await watcher?.close();
       await app.close();

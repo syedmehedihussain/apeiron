@@ -4,6 +4,8 @@ import { ConfigSchema, type Config, type ConfigPatch } from '@apeiron/shared';
 import { readJsonFile, writeFileAtomic } from './fsutil.ts';
 import { expandHome } from './paths.ts';
 
+const DEFAULT_WORKTREE_DIR = '~/Projects/.apeiron-worktrees';
+
 export class ConfigStore {
   readonly file: string;
   private current: Config;
@@ -37,8 +39,12 @@ export class ConfigStore {
     return path.resolve(expandHome(process.env.APEIRON_PROJECTS_DIR ?? this.current.projectsDir));
   }
 
+  /** Agent worktrees: `<projectsDir>/.apeiron-worktrees` unless set to somewhere else. */
   worktreeDir(): string {
-    return path.resolve(expandHome(this.current.agents.worktreeDir));
+    const set = this.current.agents.worktreeDir;
+    return set === DEFAULT_WORKTREE_DIR
+      ? path.join(this.projectsDir(), '.apeiron-worktrees')
+      : path.resolve(expandHome(set));
   }
 
   update(patch: ConfigPatch): Config {

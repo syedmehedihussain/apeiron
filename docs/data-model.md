@@ -146,6 +146,9 @@ The phase task graph, seeded from Core's preset (`lib/services/project-presets.t
 }
 ```
 
+`agents.worktreeDir` left at its default follows `projectsDir` (`<projectsDir>/.apeiron-worktrees`,
+ADR-0010).
+
 ## 6. `~/.apeiron/magnet/`
 
 ```

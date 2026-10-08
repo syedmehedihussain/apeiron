@@ -98,9 +98,9 @@ proposal and the create progress, and is pushed as `survey.updated` on every cha
 | Method | Path | Does |
 | --- | --- | --- |
 | GET | `/api/projects/:id/agents` | agent list |
-| POST | `/api/projects/:id/agents` | `{ task, model }` |
-| GET | `/api/agents/:agentId/diff` | diff of the agent branch vs base |
-| POST | `/api/agents/:agentId/accept` | merge |
+| POST | `/api/projects/:id/agents` | `{ task, model }` → the agent (queued when all slots are busy) |
+| GET | `/api/agents/:agentId/diff` | `{ files: [{ path, isNew, added, removed, lines }] }`, agent branch vs where it started |
+| POST | `/api/agents/:agentId/accept` | `git merge --no-edit` into the current branch, then remove worktree and branch (ADR-0010) |
 | POST | `/api/agents/:agentId/discard` | remove worktree + branch |
 | POST | `/api/agents/:agentId/retry` | new run with the same task |
 | POST | `/api/agents/:agentId/stop` | interrupt |
@@ -133,8 +133,7 @@ One socket at `/ws`. Every event: `{ type, at, ...payload }`. The client subscri
 | `approval.resolved` | `{ approval }` (with its final status) | approvals + project:id |
 | `git.result` | `{ projectId, action: pull\|push, ok, message }` | project:id |
 | `tree.changed` | `{ paths: string[] }` | project:id |
-| `agent.updated` | agent object (status, activity tail) | project:id |
-| `agent.activity` | `{ agentId, row }` | project:id |
+| `agent.updated` | `{ projectId, agent }` (status, last timeline rows, waiting approval, change size) | project:id |
 | `survey.updated` | `{ projectId, state }` (full survey state) | project:id |
 | `calibrate.progress` | `{ step, rows, found }` | project:id |
 | `calibrate.proposal` | proposal | project:id |

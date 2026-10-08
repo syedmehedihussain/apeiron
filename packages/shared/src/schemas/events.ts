@@ -5,6 +5,7 @@ import type { Approval, ChatItem } from './chat.ts';
 import type { CalibrationState } from './calibration.ts';
 import type { SurveyState } from './survey.ts';
 import type { GitResult } from './workspace.ts';
+import type { Agent } from './agent.ts';
 
 /** Client → server over /ws. */
 export const ClientMessageSchema = z.object({
@@ -44,6 +45,8 @@ export interface EventMap {
   'survey.updated': { projectId: string; state: SurveyState };
   /** Pull or Push finished (Push runs after its approval). */
   'git.result': { projectId: string } & GitResult;
+  /** An agent was added or changed (upsert by id). */
+  'agent.updated': { projectId: string; agent: Agent };
   'approval.requested': { approval: Approval };
   'approval.resolved': { approval: Approval };
 }
