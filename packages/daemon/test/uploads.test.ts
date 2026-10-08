@@ -78,6 +78,31 @@ describe('chat attachments', () => {
     expect(img.headers['content-disposition']).toMatch(/^inline/);
   });
 
+  it('deletes an upload that was never sent, and keeps one that was', async () => {
+    const del = (id: string) =>
+      d.app.inject({
+        method: 'DELETE',
+        url: `/api/projects/core/uploads/${id}`,
+        headers: { host: HOST, origin: ORIGIN, cookie },
+      });
+    const a = (await upload('a.png', Buffer.from('a'))).json() as { id: string };
+    const b = (await upload('b.png', Buffer.from('b'))).json() as { id: string };
+    expect((await del(a.id)).statusCode).toBe(200);
+    expect(existsSync(path.join(dir, 'apeiron', 'uploads', a.id))).toBe(false);
+    expect((await del(a.id)).statusCode).toBe(404);
+
+    await d.app.inject({
+      method: 'POST',
+      url: '/api/projects/core/chat',
+      headers: { host: HOST, origin: ORIGIN, cookie },
+      payload: { text: 'look', attachments: [b.id] },
+    });
+    expect((await del(b.id)).statusCode).toBe(409);
+    expect(existsSync(path.join(dir, 'apeiron', 'uploads', b.id))).toBe(true);
+    expect((await del('..%2F..%2FREADME.md')).statusCode).toBe(404);
+    expect(existsSync(path.join(dir, 'README.md'))).toBe(true);
+  });
+
   it('serves anything that is not an image as a download, never as a page', async () => {
     const f = (await upload('page.html', Buffer.from('<script>alert(1)</script>'))).json() as {
       id: string;

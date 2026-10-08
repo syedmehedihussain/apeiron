@@ -10,6 +10,7 @@ import {
   sendChat,
   stopChat,
   uploadAttachment,
+  discardAttachment,
   attachmentLabel,
   attachmentUrl,
   isImageFile,
@@ -188,6 +189,7 @@ export function ChatTab({ projectId, now }: ChatTabProps) {
           onSend={send}
           onStop={() => void stopChat(projectId)}
           onUpload={(file) => uploadAttachment(projectId, file)}
+          onDiscard={(file) => void discardAttachment(projectId, file).catch(() => undefined)}
           onModel={setModel}
         />
       </div>

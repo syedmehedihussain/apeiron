@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { rmSync } from 'node:fs';
 import path from 'node:path';
 import type { ChatSend, ChatState, Phase } from '@apeiron/shared';
 import type { ConfigStore } from '../config.ts';
@@ -261,6 +262,16 @@ export class ChatService {
 
   upload(projectId: string, name: string, data: Buffer) {
     return saveUpload(projectDir(this.config.projectsDir(), projectId), name, data);
+  }
+
+  /** Deletes an upload that was never sent (the user removed its chip). */
+  discardUpload(projectId: string, id: string): void {
+    const file = this.uploadFile(projectId, id);
+    const sent = this.current(projectId)
+      ?.conversation.list(Infinity)
+      .some((i) => i.kind === 'user' && i.attachments?.includes(id));
+    if (sent) throw conflict('This file was already sent in a message, so it stays.');
+    rmSync(file);
   }
 
   uploadFile(projectId: string, id: string): string {

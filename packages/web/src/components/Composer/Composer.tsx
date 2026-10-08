@@ -22,6 +22,8 @@ interface ComposerProps {
   onSend(text: string, planMode: boolean, model: string, attachments: string[]): Promise<boolean>;
   /** Stores one file and returns its id; without it there is no paperclip. */
   onUpload?: (file: File) => Promise<UploadedFile>;
+  /** Deletes an uploaded file whose chip was removed before sending. */
+  onDiscard?: (id: string) => void;
   onStop(): void;
   onModel(model: string): void;
 }
@@ -37,6 +39,7 @@ export function Composer({
   onStop,
   onModel,
   onUpload,
+  onDiscard,
 }: ComposerProps) {
   const [text, setText] = useState('');
   const [plan, setPlan] = useState(false);
@@ -62,6 +65,7 @@ export function Composer({
   const [fileError, setFileError] = useState<string | null>(null);
   const [dragging, setDragging] = useState(false);
   const picker = useRef<HTMLInputElement>(null);
+  const seq = useRef(0);
   const uploading = files.some((f) => f.status === 'uploading');
   const ready = files.filter((f) => f.status === 'done');
 
@@ -79,7 +83,7 @@ export function Composer({
     const room = MAX_ATTACHMENTS - files.length;
     if (incoming.length > room) setFileError(`Up to ${MAX_ATTACHMENTS} files per message.`);
     for (const file of incoming.slice(0, Math.max(0, room))) {
-      const key = `${file.name}-${file.size}-${Math.random().toString(36).slice(2, 8)}`;
+      const key = `${file.name}-${(seq.current += 1)}`;
       if (file.size > MAX_UPLOAD_BYTES) {
         setFiles((f) => [...f, { key, name: file.name, status: 'error', error: 'Over 10 MB' }]);
         continue;
@@ -88,8 +92,14 @@ export function Composer({
       if (preview) urls.current.add(preview);
       setFiles((f) => [...f, { key, name: file.name, status: 'uploading', preview }]);
       onUpload(file).then(
-        (up) =>
-          setFiles((f) => f.map((x) => (x.key === key ? { ...x, status: 'done', id: up.id } : x))),
+        (up) => {
+          // Removed while it was still uploading: delete it now that it exists.
+          if (removed.current.delete(key)) {
+            onDiscard?.(up.id);
+            return;
+          }
+          setFiles((f) => f.map((x) => (x.key === key ? { ...x, status: 'done', id: up.id } : x)));
+        },
         (e: unknown) =>
           setFiles((f) =>
             f.map((x) =>
@@ -101,7 +111,13 @@ export function Composer({
       );
     }
   };
-  const remove = (key: string) => setFiles((f) => f.filter((x) => x.key !== key));
+  const removed = useRef(new Set<string>());
+  const remove = (key: string) => {
+    const f = files.find((x) => x.key === key);
+    if (f?.status === 'uploading') removed.current.add(key);
+    if (f?.status === 'done' && f.id) onDiscard?.(f.id);
+    setFiles((list) => list.filter((x) => x.key !== key));
+  };
 
   const hasContent = text.trim().length > 0 || ready.length > 0;
   const canSend = !disabled && !running && !sending && !uploading && hasContent;

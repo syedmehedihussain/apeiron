@@ -54,6 +54,14 @@ export function chatRoutes(
         .send(createReadStream(abs));
     });
 
+    app.delete('/api/projects/:id/uploads/:file', async (req) => {
+      const { id, file } = z
+        .object({ id: z.string().min(1).max(200), file: z.string().min(1).max(300) })
+        .parse(req.params);
+      chat.discardUpload(id, file);
+      return { ok: true };
+    });
+
     app.post('/api/projects/:id/chat/stop', async (req) => {
       await chat.stop(IdParams.parse(req.params).id);
       return { ok: true };

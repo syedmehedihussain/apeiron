@@ -68,6 +68,7 @@ the projects folder (see `security.md`).
 | --- | --- | --- |
 | GET | `/api/approvals?status=pending` | all pending approvals (for toasts) |
 | POST | `/api/projects/:id/uploads?name=` | raw file as the body (≤ 10 MB) → `{ id, name, size }`; stored in the project's `apeiron/uploads/`, and `apeiron/` is added to its `.gitignore` |
+| DELETE | `/api/projects/:id/uploads/:file` | deletes an upload that was never sent (409 once it is in a message) |
 | GET | `/api/projects/:id/uploads/:file` | the stored file; png/jpeg/gif/webp inline, everything else as a download (`nosniff`, sandbox CSP) |
 | POST | `/api/approvals/:id` | `{ answer: "allow" \| "allow_session" \| "deny", reason? }` |
 

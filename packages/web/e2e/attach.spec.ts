@@ -24,9 +24,12 @@ test('attach a picture and a file to a chat message', async ({ page }) => {
   ]);
   const chips = page.getByRole('list', { name: 'Attachments' });
   await expect(chips.getByRole('listitem')).toHaveCount(2);
+  await expect(chips.getByLabel('Uploading')).toHaveCount(0);
   await chips.getByRole('button', { name: 'Remove notes.txt' }).click();
   await expect(chips.getByRole('listitem')).toHaveCount(1);
-  await expect(chips.getByLabel('Uploading')).toHaveCount(0);
+  // The removed file is deleted from the project, not left behind.
+  const uploads = path.join(E2E_PROJECTS, 'cctop', 'apeiron', 'uploads');
+  await expect.poll(() => readdirSync(uploads).some((f) => f.endsWith('-notes.txt'))).toBe(false);
 
   await page.getByLabel('Message Claude').fill('What is in this picture?');
   await page.getByRole('button', { name: 'Send' }).click();

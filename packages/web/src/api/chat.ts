@@ -60,6 +60,10 @@ export async function uploadAttachment(id: string, file: File): Promise<Uploaded
   return UploadedFileSchema.parse(body);
 }
 
+/** Deletes an upload that was never sent. */
+export const discardAttachment = (id: string, file: string) =>
+  api('DELETE', `${base(id)}/uploads/${encodeURIComponent(file)}`);
+
 /** Where the browser loads an attachment from (images show inline). */
 export const attachmentUrl = (id: string, file: string) =>
   `${base(id)}/uploads/${encodeURIComponent(file)}`;
