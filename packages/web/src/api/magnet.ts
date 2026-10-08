@@ -74,26 +74,40 @@ const upsert = (items: ChatItem[], item: ChatItem) => {
 export function useLiveMagnet(): void {
   useEffect(() => {
     const unsub = socket.subscribe('magnet');
+    let pending: { itemId: string; text: string }[] = [];
+    let timer: number | null = null;
+    const flush = () => {
+      timer = null;
+      const batch = pending;
+      pending = [];
+      queryClient.setQueryData<MagnetState>(magnetKey, (old) => {
+        if (!old) return old;
+        let items = old.items;
+        for (const d of batch) {
+          const i = items.findIndex((x) => x.id === d.itemId);
+          const it = items[i];
+          if (it?.kind !== 'text') continue;
+          if (items === old.items) items = items.slice();
+          items[i] = { ...it, text: it.text + d.text };
+        }
+        return { ...old, items };
+      });
+    };
     const off = socket.on((event) => {
       if (event.type === 'magnet.item') {
+        if (timer !== null) {
+          window.clearTimeout(timer);
+          flush();
+        }
         queryClient.setQueryData<MagnetState>(magnetKey, (old) =>
           old
             ? { ...old, conversationId: event.conversationId, items: upsert(old.items, event.item) }
             : old,
         );
       } else if (event.type === 'magnet.delta') {
-        queryClient.setQueryData<MagnetState>(magnetKey, (old) =>
-          old
-            ? {
-                ...old,
-                items: old.items.map((x) =>
-                  x.id === event.itemId && x.kind === 'text'
-                    ? { ...x, text: x.text + event.text }
-                    : x,
-                ),
-              }
-            : old,
-        );
+        // Same 100 ms batching as the chat: one Markdown render per batch, not per chunk.
+        pending.push(event);
+        timer ??= window.setTimeout(flush, 100);
       } else if (event.type === 'magnet.state') {
         queryClient.setQueryData<MagnetState>(magnetKey, (old) =>
           old
@@ -110,6 +124,7 @@ export function useLiveMagnet(): void {
     return () => {
       unsub();
       off();
+      if (timer !== null) window.clearTimeout(timer);
     };
   }, []);
 }

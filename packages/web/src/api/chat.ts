@@ -103,6 +103,8 @@ export const useChatDraft = create<{
   set: (id, text) => set((s) => ({ drafts: { ...s.drafts, [id]: text } })),
 }));
 
+const STREAM_FLUSH_MS = 100;
+
 function upsert(items: ChatItem[], item: ChatItem): ChatItem[] {
   const i = items.findIndex((x) => x.id === item.id);
   if (i < 0) return [...items, item];
@@ -116,7 +118,10 @@ function upsert(items: ChatItem[], item: ChatItem): ChatItem[] {
   return next;
 }
 
-/** Keeps the chat state live from WebSocket events (stream deltas batched per frame). */
+/**
+ * Keeps the chat state live from WebSocket events. Streamed text is applied at most 10 times a
+ * second: re-rendering Markdown on every frame kept a CPU core busy for nothing.
+ */
 export function useLiveChat(id: string): void {
   useEffect(() => {
     const unsub = socket.subscribe(`project:${id}`);
@@ -142,10 +147,10 @@ export function useLiveChat(id: string): void {
     const off = socket.on((event) => {
       if (event.type === 'chat.delta' && event.projectId === id) {
         pending.push({ itemId: event.itemId, text: event.text });
-        frame ??= window.requestAnimationFrame(flush);
+        frame ??= window.setTimeout(flush, STREAM_FLUSH_MS);
       } else if (event.type === 'chat.item' && event.projectId === id) {
         if (frame !== null) {
-          window.cancelAnimationFrame(frame);
+          window.clearTimeout(frame);
           flush();
         }
         queryClient.setQueryData<ChatState>(chatKey(id), (old) =>
@@ -173,7 +178,7 @@ export function useLiveChat(id: string): void {
     return () => {
       unsub();
       off();
-      if (frame !== null) window.cancelAnimationFrame(frame);
+      if (frame !== null) window.clearTimeout(frame);
     };
   }, [id]);
 }

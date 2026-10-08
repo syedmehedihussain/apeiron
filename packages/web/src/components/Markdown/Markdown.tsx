@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import ReactMarkdown, { defaultUrlTransform, type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Link } from 'react-router';
@@ -69,7 +70,11 @@ interface MarkdownProps {
   variant?: 'doc' | 'chat';
 }
 
-export function Markdown({
+/**
+ * Parsing Markdown is the costliest thing on the page, so a message re-renders only when its
+ * text changes (not on every streamed chunk of another message).
+ */
+export const Markdown = memo(function Markdown({
   source,
   docPath = '',
   docHref = (p) => p,
@@ -119,4 +124,4 @@ export function Markdown({
       </ReactMarkdown>
     </div>
   );
-}
+});
