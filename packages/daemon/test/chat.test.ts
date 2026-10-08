@@ -85,6 +85,37 @@ describe('chat', () => {
     expect(log.requests[1]?.resume).toBe('fake_session_1');
   });
 
+  it('closes a turn that a daemon restart cut off, so the chat does not look stuck', async () => {
+    script = [
+      {
+        tool: {
+          name: 'Edit',
+          input: { file_path: 'lib/streaks.ts', old_string: '1', new_string: '2' },
+        },
+      },
+    ];
+    await api('POST', '/api/projects/core/chat', { text: 'edit it' });
+    await until(() => pending().length === 1);
+    // What a restart looks like to the next process: the conversation is read back from disk.
+    const transcript = d.chat.state('core').items;
+    (d.chat as unknown as { live: Map<string, unknown> }).live.clear();
+    const after = d.chat.state('core');
+    expect(after.running).toBe(false);
+    const last = after.items.at(-1);
+    expect(last).toMatchObject({ kind: 'turn-end', ok: false });
+    expect(last?.kind === 'turn-end' && last.error).toMatch(/Apeiron restarted/);
+    expect(after.items.find((i) => i.kind === 'tool')).toMatchObject({
+      status: 'failed',
+      meta: 'Apeiron restarted',
+    });
+    expect(transcript.length).toBeLessThan(after.items.length);
+    // Opening it again adds nothing more.
+    (d.chat as unknown as { live: Map<string, unknown> }).live.clear();
+    expect(d.chat.state('core').items).toHaveLength(after.items.length);
+    d.approvals.cancel(undefined, 'test over');
+    await idle().catch(() => undefined);
+  });
+
   it('refuses a second message while Claude is working', async () => {
     script = [{ wait: 200 }];
     await api('POST', '/api/projects/core/chat', { text: 'first' });

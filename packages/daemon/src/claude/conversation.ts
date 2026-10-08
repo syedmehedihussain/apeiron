@@ -65,6 +65,39 @@ export class Conversation {
     }
   }
 
+  /**
+   * After a daemon restart the last turn may have no end: rows still "running", approvals still
+   * pending. Close it so the UI does not look stuck. Returns true if anything was closed.
+   */
+  closeInterrupted(reason: string): boolean {
+    const all = [...this.items.values()];
+    const lastUser = all.map((i) => i.kind).lastIndexOf('user');
+    const tail = all.slice(lastUser + 1);
+    if (lastUser < 0 || tail.some((i) => i.kind === 'turn-end')) return false;
+    const turnId = tail.find((i) => 'turnId' in i)?.turnId ?? 'restart';
+    this.turnId = turnId;
+    for (const i of tail) {
+      if (i.kind === 'tool' && (i.status === 'running' || i.status === 'waiting'))
+        this.put({ ...i, status: 'failed', meta: 'Apeiron restarted' });
+      if (i.kind === 'approval' && i.approval.status === 'pending')
+        this.put({
+          ...i,
+          approval: { ...i.approval, status: 'cancelled', reason: 'Apeiron restarted' },
+        });
+    }
+    this.put({
+      kind: 'turn-end',
+      id: `end_${turnId}_restart`,
+      at: Date.now(),
+      turnId,
+      ok: false,
+      stopped: false,
+      error: reason,
+      durationMs: 0,
+    });
+    return true;
+  }
+
   list(limit = 200): ChatItem[] {
     const all = [...this.items.values()];
     return all.slice(-limit);

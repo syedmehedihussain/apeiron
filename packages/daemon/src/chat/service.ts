@@ -108,7 +108,18 @@ export class ChatService {
         .prepare(`SELECT COUNT(*) AS n FROM sessions WHERE project_id = ? AND kind = 'chat'`)
         .get(projectId) as { n: number }
     ).n;
-    return this.open(projectId, row.id, row.claude_session_id, row.model, row.started_at, turns);
+    const live = this.open(
+      projectId,
+      row.id,
+      row.claude_session_id,
+      row.model,
+      row.started_at,
+      turns,
+    );
+    live.conversation.closeInterrupted(
+      'Apeiron restarted while Claude was working, so this turn stopped. Send a message (for example "continue") to pick up where it left off.',
+    );
+    return live;
   }
 
   state(projectId: string): ChatState {

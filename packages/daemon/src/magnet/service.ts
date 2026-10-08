@@ -167,7 +167,10 @@ export class MagnetService {
         `SELECT id, claude_session_id FROM sessions WHERE kind = 'magnet' AND ended_at IS NULL ORDER BY started_at DESC LIMIT 1`,
       )
       .get() as { id: string; claude_session_id: string | null } | undefined;
-    return row ? this.open(row.id, row.claude_session_id) : null;
+    if (!row) return null;
+    const live = this.open(row.id, row.claude_session_id);
+    live.conversation.closeInterrupted('Apeiron restarted while Magnet was answering. Ask again.');
+    return live;
   }
 
   async state(): Promise<MagnetState> {
