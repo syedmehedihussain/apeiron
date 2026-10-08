@@ -17,7 +17,7 @@ docs/                 product, engineering and design docs (committed)
   adr/                one file per decision
   design/tokens.css   design tokens; the web package imports this file
   design/screens/     artboards (*.dc.html), source of truth for layout
-packages/             created in M0 (see Stack)
+packages/             cli, daemon, web, shared (see Stack)
 _project/             personal state, git-excluded, never committed
 ```
 
@@ -33,14 +33,20 @@ Library choices are pinned in `docs/adr/0003-node-typescript-react-stack.md`.
 
 ## Commands
 
-These exist once M0 is done.
+Node 22 and pnpm 12 are pinned in `mise.toml`. Run commands through mise if your shell has a
+different Node (`mise exec -- pnpm test`).
 
 ```bash
-pnpm dev          # daemon + web with reload
+pnpm dev          # daemon (127.0.0.1:4317) + web (127.0.0.1:5173) with reload
 pnpm test         # vitest, all packages
+pnpm test:e2e     # playwright, uses /usr/bin/chromium locally
 pnpm lint         # eslint + prettier check
-pnpm typecheck    # tsc --noEmit, all packages
+pnpm typecheck    # tsc --noEmit, root + all packages
+pnpm apeiron      # run the CLI from source
 ```
+
+Workspace packages import each other's TypeScript source directly (`exports` points at
+`src/*.ts`); there is no build step until the daemon serves the built UI (M1).
 
 ## Rules
 

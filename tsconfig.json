@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": ["*.ts", "packages/web/e2e/**/*.ts"],
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM"]
+  }
+}

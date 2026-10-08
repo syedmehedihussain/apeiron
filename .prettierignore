@@ -1,0 +1,8 @@
+docs/
+_project/
+pnpm-lock.yaml
+**/dist/
+coverage/
+playwright-report/
+test-results/
+*.md

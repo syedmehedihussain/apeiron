@@ -1,0 +1,17 @@
+{
+  "name": "@apeiron/daemon",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/server.ts"
+  },
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@apeiron/shared": "workspace:*",
+    "fastify": "^5.12.5"
+  }
+}

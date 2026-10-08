@@ -6,12 +6,12 @@ every box in its **Done when** list is ticked and `pnpm test` passes.
 ## M0 — Preparation (repo setup)
 
 - [ ] Create `syedmehedihussain/apeiron`, push these docs (MIT, ADR-0007).
-- [ ] pnpm workspace with `cli`, `daemon`, `web`, `shared`; TS strict; ESLint + Prettier.
-- [ ] Vitest in every package; Playwright set up with the preinstalled Chromium.
-- [ ] GitHub Actions: lint, typecheck, test on push and PR.
-- [ ] `packages/web` imports `docs/design/tokens.css`; Geist fonts load.
-- [ ] Extract Magnet SVGs and the app mark into `packages/web/src/assets/`.
-- [ ] `_project/` created and excluded; `STATUS.md` filled.
+- [x] pnpm workspace with `cli`, `daemon`, `web`, `shared`; TS strict; ESLint + Prettier.
+- [x] Vitest in every package; Playwright set up with the preinstalled Chromium.
+- [x] GitHub Actions: lint, typecheck, test on push and PR.
+- [x] `packages/web` imports `docs/design/tokens.css`; Geist fonts load.
+- [x] Extract Magnet SVGs and the app mark into `packages/web/src/assets/`.
+- [x] `_project/` created and excluded; `STATUS.md` filled.
 
 **Done when:** `pnpm dev` shows an empty dark page with the top bar, and CI is green.
 

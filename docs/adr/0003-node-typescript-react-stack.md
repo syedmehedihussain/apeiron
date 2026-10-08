@@ -27,6 +27,9 @@ streaming, and SQLite only for the app's own cache. This ADR pins the libraries.
 | Icons | `lucide-react` | matches the stroke style in the designs |
 | File watch | `chokidar` | cross-platform |
 | Tests | Vitest, Testing Library, Playwright | |
+| TypeScript | 6.0 (not 7) | typescript-eslint does not support 7 yet; revisit when it does |
+| Dev runner | `tsx` | runs the daemon and CLI from TS source with watch |
+| Fonts | `@fontsource-variable/geist`, `geist-mono` | self-hosted; the `geist` package only ships Next.js loaders, and Google Fonts would send requests off the machine |
 
 ## Consequences
 

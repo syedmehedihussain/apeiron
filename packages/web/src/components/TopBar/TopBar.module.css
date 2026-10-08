@@ -1,0 +1,82 @@
+.bar {
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: 0 var(--sp-4) 0 var(--sp-5);
+  border-bottom: 1px solid var(--b);
+}
+
+.home {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--t1);
+}
+
+.home:hover {
+  color: var(--t1);
+}
+
+.wordmark {
+  font-weight: 600;
+  font-size: var(--fs-lg);
+  letter-spacing: var(--tracking-tight);
+}
+
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-base);
+}
+
+.sep {
+  color: var(--t3);
+}
+
+.crumb {
+  color: var(--t2);
+}
+
+.crumb:hover {
+  color: var(--t1);
+}
+
+.current {
+  color: var(--t1);
+  font-weight: 500;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.iconButton,
+.magnet {
+  width: var(--h-btn);
+  height: var(--h-btn);
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-pill);
+  color: var(--t2);
+  transition:
+    color var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease);
+}
+
+.iconButton:hover {
+  color: var(--t1);
+  background: var(--s2);
+}
+
+.magnet {
+  padding: 0;
+  border: 1px solid var(--bs);
+  background: var(--s2);
+  cursor: pointer;
+}
+
+.magnet:hover {
+  background: var(--s3);
+}

@@ -1,8 +1,8 @@
 /* Apeiron design tokens — taken from the design canvas (docs/design/screens/).
    Dark theme only for the MVP. Import once at the app root; never hard-code hex in components. */
 
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap");
-/* For offline use, self-host Geist via the `geist` npm package instead of Google Fonts. */
+/* Fonts are self-hosted (@fontsource-variable/geist and geist-mono, imported in packages/web/src/main.tsx),
+   so nothing is fetched from the internet. */
 
 :root {
   color-scheme: dark;
@@ -71,8 +71,8 @@
   --magnet-tile: #16203a;
 
   /* Type */
-  --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+  --sans: "Geist Variable", "Geist", ui-sans-serif, system-ui, sans-serif;
+  --mono: "Geist Mono Variable", "Geist Mono", ui-monospace, Menlo, monospace;
   --fs-2xs: 11px;    /* tags, section labels (uppercase), heatmap months */
   --fs-xs: 11.5px;   /* pills, badges, meta */
   --fs-sm: 12px;     /* most UI meta, timeline targets, buttons in panels */

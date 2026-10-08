@@ -1,0 +1,39 @@
+.status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding-right: 6px;
+  font-size: var(--fs-sm);
+  color: var(--t2);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--t3);
+}
+
+.status[data-state='ok'] .dot {
+  background: var(--success);
+  box-shadow: var(--status-dot-glow-success);
+}
+
+.status[data-state='working'] .dot {
+  background: var(--success);
+  box-shadow: var(--status-dot-glow-success);
+  animation: ap-pulse 1.4s var(--ease) infinite;
+}
+
+.status[data-state='missing'] .dot {
+  background: var(--danger);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
