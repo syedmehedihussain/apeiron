@@ -32,17 +32,14 @@ Read this page, then open only what your task needs.
 | [`components.md`](components.md) | Every reusable part, its props and states. |
 | [`design/tokens.css`](design/tokens.css) | The tokens as CSS variables. Import this; never hard-code hex. |
 | [`design/screens/`](design/screens/) | The design artboards (`*.dc.html`) exported from the canvas. Source of truth for layout. |
-| [`design/canvas.html`](design/canvas.html) | The whole canvas as one self-contained page. Open it in a browser to see every screen rendered. |
 
-## Archive
-
-| File | What it is |
-| --- | --- |
-| [`archive/harness-brief/`](archive/harness-brief/) | The original brief given to Claude Design. Superseded by `prd.md` and `screens.md`; kept for history only. |
 
 ## Note on the design files
 
 The artboards were made in Claude Design while the app was still called **Harness**. Wherever
 they say "Harness" or `~/.harness/`, build it as **Apeiron** and `~/.apeiron/`. The artboards
 also use a small runtime (`support.js`) that is not included; read them as HTML/CSS reference,
-not as code to ship.
+not as code to ship: loops (`<sc-for>`) and `{{holes}}` will not fill in, so read the markup and
+the `renderVals()` sample data at the bottom of each file.
+
+Live canvas (every screen rendered): https://claude.ai/code/artifact/cf5ced28-473e-4402-a201-ffe30ff442bc

@@ -36,5 +36,5 @@ See [`docs/roadmap.md`](docs/roadmap.md).
 ```bash
 pnpm install
 pnpm dev            # daemon on 127.0.0.1:4317 + web UI with hot reload
-pnpm apeiron up     # the real CLI: start the daemon and open the browser
+pnpm apeiron        # the real CLI: start the daemon, print the link, open the browser
 ```

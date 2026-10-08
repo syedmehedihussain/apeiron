@@ -17,8 +17,6 @@ docs/                 product, engineering and design docs (committed)
   adr/                one file per decision
   design/tokens.css   design tokens; the web package imports this file
   design/screens/     artboards (*.dc.html), source of truth for layout
-  design/canvas.html  every screen rendered in one page; open in a browser
-  archive/            superseded material, history only; do not build from it
 packages/             created in M0 (see Stack)
 _project/             personal state, git-excluded, never committed
 ```

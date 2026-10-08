@@ -53,7 +53,7 @@ apeiron/
 
 | Command | Does |
 | --- | --- |
-| `apeiron up` | Start the daemon if not running, open the browser at `http://127.0.0.1:4317/#t=<token>`. |
+| `apeiron` (or `apeiron up`) | Start the daemon in the background if not running, print the link `http://127.0.0.1:4317/#t=<token>`, open it in the browser, and return to the prompt. |
 | `apeiron down` | Stop the daemon. |
 | `apeiron status` | Is it running, which port, how many projects, is `claude` found. |
 | `apeiron open <project>` | Open the browser straight to a project's workspace. |
