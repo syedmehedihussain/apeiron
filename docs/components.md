@@ -128,8 +128,9 @@ click outside closes it. When STATUS.md changes while you watch, the notch turns
 seconds. It takes no vertical space from the chat.
 
 ### `GitHubBox`
-Card: repo link + Private/Public tag; branch chip, `↑ 0 ↓ 0`, "3 uncommitted"; last 3 commits
-(message, relative time, mono short hash); "0 open pull requests"; footer **Pull** (secondary),
+Card: repo link + Private/Public tag; branch chip, `↑ 0 ↓ 0`, "3 uncommitted"; the latest commit on one
+line (message, relative time, mono short hash) with a chevron that shows the last 3; kept compact
+so the Agents panel below gets the room; "0 open pull requests"; footer **Pull** (secondary),
 **Push** (secondary, opens a push approval).
 
 ### `AgentCard`

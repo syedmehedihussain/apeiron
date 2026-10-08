@@ -16,6 +16,13 @@ test('push from the GitHub box only after Allow', async ({ page }) => {
   await page.getByRole('link', { name: 'atlas', exact: true }).first().click();
   const box = page.getByRole('region', { name: 'Repository' });
   await expect(box.getByLabel('1 ahead, 0 behind')).toBeVisible();
+  // Only the latest commit shows; the chevron opens the last three.
+  const commits = box.getByRole('list', { name: 'Recent commits' });
+  await expect(commits.getByRole('listitem')).toHaveCount(1);
+  await expect(commits).toContainText('feat: server skeleton');
+  await box.getByRole('button', { name: 'Show recent commits' }).click();
+  await expect(commits.getByRole('listitem')).toHaveCount(2);
+  await box.getByRole('button', { name: 'Show only the latest commit' }).click();
 
   await box.getByRole('button', { name: 'Push' }).click();
   const card = box.getByRole('group', { name: 'Push 1 commit to origin/main' });

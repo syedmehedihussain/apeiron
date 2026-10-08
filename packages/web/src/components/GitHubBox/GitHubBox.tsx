@@ -1,5 +1,5 @@
 import { ArrowUpRight, ChevronRight, GitBranch, GitPullRequest } from 'lucide-react';
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { relativeTime, type GitInfo, type GitResult, type PullRequestList } from '@apeiron/shared';
 import styles from './GitHubBox.module.css';
 
@@ -86,22 +86,7 @@ export function GitHubBox({
           <span className={styles.clean}>clean</span>
         )}
       </div>
-      {!compact && (
-        <ul className={styles.commits}>
-          {git.commits.map((c) => (
-            <li key={c.hash}>
-              <span className={styles.subject}>
-                <span className={styles.subjectText} title={c.subject}>
-                  {c.subject}
-                </span>
-                <span className={styles.when}>{relativeTime(c.time, now)}</span>
-              </span>
-              <span className={styles.hash}>{c.hash}</span>
-            </li>
-          ))}
-          {git.commits.length === 0 && <li className={styles.muted}>No commits yet.</li>}
-        </ul>
-      )}
+      {!compact && <Commits commits={git.commits} now={now} />}
       <div className={styles.foot}>
         {git.openPRs !== null && onTogglePrs ? (
           <button
@@ -173,5 +158,44 @@ export function GitHubBox({
       )}
       {children}
     </section>
+  );
+}
+
+/** The latest commit on one line; the chevron shows the last three. */
+function Commits({ commits, now }: { commits: GitInfo['commits']; now: number }) {
+  const [open, setOpen] = useState(false);
+  if (commits.length === 0) return <p className={styles.muted}>No commits yet.</p>;
+  const shown = open ? commits : commits.slice(0, 1);
+  return (
+    <div className={styles.commitBox}>
+      <ul className={styles.commits} aria-label="Recent commits">
+        {shown.map((c, i) => (
+          <li key={c.hash}>
+            {i === 0 && commits.length > 1 ? (
+              <button
+                type="button"
+                className={styles.commitToggle}
+                aria-expanded={open}
+                aria-label={open ? 'Show only the latest commit' : 'Show recent commits'}
+                onClick={() => setOpen(!open)}
+              >
+                <ChevronRight
+                  size={12}
+                  aria-hidden="true"
+                  style={{ transform: open ? 'rotate(90deg)' : undefined }}
+                />
+              </button>
+            ) : (
+              <span className={styles.commitToggle} aria-hidden="true" />
+            )}
+            <span className={styles.subjectText} title={c.subject}>
+              {c.subject}
+            </span>
+            <span className={styles.when}>{relativeTime(c.time, now)}</span>
+            <span className={styles.hash}>{c.hash}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

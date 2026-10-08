@@ -2,10 +2,10 @@
   background: var(--s1);
   border: 1px solid var(--b);
   border-radius: var(--r-xl);
-  padding: 16px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 .top {
   display: flex;
@@ -100,19 +100,34 @@ a.name:hover {
   list-style: none;
   display: flex;
   flex-direction: column;
+  gap: 2px;
 }
 .commits li {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 10px;
-  padding: 6px 0;
-  font-size: var(--fs-base);
-  align-items: start;
+  grid-template-columns: 18px minmax(0, 1fr) auto auto;
+  gap: 8px;
+  align-items: center;
+  height: 26px;
+  font-size: var(--fs-sm2);
 }
-.subject {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
+.commitToggle {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--t3);
+  padding: 0;
+  cursor: pointer;
+}
+button.commitToggle:hover {
+  color: var(--t1);
+  background: var(--s2);
+}
+.commitToggle svg {
+  transition: transform var(--dur-fast) var(--ease);
 }
 .subjectText {
   overflow: hidden;
@@ -120,8 +135,9 @@ a.name:hover {
   white-space: nowrap;
 }
 .when {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-xs);
   color: var(--t3);
+  white-space: nowrap;
 }
 .hash {
   font-family: var(--mono);
@@ -133,7 +149,7 @@ a.name:hover {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding-top: 12px;
+  padding-top: 10px;
   border-top: 1px solid var(--b);
 }
 .prs {
