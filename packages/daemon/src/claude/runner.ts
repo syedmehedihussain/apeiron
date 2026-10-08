@@ -97,7 +97,8 @@ export function secretGuard(
   }
   return null;
 }
-export const READ_TOOLS = ['Read', 'Glob', 'Grep', 'LS', 'TodoWrite'];
+/** Tools that only read. ToolSearch just loads tool definitions (the SDK defers MCP tools). */
+export const READ_TOOLS = ['Read', 'Glob', 'Grep', 'LS', 'TodoWrite', 'ToolSearch'];
 
 /** Loose input shape for the tool; the strict card schema is checked by the caller. */
 const decisionShape = {

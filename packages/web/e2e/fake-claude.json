@@ -1,5 +1,38 @@
 [
   {
+    "match": "What's stuck this week",
+    "steps": [
+      {
+        "tool": {
+          "name": "Read",
+          "input": {
+            "file_path": "projects.md"
+          }
+        }
+      },
+      {
+        "call": {
+          "name": "show_projects",
+          "input": {
+            "ids": ["cctop"]
+          }
+        }
+      },
+      {
+        "text": "**cctop** has notes but no Apeiron setup yet. Everything else moved this week."
+      },
+      {
+        "call": {
+          "name": "propose_action",
+          "input": {
+            "kind": "new_project",
+            "task": "A habit tracker for the family"
+          }
+        }
+      }
+    ]
+  },
+  {
     "match": "background agent working in your own git worktree",
     "steps": [
       {

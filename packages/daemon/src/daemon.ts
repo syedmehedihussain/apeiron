@@ -18,6 +18,8 @@ import { surveyRoutes } from './routes/survey.ts';
 import { gitRoutes } from './routes/git.ts';
 import { agentRoutes } from './routes/agents.ts';
 import { AgentManager } from './agents/manager.ts';
+import { MagnetService } from './magnet/service.ts';
+import { magnetRoutes } from './routes/magnet.ts';
 import { GitActions, type PrLister } from './projects/git-actions.ts';
 import { SurveyService, ghCli, type SurveyGitHub } from './survey/service.ts';
 import { ChatService } from './chat/service.ts';
@@ -40,6 +42,7 @@ export interface Daemon {
   calibration: CalibrationService;
   survey: SurveyService;
   agents: AgentManager;
+  magnet: MagnetService;
   projects: ProjectService;
   health: HealthService;
   cliSecret: string;
@@ -117,6 +120,17 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     opts.home,
   );
   const gitActions = new GitActions(config, hub, approvals, gitInfo, opts.prList);
+  const magnet = new MagnetService(
+    config,
+    db,
+    hub,
+    approvals,
+    decisions,
+    opts.runner ?? sdkRunner,
+    projects,
+    opts.home,
+    { calibration, agents, git: gitActions },
+  );
 
   const app = buildServer({
     version: pkg.version,
@@ -135,6 +149,7 @@ export function createDaemon(opts: DaemonOptions): Daemon {
       surveyRoutes(survey),
       gitRoutes(gitActions),
       agentRoutes(agents),
+      magnetRoutes(magnet),
     ],
   });
 
@@ -162,10 +177,13 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     calibration,
     survey,
     agents,
+    magnet,
     async close() {
       await chat.stopAll();
       await survey.stopAll();
       await agents.stopAll();
+      await magnet.stopAll();
+      await calibration.stopAll();
       approvals.cancel(undefined, 'Apeiron restarted');
       await watcher?.close();
       await app.close();

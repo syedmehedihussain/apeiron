@@ -284,11 +284,8 @@ export class AgentManager {
         live.handle = null;
         live.waiting = null;
         this.approvals.cancel(source, 'Agent finished');
-        void this.finish(
-          id,
-          ev.ok && !ev.stopped,
-          ev.stopped ? 'Stopped.' : ev.error,
-          live.lastText,
+        this.track(
+          this.finish(id, ev.ok && !ev.stopped, ev.stopped ? 'Stopped.' : ev.error, live.lastText),
         );
       },
     });
@@ -476,7 +473,16 @@ export class AgentManager {
     this.changesCache.delete(r.id);
   }
 
+  private readonly finishing = new Set<Promise<void>>();
+
+  /** Keeps the end-of-run work (commit, diff stats) so shutdown can wait for it. */
+  private track(p: Promise<void>): void {
+    this.finishing.add(p);
+    void p.finally(() => this.finishing.delete(p));
+  }
+
   async stopAll(): Promise<void> {
     await Promise.all([...this.live.keys()].map((id) => this.stopRun(id)));
+    await Promise.allSettled([...this.finishing]);
   }
 }

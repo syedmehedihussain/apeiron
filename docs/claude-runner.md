@@ -44,7 +44,7 @@ type RunnerEvent =
 | agent | worktree | Read, Glob, Grep, LS | Edit/Write auto-allowed **inside the worktree only**; Bash needs approval | runs headless; approvals go to the agent card |
 | calibration (scan) | project | Read, Glob, Grep, LS, `git log`, `git status` | nothing else is allowed — deny all writes | output is the proposal, not file edits |
 | survey | draft folder | none (all built-ins disallowed) | none | one short turn per step; returns a card via `draft_card`, or the docs via `propose_docs` (ADR-0009) |
-| magnet | `~/.apeiron/magnet` | Read of magnet folder + any project's `_project/STATUS.md`, `project.json`, `docs/` | every action becomes a proposed-action card | `--add-dir` for each project root, read-only |
+| magnet | `~/.apeiron/magnet` | Read of the magnet folder and the projects folder (`additionalDirectories`) | no commands; every action becomes a proposed-action card (ADR-0011) | read-only switch off: may edit its own notes after approval |
 
 "Allow for this session" adds a rule (tool + exact command, or tool + file path) to the
 session's allow list in memory. It is never saved to disk.

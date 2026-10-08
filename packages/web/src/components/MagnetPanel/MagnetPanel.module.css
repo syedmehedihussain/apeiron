@@ -10,7 +10,7 @@
   right: 0;
   bottom: 0;
   width: min(420px, 100vw);
-  background: var(--s1);
+  background: #111113;
   border-left: 1px solid var(--b);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
   z-index: 50;
@@ -38,12 +38,13 @@
   font-size: var(--fs-sm);
   color: var(--t3);
 }
-.body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 18px;
-}
-.soon {
-  color: var(--t3);
-  margin: 0;
+.avatar {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  background: #16203a;
+  border: 1px solid var(--accent-border);
+  display: grid;
+  place-items: center;
 }

@@ -97,6 +97,23 @@ export type ApprovalAnswer = z.infer<typeof ApprovalAnswerSchema>;
 export const ToolVerbSchema = z.enum(['read', 'edit', 'run', 'other']);
 export type ToolVerb = z.infer<typeof ToolVerbSchema>;
 
+/** Something Magnet proposes; nothing happens until the user approves (prd.md M-3). */
+export const MagnetActionSchema = z.object({
+  id: z.string(),
+  kind: z.enum(['calibrate', 'start_agent', 'new_project', 'push']),
+  projectId: z.string().nullable(),
+  /** "Magnet wants to start calibration in torongo". */
+  title: z.string(),
+  /** What it will do, one or two lines. */
+  detail: z.string(),
+  task: z.string().nullable(),
+  status: z.enum(['proposed', 'approved', 'cancelled', 'failed']),
+  /** After Approve: what happened, and where to look. */
+  result: z.string().nullable(),
+  href: z.string().nullable(),
+});
+export type MagnetAction = z.infer<typeof MagnetActionSchema>;
+
 /** One row in the chat transcript. Items are upserted by id. */
 export const ChatItemSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('user'), id: z.string(), at: z.number(), text: z.string() }),
@@ -147,6 +164,22 @@ export const ChatItemSchema = z.discriminatedUnion('kind', [
     stopped: z.boolean(),
     error: z.string().nullable(),
     durationMs: z.number(),
+  }),
+  /** Magnet: inline project mini-cards. */
+  z.object({
+    kind: z.literal('projects'),
+    id: z.string(),
+    at: z.number(),
+    turnId: z.string(),
+    ids: z.array(z.string()),
+  }),
+  /** Magnet: a proposed action card. */
+  z.object({
+    kind: z.literal('action'),
+    id: z.string(),
+    at: z.number(),
+    turnId: z.string(),
+    action: MagnetActionSchema,
   }),
 ]);
 export type ChatItem = z.infer<typeof ChatItemSchema>;

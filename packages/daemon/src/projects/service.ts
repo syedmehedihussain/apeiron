@@ -35,6 +35,11 @@ export class ProjectService {
     return this.rescan();
   }
 
+  /** The cards from the last scan, without starting a new one (waits for the first scan). */
+  async known(): Promise<ProjectCard[]> {
+    return this.cards ?? this.rescan();
+  }
+
   get(id: string): ProjectCard | undefined {
     return this.cards?.find((c) => c.id === id);
   }

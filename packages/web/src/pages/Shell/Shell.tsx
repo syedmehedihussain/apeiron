@@ -11,6 +11,7 @@ import { socket } from '../../api/socket.ts';
 import appMark from '../../assets/app-mark.svg';
 import { ApprovalToasts } from '../../components/ApprovalToast/ApprovalToast.tsx';
 import { MagnetPanel } from '../../components/MagnetPanel/MagnetPanel.tsx';
+import { useLiveMagnet } from '../../api/magnet.ts';
 import styles from './Shell.module.css';
 
 type Gate = 'starting' | 'ready' | 'logged-out' | 'bad-link' | 'unreachable';
@@ -65,6 +66,7 @@ export function Shell() {
 
 function Ready() {
   useLiveProjects();
+  useLiveMagnet();
   return (
     <>
       <Outlet />

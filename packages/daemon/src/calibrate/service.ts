@@ -40,7 +40,7 @@ import { IGNORED_DIRS, projectDir } from '../projects/workspace.ts';
 
 const READ_ONLY_GIT =
   /^git\s+(log|status|show|ls-files|diff|branch|remote|rev-parse|shortlog)\b[^;&|`$<>]*$/;
-const READ_TOOLS = new Set(['Read', 'Glob', 'Grep', 'LS', 'TodoWrite']);
+const READ_TOOLS = new Set(['Read', 'Glob', 'Grep', 'LS', 'TodoWrite', 'ToolSearch']);
 /** Only these paths may be proposed (docs/project-standard.md). */
 const ALLOWED_PATHS = /^(CLAUDE\.md|README\.md|docs\/[\w./-]+\.md|_project\/(STATUS|notes)\.md)$/;
 
@@ -472,12 +472,20 @@ export class CalibrationService {
     };
   }
 
+  /** Stops every running scan (daemon shutdown). */
+  async stopAll(): Promise<void> {
+    await Promise.all([...this.runs.keys()].map((id) => this.cancel(id)));
+  }
+
   async cancel(projectId: string): Promise<CalibrationState> {
     const run = this.runs.get(projectId);
     if (!run) return this.state(projectId);
     this.decisions.cancel(run.source);
     this.approvals.cancel(run.source, 'Calibration cancelled');
-    await run.handle?.interrupt();
+    const handle = run.handle;
+    await handle?.interrupt();
+    // Let the run write its last transcript line before we forget it.
+    if (handle) await Promise.race([handle.done, new Promise((r) => setTimeout(r, 5000))]);
     this.runs.delete(projectId);
     this.hub.publish(`project:${projectId}`, 'calibrate.updated', {
       projectId,

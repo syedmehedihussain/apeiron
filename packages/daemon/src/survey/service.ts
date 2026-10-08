@@ -502,7 +502,9 @@ export class SurveyService {
       decisions: false,
       extraTools: opts.tools,
       guard: (tool) =>
-        tool.startsWith('mcp__apeiron__') ? null : 'The survey only drafts text. No other tools.',
+        tool.startsWith('mcp__apeiron__') || tool === 'ToolSearch'
+          ? null
+          : 'The survey only drafts text. No other tools.',
       onPermission: async () => ({ allow: false, message: 'The survey only drafts text.' }),
       onDecision: async () => ({ ok: false, error: 'Not available in the survey.' }),
       onEvent: (ev) => {

@@ -86,10 +86,10 @@ branch.
 
 ## M8 — Magnet
 
-- [ ] `~/.apeiron/magnet/` with starter files; Settings → Magnet page.
-- [ ] Magnet session (read-only tools across projects), panel on Home and workspace.
-- [ ] Proposed-action cards that call real routes after Approve.
-- [ ] Suggestion chips.
+- [x] `~/.apeiron/magnet/` with starter files; Settings → Magnet page.
+- [x] Magnet session (read-only tools across projects), panel on Home and workspace.
+- [x] Proposed-action cards that call real routes after Approve.
+- [x] Suggestion chips.
 
 **Done when:** "What's stuck this week?" gives a correct answer from your real projects.
 

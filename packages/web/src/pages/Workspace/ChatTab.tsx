@@ -54,7 +54,8 @@ export function toBlocks(items: ChatItem[]): Block[] {
       else claude.parts.push({ t: 'tools', items: [item] });
     } else if (item.kind === 'decision') claude.parts.push({ t: 'decision', item });
     else if (item.kind === 'approval') claude.parts.push({ t: 'approval', item });
-    else claude.parts.push({ t: 'end', item });
+    else if (item.kind === 'turn-end') claude.parts.push({ t: 'end', item });
+    // projects / action items belong to Magnet's panel.
   }
   return blocks;
 }

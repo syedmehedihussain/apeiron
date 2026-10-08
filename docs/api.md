@@ -109,9 +109,13 @@ proposal and the create progress, and is pushed as `survey.updated` on every cha
 
 | Method | Path | Does |
 | --- | --- | --- |
-| GET | `/api/magnet` | profile files + stats |
+| GET | `/api/magnet` | profile files, read-only flag, stats and usage (Settings → Magnet) |
 | PUT | `/api/magnet/files/:name` | save `MAGNET.md`, `me.md` or `work.md` |
+| GET | `/api/magnet/chat` | `{ conversationId, running, items, readOnly, projects }` |
 | POST | `/api/magnet/chat` | `{ text, projectId? }` |
+| POST | `/api/magnet/chat/stop` · `/new` | stop the answer · start a new conversation |
+| POST | `/api/magnet/actions/:id/approve` | runs the proposed action (ADR-0011), returns it with `result` and `href` |
+| POST | `/api/magnet/actions/:id/cancel` | marks it cancelled |
 
 ## WebSocket events
 
@@ -137,6 +141,6 @@ One socket at `/ws`. Every event: `{ type, at, ...payload }`. The client subscri
 | `survey.updated` | `{ projectId, state }` (full survey state) | project:id |
 | `calibrate.progress` | `{ step, rows, found }` | project:id |
 | `calibrate.proposal` | proposal | project:id |
-| `magnet.text.delta` / `magnet.action` | Magnet payloads | magnet |
+| `magnet.item` / `magnet.delta` / `magnet.state` | Magnet's conversation (items include `projects` and `action`) | magnet |
 
 On reconnect the client re-subscribes and re-fetches state with GET calls. Events are not replayed.
