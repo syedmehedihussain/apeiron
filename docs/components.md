@@ -119,9 +119,12 @@ States: default, hover (`--s2`), selected (`--s3`), ignored (`node_modules` 50 %
 never expanded by default), deleted (strike-through). Header: "Project files" + filter
 chips "M 3 modified", "A 1 added", "Claude touched".
 
-### `StatusBlock`
-Left column bottom. "Where we left off" paragraph, "Next steps" checklist (first 3),
-"Updated 2 h ago" + ghost **Update status**. Compact variant: one line "Next: …".
+### `StatusNotch`
+A small pill in the centre tab row, centred between the tabs and the session meta: a dot and
+"Next: …" (amber dot and "No STATUS.md yet" when there is none). Click opens a popover with
+"Where we left off", "Next steps" (first 5), "Updated 2 h ago" and **Update status**; Esc or a
+click outside closes it. When STATUS.md changes while you watch, the notch turns accent and
+reads "Status updated · Next: …" for six seconds. It takes no vertical space from the chat.
 
 ### `GitHubBox`
 Card: repo link + Private/Public tag; branch chip, `↑ 0 ↓ 0`, "3 uncommitted"; last 3 commits

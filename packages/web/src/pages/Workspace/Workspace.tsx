@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { create } from 'zustand';
 import { ApiFailure } from '../../api/client.ts';
@@ -9,7 +9,7 @@ import { FileViewer } from '../../components/FileViewer/FileViewer.tsx';
 import { GitPanel } from '../../components/GitHubBox/GitPanel.tsx';
 import { AgentsPanel } from '../../components/AgentsPanel/AgentsPanel.tsx';
 import { MagnetChat } from '../../components/MagnetChat/MagnetChat.tsx';
-import { StatusBlock } from '../../components/StatusBlock/StatusBlock.tsx';
+import { StatusNotch } from '../../components/StatusNotch/StatusNotch.tsx';
 import { TopBar } from '../../components/TopBar/TopBar.tsx';
 import { tildify } from '../../lib/paths.ts';
 import { useNow } from '../../lib/useNow.ts';
@@ -59,10 +59,6 @@ export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
   useEffect(() => {
     if (tab === 'file' && path) setOpenFile(id, path);
   }, [tab, path, id, setOpenFile]);
-
-  // Expanded on Chat, one line elsewhere, unless you toggled it on this tab.
-  const [statusOverride, setStatusOverride] = useState<{ tab: Tab; open: boolean } | null>(null);
-  const statusExpanded = statusOverride?.tab === tab ? statusOverride.open : tab === 'chat';
 
   const base = `/p/${encodeURIComponent(id)}`;
 
@@ -116,28 +112,6 @@ export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
         />
 
         <section aria-label="Project" className={styles.centre}>
-          <div className={styles.statusWrap}>
-            <StatusBlock
-              status={detail.data?.status ?? null}
-              updatedAt={detail.data?.statusMtime ?? null}
-              now={now}
-              expanded={statusExpanded}
-              onToggle={() => setStatusOverride({ tab, open: !statusExpanded })}
-              onUpdate={
-                running
-                  ? undefined
-                  : () => {
-                      void sendChat(
-                        id,
-                        'Update _project/STATUS.md from what we did in this session: rewrite "Where we left off" and "Next steps", and keep its format and front matter.',
-                        false,
-                      );
-                      void navigate(base);
-                    }
-              }
-              updateDisabledReason="Claude is working; wait for the turn to finish"
-            />
-          </div>
           <nav aria-label="Workspace tabs" className={styles.tabs}>
             <TabLink to={base} active={tab === 'chat'}>
               Chat
@@ -175,6 +149,25 @@ export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
                 </span>
               </>
             )}
+            <span className={styles.tabSpacer} />
+            <StatusNotch
+              status={detail.data?.status ?? null}
+              updatedAt={detail.data?.statusMtime ?? null}
+              now={now}
+              onUpdate={
+                running
+                  ? undefined
+                  : () => {
+                      void sendChat(
+                        id,
+                        'Update _project/STATUS.md from what we did in this session: rewrite "Where we left off" and "Next steps", and keep its format and front matter.',
+                        false,
+                      );
+                      void navigate(base);
+                    }
+              }
+              updateDisabledReason="Claude is working; wait for the turn to finish"
+            />
             <span className={styles.tabSpacer} />
             {tab === 'chat' && (
               <>

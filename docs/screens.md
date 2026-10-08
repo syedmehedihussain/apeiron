@@ -91,9 +91,10 @@ Clinics in Bangladesh) + **Change answers**. Then `ProposalList` (400) and the p
 
 Top bar: crumbs, `PhaseBar` (full), status pill when needed, Claude status, Settings, Magnet.
 
-**Left (280):** `FileTree` with header and filter chips, then `StatusBlock` pinned at the bottom.
+**Left (280):** `FileTree` with header and filter chips, then the change counts at the bottom.
 
-**Centre:** tabs **Chat · Docs · Notes & Tasks**, session meta right ("session 14 · 38 min").
+**Centre:** tabs **Chat · Docs · Notes & Tasks**, the `StatusNotch` in the middle of the tab row,
+session meta right ("session 14 · 38 min").
 
 **Right (360):** `GitHubBox`, then tabs **Agents (3) · Magnet**, **New agent**, `AgentCard`s.
 
