@@ -139,7 +139,7 @@ export class Conversation {
       }
       case 'tool_start': {
         this.flushText();
-        if (ev.name === DECISION_TOOL) break;
+        if (ev.name === DECISION_TOOL || ev.name.startsWith('mcp__apeiron__')) break;
         if (this.items.has(ev.id)) break;
         this.put({
           kind: 'tool',

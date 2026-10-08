@@ -121,4 +121,47 @@ try {
 }
 results.interruptFast = Date.now() - started < 20_000;
 
+// 5. a PreToolUse hook refuses a read even though reads need no permission
+writeFileSync(path.join(cwd, '.env'), 'SECRET=hunter2\n');
+const guarded = query({
+  prompt: 'Read the file .env with the Read tool and tell me what it says.',
+  options: {
+    cwd,
+    model,
+    settingSources: [],
+    allowedTools: ['Read'],
+    stderr: () => undefined,
+    hooks: {
+      PreToolUse: [
+        {
+          hooks: [
+            async (input) =>
+              input.hook_event_name === 'PreToolUse' &&
+              JSON.stringify(input.tool_input).includes('.env')
+                ? {
+                    hookSpecificOutput: {
+                      hookEventName: 'PreToolUse',
+                      permissionDecision: 'deny',
+                      permissionDecisionReason: 'Secret file.',
+                    },
+                  }
+                : {},
+          ],
+        },
+      ],
+    },
+  },
+});
+let leaked = false;
+try {
+  for await (const m of guarded) {
+    if (m.type === 'assistant')
+      for (const b of m.message.content)
+        if (b.type === 'text' && b.text.includes('hunter2')) leaked = true;
+  }
+} catch {
+  // ignore
+}
+results.hookBlocksSecretRead = !leaked;
+
 console.log(JSON.stringify({ sessionId, results }, null, 2));

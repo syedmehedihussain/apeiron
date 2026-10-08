@@ -12,6 +12,8 @@ import { GitInfoService } from './projects/github.ts';
 import { ProjectService } from './projects/service.ts';
 import { workspaceRoutes } from './routes/workspace.ts';
 import { chatRoutes } from './routes/chat.ts';
+import { calibrateRoutes } from './routes/calibrate.ts';
+import { CalibrationService } from './calibrate/service.ts';
 import { ChatService } from './chat/service.ts';
 import { ApprovalBroker } from './claude/approvals.ts';
 import { DecisionBroker } from './claude/decisions.ts';
@@ -29,6 +31,7 @@ export interface Daemon {
   chat: ChatService;
   approvals: ApprovalBroker;
   decisions: DecisionBroker;
+  calibration: CalibrationService;
   projects: ProjectService;
   health: HealthService;
   cliSecret: string;
@@ -74,6 +77,15 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     opts.runner ?? sdkRunner,
     opts.home,
   );
+  const calibration = new CalibrationService(
+    config,
+    hub,
+    approvals,
+    decisions,
+    opts.runner ?? sdkRunner,
+    projects,
+    opts.home,
+  );
 
   const app = buildServer({
     version: pkg.version,
@@ -85,7 +97,11 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     cliSecret,
     origins: [`http://127.0.0.1:${opts.port}`, ...(opts.extraOrigins ?? [])],
     webDist: WEB_DIST,
-    routes: [workspaceRoutes(config, gitInfo), chatRoutes(chat, approvals, decisions)],
+    routes: [
+      workspaceRoutes(config, gitInfo),
+      chatRoutes(chat, approvals, decisions),
+      calibrateRoutes(calibration),
+    ],
   });
 
   const watcher = opts.watch
@@ -109,6 +125,7 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     chat,
     approvals,
     decisions,
+    calibration,
     async close() {
       await chat.stopAll();
       approvals.cancel(undefined, 'Apeiron restarted');

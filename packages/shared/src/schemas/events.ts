@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { ProjectCardSchema } from './project.ts';
 import { HealthSchema } from './system.ts';
 import type { Approval, ChatItem } from './chat.ts';
+import type { CalibrationState } from './calibration.ts';
 
 /** Client → server over /ws. */
 export const ClientMessageSchema = z.object({
@@ -37,6 +38,7 @@ export interface EventMap {
     turnId: string | null;
     touched: string[];
   };
+  'calibrate.updated': { projectId: string; state: CalibrationState };
   'approval.requested': { approval: Approval };
   'approval.resolved': { approval: Approval };
 }

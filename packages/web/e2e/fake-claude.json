@@ -1,9 +1,88 @@
 [
   {
+    "match": "Calibrate the project",
+    "steps": [
+      {
+        "tool": {
+          "name": "Read",
+          "input": {
+            "file_path": "README.md"
+          }
+        }
+      },
+      {
+        "call": {
+          "name": "note_found",
+          "input": {
+            "tags": [
+              {
+                "label": "Node 20"
+              },
+              {
+                "label": "no tests",
+                "gap": true
+              }
+            ]
+          }
+        }
+      },
+      {
+        "decision": {
+          "topic": "Phase",
+          "question": "Which phase is torongo in?",
+          "options": [
+            {
+              "id": "dev",
+              "title": "Development",
+              "tradeoff": "Core still being built",
+              "recommended": true
+            },
+            {
+              "id": "dep",
+              "title": "Deployment",
+              "tradeoff": "Assumes it is live"
+            }
+          ]
+        }
+      },
+      {
+        "call": {
+          "name": "propose_files",
+          "input": {
+            "summary": "Real-time translation",
+            "phase": "development",
+            "stack": ["Node 20"],
+            "files": [
+              {
+                "path": "CLAUDE.md",
+                "action": "create",
+                "content": "# CLAUDE.md \u2014 torongo\n\nTranslation app.\n"
+              },
+              {
+                "path": "docs/architecture.md",
+                "action": "create",
+                "content": "# Architecture\n\nOne server.\n"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
     "match": "bump",
     "steps": [
-      { "text": "I'll bump the streak value in `lib/streaks.ts`." },
-      { "tool": { "name": "Read", "input": { "file_path": "lib/streaks.ts" } } },
+      {
+        "text": "I'll bump the streak value in `lib/streaks.ts`."
+      },
+      {
+        "tool": {
+          "name": "Read",
+          "input": {
+            "file_path": "lib/streaks.ts"
+          }
+        }
+      },
       {
         "tool": {
           "name": "Edit",
@@ -14,13 +93,17 @@
           }
         }
       },
-      { "text": "Done. The streak is now 3." }
+      {
+        "text": "Done. The streak is now 3."
+      }
     ]
   },
   {
     "match": "store",
     "steps": [
-      { "text": "There are two clean ways to do this." },
+      {
+        "text": "There are two clean ways to do this."
+      },
       {
         "decision": {
           "topic": "Data model",
@@ -44,13 +127,23 @@
           "why": "Core has a no-background-job rule."
         }
       },
-      { "text": "Good choice. I'll compute it at read time." }
+      {
+        "text": "Good choice. I'll compute it at read time."
+      }
     ]
   },
   {
     "match": "run",
     "steps": [
-      { "tool": { "name": "Bash", "input": { "command": "npm test" } }, "output": "24 passed" }
+      {
+        "tool": {
+          "name": "Bash",
+          "input": {
+            "command": "npm test"
+          }
+        },
+        "output": "24 passed"
+      }
     ]
   }
 ]

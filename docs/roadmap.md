@@ -55,9 +55,9 @@ the file changes — and a Deny leaves it untouched.
 
 ## M4 — Calibration
 
-- [ ] Prompt, scan (read-only session), questions, proposal, write-selected.
-- [ ] Append-only rule for existing `CLAUDE.md` / `README.md`.
-- [ ] Light calibration for cctop projects.
+- [x] Prompt, scan (read-only session), questions, proposal, write-selected.
+- [x] Append-only rule for existing `CLAUDE.md` / `README.md`.
+- [x] Light calibration for cctop projects.
 
 **Done when:** torongo goes from Not calibrated to Ready, and `git status` shows only the files
 you ticked.

@@ -24,8 +24,6 @@ test('Home lists one project in each state', async ({ page }) => {
   await expect(row('core')).toContainText('Development');
   await expect(row('core')).toContainText('1 change');
   await expect(row('cctop')).toContainText('cctop');
-  await expect(row('torongo')).toContainText('Not calibrated');
-  await expect(row('torongo').getByRole('link', { name: 'Calibrate' })).toBeVisible();
   await expect(page.getByText('Next: Build the Study Room floor')).toBeVisible();
 });
 

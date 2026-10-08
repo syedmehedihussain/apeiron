@@ -1,18 +1,20 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
-import type { RunHandle, Runner, RunRequest } from './runner.ts';
+import { secretGuard, type RunHandle, type Runner, type RunRequest } from './runner.ts';
 
 /** One step of a fake Claude script (docs/testing.md → The fake Claude). */
 export type Step =
   | { text: string }
   | { tool: { name: string; input: Record<string, unknown> }; output?: string; fail?: boolean }
   | { decision: unknown }
+  | { call: { name: string; input: unknown } }
   | { wait: number };
 
 export interface FakeLog {
   requests: RunRequest[];
   permissions: { tool: string; allowed: boolean; message?: string }[];
   decisions: { ok: boolean; text: string }[];
+  calls?: { name: string; ok: boolean; text: string }[];
 }
 
 const NEEDS_PERMISSION = new Set(['Edit', 'Write', 'MultiEdit', 'Bash', 'WebFetch']);
@@ -46,6 +48,20 @@ export function fakeRunner(
             req.onEvent({ t: 'text', blockId, delta: chunk });
         } else if ('wait' in step) {
           await new Promise((r) => setTimeout(r, step.wait));
+        } else if ('call' in step) {
+          const custom = req.extraTools?.find((x) => x.name === step.call.name);
+          const id = `toolu_call_${n}_${i}`;
+          req.onEvent({
+            t: 'tool_start',
+            id,
+            name: `mcp__apeiron__${step.call.name}`,
+            input: step.call.input as Record<string, unknown>,
+          });
+          const r = custom
+            ? await custom.handler(step.call.input)
+            : { ok: false, text: `No tool ${step.call.name}` };
+          log?.calls?.push({ name: step.call.name, ...r });
+          req.onEvent({ t: 'tool_end', id, ok: r.ok, output: r.text });
         } else if ('decision' in step) {
           const id = `toolu_dec_${n}_${i}`;
           req.onEvent({
@@ -68,6 +84,12 @@ export function fakeRunner(
           const id = `toolu_${n}_${i}`;
           const { name, input } = step.tool;
           req.onEvent({ t: 'tool_start', id, name, input });
+          const refused = secretGuard(req.cwd, name, input) ?? req.guard?.(name, input) ?? null;
+          if (refused) {
+            log?.permissions.push({ tool: name, allowed: false, message: refused });
+            req.onEvent({ t: 'tool_end', id, ok: false, output: refused });
+            continue;
+          }
           let allowed = !NEEDS_PERMISSION.has(name) || req.allowedTools.includes(name);
           if (!allowed) {
             const answer = await req.onPermission(name, input, id);

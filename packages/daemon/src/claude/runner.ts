@@ -1,5 +1,7 @@
 import { createSdkMcpServer, query, tool, type SDKMessage } from '@anthropic-ai/claude-agent-sdk';
+import path from 'node:path';
 import { z } from 'zod';
+import { isSecretFile } from '../paths.ts';
 
 /** The internal event stream every runner produces (claude-runner.md). */
 export type RunnerEvent =
@@ -16,6 +18,16 @@ export type RunnerEvent =
       durationMs: number;
       costUsd: number | null;
     };
+
+/** An extra in-process tool (served as mcp__apeiron__<name>). */
+export interface CustomTool {
+  name: string;
+  description: string;
+  shape: Record<string, z.ZodType>;
+  handler(args: unknown): Promise<{ ok: boolean; text: string }>;
+}
+
+export const customToolName = (name: string) => `mcp__apeiron__${name}`;
 
 export type PermissionAnswer =
   { allow: true; input?: Record<string, unknown> } | { allow: false; message: string };
@@ -36,6 +48,13 @@ export interface RunRequest {
   additionalDirectories?: string[];
   /** Offer the ask_decision tool. */
   decisions: boolean;
+  /** More in-process tools (calibration's note_found / propose_files). */
+  extraTools?: CustomTool[];
+  /**
+   * Runs before every tool call, whatever the permission mode (PreToolUse hook). Return a reason
+   * to refuse the call. Secret files are always refused on top of this.
+   */
+  guard?(tool: string, input: Record<string, unknown>): string | null;
   onPermission(
     tool: string,
     input: Record<string, unknown>,
@@ -54,6 +73,30 @@ export interface RunHandle {
 export type Runner = (req: RunRequest) => RunHandle;
 
 export const DECISION_TOOL = 'mcp__apeiron__ask_decision';
+
+/** Refuses tools that would read a secret file (docs/security.md → Files never read). */
+export function secretGuard(
+  cwd: string,
+  tool: string,
+  input: Record<string, unknown>,
+): string | null {
+  const candidates = ['file_path', 'notebook_path', 'path']
+    .map((k) => input[k])
+    .filter((v): v is string => typeof v === 'string');
+  for (const p of candidates) {
+    const rel = path.relative(cwd, path.resolve(cwd, p));
+    if (isSecretFile(rel))
+      return `Apeiron never lets Claude read secret files like ${path.basename(p)}.`;
+  }
+  if (
+    tool === 'Grep' &&
+    typeof input.glob === 'string' &&
+    /\.env|\.pem|\.key|id_rsa|id_ed25519/.test(input.glob)
+  ) {
+    return 'Apeiron never lets Claude search secret files.';
+  }
+  return null;
+}
 export const READ_TOOLS = ['Read', 'Glob', 'Grep', 'LS', 'TodoWrite'];
 
 /** Loose input shape for the tool; the strict card schema is checked by the caller. */
@@ -93,24 +136,36 @@ function textOf(content: unknown): string {
 
 /** Drives Claude Code through the Claude Agent SDK (ADR-0004). */
 export const sdkRunner: Runner = (req) => {
-  const server = req.decisions
-    ? createSdkMcpServer({
-        name: 'apeiron',
-        tools: [
-          tool(
-            'ask_decision',
-            'Ask the user to choose between 2-4 options. Use it for every real choice instead of picking yourself. The call waits until the user answers and returns their choice.',
-            decisionShape,
-            async (args) => {
-              const reply = await req.onDecision(args);
-              return reply.ok
-                ? { content: [{ type: 'text', text: reply.text }] }
-                : { content: [{ type: 'text', text: reply.error }], isError: true };
-            },
-          ),
-        ],
-      })
-    : null;
+  const extra = (req.extraTools ?? []).map((t) =>
+    tool(t.name, t.description, t.shape, async (args) => {
+      const r = await t.handler(args);
+      return { content: [{ type: 'text', text: r.text }], ...(r.ok ? {} : { isError: true }) };
+    }),
+  );
+  const server =
+    req.decisions || extra.length
+      ? createSdkMcpServer({
+          name: 'apeiron',
+          tools: [
+            ...extra,
+            ...(req.decisions
+              ? [
+                  tool(
+                    'ask_decision',
+                    'Ask the user to choose between 2-4 options. Use it for every real choice instead of picking yourself. The call waits until the user answers and returns their choice.',
+                    decisionShape,
+                    async (args) => {
+                      const reply = await req.onDecision(args);
+                      return reply.ok
+                        ? { content: [{ type: 'text', text: reply.text }] }
+                        : { content: [{ type: 'text', text: reply.error }], isError: true };
+                    },
+                  ),
+                ]
+              : []),
+          ],
+        })
+      : null;
 
   const q = query({
     prompt: req.prompt,
@@ -120,13 +175,42 @@ export const sdkRunner: Runner = (req) => {
       ...(req.resume ? { resume: req.resume } : {}),
       includePartialMessages: true,
       permissionMode: req.planMode ? 'plan' : 'default',
-      allowedTools: [...req.allowedTools, ...(server ? [DECISION_TOOL] : [])],
+      allowedTools: [
+        ...req.allowedTools,
+        ...(req.decisions ? [DECISION_TOOL] : []),
+        ...(req.extraTools ?? []).map((t) => customToolName(t.name)),
+      ],
       ...(req.disallowedTools ? { disallowedTools: req.disallowedTools } : {}),
       ...(req.additionalDirectories ? { additionalDirectories: req.additionalDirectories } : {}),
       ...(server ? { mcpServers: { apeiron: server } } : {}),
       // No settings files: their allow rules would bypass Apeiron's approvals (ADR-0004).
       settingSources: [],
       systemPrompt: { type: 'preset', preset: 'claude_code', append: req.appendSystemPrompt },
+      hooks: {
+        PreToolUse: [
+          {
+            hooks: [
+              async (hookInput) => {
+                if (hookInput.hook_event_name !== 'PreToolUse') return {};
+                const input = (hookInput.tool_input ?? {}) as Record<string, unknown>;
+                const reason =
+                  secretGuard(req.cwd, hookInput.tool_name, input) ??
+                  req.guard?.(hookInput.tool_name, input) ??
+                  null;
+                return reason
+                  ? {
+                      hookSpecificOutput: {
+                        hookEventName: 'PreToolUse',
+                        permissionDecision: 'deny',
+                        permissionDecisionReason: reason,
+                      },
+                    }
+                  : {};
+              },
+            ],
+          },
+        ],
+      },
       canUseTool: async (name, input, { toolUseID }) => {
         const answer = await req.onPermission(name, input, toolUseID);
         return answer.allow
