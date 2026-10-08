@@ -1,0 +1,228 @@
+.card {
+  background: var(--s1);
+  border: 1px solid var(--bs);
+  border-radius: var(--r-2xl);
+  overflow: hidden;
+}
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 0;
+}
+.label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-sm);
+  color: var(--t2);
+}
+.icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--accent-fill);
+  color: var(--accent-text);
+}
+.body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.question {
+  padding: 10px 16px 0;
+}
+.question h3 {
+  margin: 0;
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+}
+.question p {
+  margin: 4px 0 0;
+  font-size: var(--fs-base);
+  color: var(--t2);
+}
+.question .stale {
+  color: var(--warning);
+}
+.options {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--b);
+  border-radius: var(--r-lg);
+  background: var(--s2);
+  color: var(--t1);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.option:hover {
+  border-color: var(--bs);
+}
+.option[aria-checked='true'] {
+  border-color: var(--accent-border);
+  background: var(--accent-fill-weak);
+}
+.radio {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  flex: none;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  display: grid;
+  place-items: center;
+}
+.option[aria-checked='true'] .radio,
+.custom[data-active] .radio {
+  border-color: var(--accent);
+}
+.option[aria-checked='true'] .radio::after,
+.custom[data-active] .radio::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.optText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.optTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: var(--fs-lg);
+  font-weight: 500;
+}
+.rec {
+  height: 20px;
+  padding: 0 8px;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  color: var(--accent-text-strong);
+  background: var(--accent-fill);
+  display: inline-flex;
+  align-items: center;
+}
+.optDetail {
+  font-size: var(--fs-base);
+  color: var(--t2);
+}
+.trade {
+  font-size: var(--fs-sm2);
+  color: var(--t3);
+}
+.custom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  border: 1px dashed var(--bs);
+  border-radius: var(--r-lg);
+}
+.custom .radio {
+  margin-top: 0;
+}
+.customLabel {
+  font-size: var(--fs-base);
+  color: var(--t2);
+  white-space: nowrap;
+}
+.custom input {
+  flex: 1;
+  min-width: 0;
+  height: 30px;
+  background: transparent;
+  border: 0;
+  color: var(--t1);
+  font: inherit;
+}
+.custom input:focus-visible {
+  outline: none;
+}
+.custom:focus-within {
+  border-color: var(--accent-border);
+}
+.why {
+  margin: 0 16px 14px;
+  padding: 12px 14px;
+  background: var(--s2);
+  border-radius: var(--r-lg);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  color: var(--t2);
+}
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--b);
+}
+.footLeft {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--b);
+  border-radius: var(--r-xl);
+  background: var(--s1);
+  font-size: var(--fs-base);
+}
+.lineIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(63, 185, 80, 0.14);
+  color: var(--success);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.line[data-state='cancelled'] .lineIcon {
+  background: var(--neutral-fill);
+}
+.lineTopic {
+  color: var(--t2);
+}
+.lineAnswer {
+  font-weight: 500;
+}
+.line[data-state='cancelled'] .lineAnswer {
+  color: var(--t3);
+  font-weight: 400;
+}
+.change {
+  border: 0;
+  background: transparent;
+  color: var(--accent-text);
+  font: inherit;
+  cursor: pointer;
+  padding: 4px;
+}

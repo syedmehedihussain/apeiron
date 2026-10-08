@@ -9,6 +9,7 @@ import {
 import { queryClient, useLiveProjects } from '../../api/queries.ts';
 import { socket } from '../../api/socket.ts';
 import appMark from '../../assets/app-mark.svg';
+import { ApprovalToasts } from '../../components/ApprovalToast/ApprovalToast.tsx';
 import { MagnetPanel } from '../../components/MagnetPanel/MagnetPanel.tsx';
 import styles from './Shell.module.css';
 
@@ -68,6 +69,7 @@ function Ready() {
     <>
       <Outlet />
       <MagnetPanel />
+      <ApprovalToasts />
     </>
   );
 }

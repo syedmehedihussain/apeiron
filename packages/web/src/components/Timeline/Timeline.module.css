@@ -1,0 +1,129 @@
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20px auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  min-height: 32px;
+  font-size: var(--fs-base);
+}
+.rail {
+  position: absolute;
+  left: 9.5px;
+  top: 25px;
+  width: 1px;
+  height: calc(100% - 18px);
+  background: var(--bs);
+}
+.icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--neutral-fill);
+  color: var(--t3);
+}
+.row[data-kind='edit'] .icon {
+  background: var(--edited-fill);
+  color: var(--edited);
+}
+.row[data-kind='ran'] .icon {
+  background: rgba(63, 185, 80, 0.14);
+  color: var(--success);
+}
+.row[data-kind='running'] .icon {
+  background: var(--accent-fill);
+  color: var(--accent-text);
+}
+.row[data-kind='waiting'] .icon {
+  background: rgba(210, 153, 34, 0.14);
+  color: var(--warning);
+}
+.row[data-kind='failed'] .icon,
+.row[data-kind='denied'] .icon {
+  background: rgba(248, 81, 73, 0.14);
+  color: var(--danger);
+}
+.verb {
+  font-weight: 500;
+  white-space: nowrap;
+}
+.target {
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  color: var(--t2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.termIcon {
+  margin-right: 6px;
+  vertical-align: -1px;
+  color: var(--t3);
+}
+.meta {
+  font-size: var(--fs-sm);
+  color: var(--t3);
+  white-space: nowrap;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.row[data-kind='waiting'] .meta {
+  color: var(--warning);
+}
+.row[data-kind='failed'] .meta,
+.row[data-kind='denied'] .meta {
+  color: var(--danger-text);
+}
+.row[data-kind='ran'] .meta {
+  color: var(--success);
+}
+.add {
+  color: var(--success);
+  font-family: var(--mono);
+}
+.del {
+  color: var(--danger);
+  font-family: var(--mono);
+}
+.group {
+  background: var(--s1);
+  border: 1px solid var(--b);
+  border-radius: var(--r-xl);
+  padding: 0 12px;
+}
+.groupHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--t2);
+  font-size: var(--fs-sm2);
+  cursor: pointer;
+  text-align: left;
+}
+.groupTitle {
+  font-weight: 500;
+  color: var(--t1);
+}
+.groupNames {
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.groupBody {
+  padding: 2px 0 8px;
+}
+.zero {
+  color: var(--t3);
+  font-family: var(--mono);
+}

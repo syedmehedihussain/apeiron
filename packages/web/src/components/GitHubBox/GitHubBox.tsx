@@ -84,9 +84,9 @@ export function GitHubBox({ git, now, compact, onPull, onPush, busy }: GitHubBox
       <div className={styles.foot}>
         <span className={styles.prs}>
           {git.openPRs === null
-            ? git.repo
-              ? ''
-              : 'GitHub CLI not linked'
+            ? git.remote && !git.repo
+              ? 'GitHub CLI not linked'
+              : ''
             : `${git.openPRs} open pull request${git.openPRs === 1 ? '' : 's'}`}
         </span>
         <div className={styles.actions}>

@@ -1,6 +1,6 @@
 # 0004 — Drive Claude Code through the Claude Agent SDK
 
-- **Status:** Proposed (confirm with the M3 spike)
+- **Status:** Accepted (spike passed 2026-10-08, SDK 0.3.292, Claude Code 2.1.288)
 - **Date:** 2026-10-08
 - **Decided by:** Meddy
 
@@ -16,19 +16,31 @@ with stream-json output and a read-only allowlist; it never needed live approval
 2. **Claude Agent SDK (TypeScript)** — `canUseTool` callback gives approvals in plain code;
    custom tools (`ask_decision`) are easy. Trade-off: new dependency, API still moving.
 
-## Decision (proposed)
+## Decision
 
 Option 2 for all sessions, behind the `RunnerEvent` interface in `claude-runner.md`, so the raw
 CLI path can be swapped in if the spike finds a blocker.
 
 ## Spike checklist
 
-- [ ] Resume a session by id across process restarts.
-- [ ] `canUseTool` can wait minutes for a human answer without timing out.
-- [ ] Custom in-process tool (`ask_decision`) can hold its result until the user answers.
-- [ ] Interrupt (Stop) works mid-tool.
-- [ ] Per-session allow rules and working directory (worktree) work.
-- [ ] Uses the user's existing `claude` login (no API key required).
+- [x] Resume a session by id across process restarts.
+- [x] `canUseTool` can wait minutes for a human answer without timing out.
+- [x] Custom in-process tool (`ask_decision`) can hold its result until the user answers.
+- [x] Interrupt (Stop) works mid-tool.
+- [x] Per-session allow rules and working directory (worktree) work.
+- [x] Uses the user's existing `claude` login (no API key required).
+
+Re-run with `pnpm --filter @apeiron/daemon spike` (`packages/daemon/scripts/spike-agent-sdk.ts`).
+
+## Findings
+
+- Bare `allowedTools` entries skip `canUseTool` entirely, so only read-only tools go there.
+  Everything that writes or runs goes through `canUseTool`.
+- `settingSources: []` so user or project settings files cannot add allow rules that bypass
+  Apeiron's approvals. The `claude_code` system-prompt preset plus our append still tells Claude
+  to read `CLAUDE.md` and `STATUS.md` first.
+- An interrupted turn ends with `result.subtype = error_during_execution`, and the iterator may
+  throw afterwards; the runner treats both as "stopped".
 
 ## Consequences
 

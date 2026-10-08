@@ -1,0 +1,49 @@
+.stack {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 30;
+  width: 340px;
+}
+.toast {
+  background: var(--s1);
+  border: 1px solid rgba(210, 153, 34, 0.45);
+  border-radius: var(--r-xl);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.icon {
+  color: var(--warning);
+  flex: none;
+}
+.title {
+  font-weight: 500;
+  font-size: var(--fs-base);
+}
+.project {
+  color: var(--t3);
+  font-weight: 400;
+}
+.what {
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  color: var(--t2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.actions {
+  display: flex;
+  gap: 6px;
+}

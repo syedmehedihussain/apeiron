@@ -1,0 +1,109 @@
+.chat {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.thread {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.userRow {
+  display: flex;
+  justify-content: flex-end;
+}
+.user {
+  max-width: 80%;
+  background: var(--s2);
+  border: 1px solid var(--b);
+  border-radius: 14px 14px 4px 14px;
+  padding: 10px 14px;
+  font-size: var(--fs-lg);
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.claude {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.claudeLabel {
+  font-size: var(--fs-sm);
+  color: var(--t3);
+  font-weight: 500;
+}
+.text {
+  position: relative;
+}
+.cursor {
+  display: inline-block;
+  width: 7px;
+  height: 16px;
+  background: var(--t1);
+  vertical-align: -3px;
+  margin-left: 2px;
+  animation: ap-pulse 1s steps(1) infinite;
+}
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+.working {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--t3);
+  font-size: var(--fs-sm2);
+}
+.stopped {
+  color: var(--t3);
+  font-size: var(--fs-sm2);
+}
+.failed {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid rgba(248, 81, 73, 0.25);
+  border-radius: var(--r-xl);
+  background: rgba(248, 81, 73, 0.06);
+  color: var(--danger-text);
+  font-size: var(--fs-base);
+}
+.failed span {
+  flex: 1;
+}
+.composer {
+  flex: none;
+  padding: 0 24px 20px;
+}
+.error {
+  max-width: 760px;
+  margin: 0 auto 8px;
+  color: var(--danger-text);
+  font-size: var(--fs-sm2);
+}
+.empty {
+  padding: 64px 12px;
+  text-align: center;
+  color: var(--t2);
+}
+.empty h2 {
+  margin: 0 0 8px;
+  color: var(--t1);
+  font-size: var(--fs-xl);
+}
+.empty p {
+  margin: 0 auto;
+  max-width: 420px;
+}

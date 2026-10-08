@@ -5,6 +5,7 @@ import { execFileSync } from 'node:child_process';
 import type { Health } from '@apeiron/shared';
 import { SESSION_COOKIE } from '../src/auth.ts';
 import { createDaemon, type Daemon } from '../src/daemon.ts';
+import { fakeRunner } from '../src/claude/fake-runner.ts';
 
 export const PORT = 4317;
 export const ORIGIN = `http://127.0.0.1:${PORT}`;
@@ -48,7 +49,9 @@ export interface TestDaemon extends Daemon {
   cleanup(): Promise<void>;
 }
 
-export async function testDaemon(): Promise<TestDaemon> {
+export async function testDaemon(
+  opts: { runner?: import('../src/claude/runner.ts').Runner } = {},
+): Promise<TestDaemon> {
   const home = tempDir('apeiron-home-');
   const projectsDir = tempDir('apeiron-projects-');
   write(path.join(home, 'config.json'), JSON.stringify({ schema: 1, projectsDir }));
@@ -57,6 +60,8 @@ export async function testDaemon(): Promise<TestDaemon> {
     port: PORT,
     memoryDb: true,
     healthCheck: async () => fakeHealth,
+    // Never fall back to the real Claude in tests.
+    runner: opts.runner ?? fakeRunner([{ text: 'No script given.' }]),
   });
   await daemon.app.ready();
   return {

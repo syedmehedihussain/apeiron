@@ -1,6 +1,7 @@
 import { mkdirSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { DEFAULT_PORT, LOOPBACK_HOST } from '@apeiron/shared';
+import { fakeRunnerFromFile } from './claude/fake-runner.ts';
 import { createDaemon } from './daemon.ts';
 import { writeFileAtomic } from './fsutil.ts';
 import { apeironHome } from './paths.ts';
@@ -10,7 +11,9 @@ const port = Number(process.env.APEIRON_PORT ?? DEFAULT_PORT);
 // In development the UI is served by Vite; links and allowed origins point there.
 const webUrl = process.env.APEIRON_WEB_URL || `http://${LOOPBACK_HOST}:${port}`;
 
+const fakeClaude = process.env.APEIRON_FAKE_CLAUDE;
 const daemon = createDaemon({
+  ...(fakeClaude ? { runner: fakeRunnerFromFile(fakeClaude) } : {}),
   home,
   port,
   extraOrigins: webUrl.endsWith(`:${port}`) ? [] : [webUrl],

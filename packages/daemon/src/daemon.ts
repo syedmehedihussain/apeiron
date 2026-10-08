@@ -11,6 +11,11 @@ import { ensureMagnetFiles } from './magnet/files.ts';
 import { GitInfoService } from './projects/github.ts';
 import { ProjectService } from './projects/service.ts';
 import { workspaceRoutes } from './routes/workspace.ts';
+import { chatRoutes } from './routes/chat.ts';
+import { ChatService } from './chat/service.ts';
+import { ApprovalBroker } from './claude/approvals.ts';
+import { DecisionBroker } from './claude/decisions.ts';
+import { sdkRunner, type Runner } from './claude/runner.ts';
 import { buildServer } from './server.ts';
 import { watchProjects } from './watcher.ts';
 import pkg from '../package.json' with { type: 'json' };
@@ -21,6 +26,9 @@ export interface Daemon {
   auth: AuthStore;
   hub: EventHub;
   db: Db;
+  chat: ChatService;
+  approvals: ApprovalBroker;
+  decisions: DecisionBroker;
   projects: ProjectService;
   health: HealthService;
   cliSecret: string;
@@ -39,6 +47,8 @@ export interface DaemonOptions {
   memoryDb?: boolean;
   /** Replace the real tool checks (tests). */
   healthCheck?: () => Promise<Health>;
+  /** Replace the Claude runner (tests use the fake Claude). */
+  runner?: Runner;
 }
 
 const WEB_DIST = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../web/dist');
@@ -53,6 +63,17 @@ export function createDaemon(opts: DaemonOptions): Daemon {
   const projects = new ProjectService(config, db, hub, opts.home);
   const cliSecret = newCliSecret();
   const gitInfo = new GitInfoService();
+  const approvals = new ApprovalBroker(db, hub);
+  const decisions = new DecisionBroker();
+  const chat = new ChatService(
+    config,
+    db,
+    hub,
+    approvals,
+    decisions,
+    opts.runner ?? sdkRunner,
+    opts.home,
+  );
 
   const app = buildServer({
     version: pkg.version,
@@ -64,7 +85,7 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     cliSecret,
     origins: [`http://127.0.0.1:${opts.port}`, ...(opts.extraOrigins ?? [])],
     webDist: WEB_DIST,
-    routes: [workspaceRoutes(config, gitInfo)],
+    routes: [workspaceRoutes(config, gitInfo), chatRoutes(chat, approvals, decisions)],
   });
 
   const watcher = opts.watch
@@ -85,7 +106,12 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     projects,
     health,
     cliSecret,
+    chat,
+    approvals,
+    decisions,
     async close() {
+      await chat.stopAll();
+      approvals.cancel(undefined, 'Apeiron restarted');
       await watcher?.close();
       await app.close();
       db.close();

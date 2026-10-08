@@ -113,8 +113,9 @@ You are working inside Apeiron, a workspace that follows a strict engineering pr
 ## Stop, resume, errors
 
 - **Stop** interrupts the current turn. Partial edits already approved stay; nothing else runs.
-- Session id is saved to `project.json → claude.sessionId` after the first `session` event, so a
-  reload or daemon restart resumes the same conversation.
+- The Claude session id is saved in the app cache (`sessions.claude_session_id`) after the first
+  `session` event, so a reload or daemon restart resumes the same conversation. Apeiron does not
+  write it into the project's files.
 - If `claude` is not found or not logged in: health check flips to red, the composer is
   disabled with "Claude Code isn't available — How to fix".
 - Rate limit / API error: a red row in the timeline with the message and **Retry**.

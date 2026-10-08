@@ -60,14 +60,22 @@ function joinPath(base: string, rel: string): string {
 interface MarkdownProps {
   source: string;
   /** Path of this document inside the project (for relative links). */
-  docPath: string;
+  docPath?: string;
   /** Builds the in-app href for another project document. */
-  docHref(path: string): string;
+  docHref?(path: string): string;
   /** ADR number → document path, for ADR chips. */
-  adrPath(num: string): string | null;
+  adrPath?(num: string): string | null;
+  /** Smaller type for chat messages. */
+  variant?: 'doc' | 'chat';
 }
 
-export function Markdown({ source, docPath, docHref, adrPath }: MarkdownProps) {
+export function Markdown({
+  source,
+  docPath = '',
+  docHref = (p) => p,
+  adrPath = () => null,
+  variant = 'doc',
+}: MarkdownProps) {
   const components: Components = {
     a({ href = '', children }) {
       if (href.startsWith('adr:')) {
@@ -101,7 +109,7 @@ export function Markdown({ source, docPath, docHref, adrPath }: MarkdownProps) {
   };
 
   return (
-    <div className={styles.md}>
+    <div className={styles.md} data-variant={variant}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkAdrLinks]}
         components={components}

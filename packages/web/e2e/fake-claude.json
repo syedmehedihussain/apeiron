@@ -1,0 +1,56 @@
+[
+  {
+    "match": "bump",
+    "steps": [
+      { "text": "I'll bump the streak value in `lib/streaks.ts`." },
+      { "tool": { "name": "Read", "input": { "file_path": "lib/streaks.ts" } } },
+      {
+        "tool": {
+          "name": "Edit",
+          "input": {
+            "file_path": "lib/streaks.ts",
+            "old_string": "streaks = 2",
+            "new_string": "streaks = 3"
+          }
+        }
+      },
+      { "text": "Done. The streak is now 3." }
+    ]
+  },
+  {
+    "match": "store",
+    "steps": [
+      { "text": "There are two clean ways to do this." },
+      {
+        "decision": {
+          "topic": "Data model",
+          "question": "How should streaks be stored?",
+          "context": "You said: streaks must survive restarts.",
+          "options": [
+            {
+              "id": "a",
+              "title": "Compute from activity at read time",
+              "detail": "No new table.",
+              "tradeoff": "One query per page load.",
+              "recommended": true
+            },
+            {
+              "id": "b",
+              "title": "Store a streak counter",
+              "detail": "Fast reads.",
+              "tradeoff": "Must be kept in sync."
+            }
+          ],
+          "why": "Core has a no-background-job rule."
+        }
+      },
+      { "text": "Good choice. I'll compute it at read time." }
+    ]
+  },
+  {
+    "match": "run",
+    "steps": [
+      { "tool": { "name": "Bash", "input": { "command": "npm test" } }, "output": "24 passed" }
+    ]
+  }
+]

@@ -42,13 +42,13 @@ and git chips, in under 2 s.
 
 ## M3 — Claude chat
 
-- [ ] **Spike (1 day):** confirm CLI flags / Agent SDK API, write ADR-0004 as Accepted.
-- [ ] ClaudeRunner + fake Claude + recorded scripts.
-- [ ] SessionManager with resume; transcripts as JSONL.
-- [ ] Chat UI: messages, timeline rows, grouping, streaming, Stop.
-- [ ] ApprovalBroker + `ApprovalCard` (edit and command) + toast.
-- [ ] `ask_decision` tool + inline `DecisionCard`.
-- [ ] Command rules and the must-pass safety tests.
+- [x] **Spike (1 day):** confirm CLI flags / Agent SDK API, write ADR-0004 as Accepted.
+- [x] ClaudeRunner + fake Claude + recorded scripts.
+- [x] SessionManager with resume; transcripts as JSONL.
+- [x] Chat UI: messages, timeline rows, grouping, streaming, Stop.
+- [x] ApprovalBroker + `ApprovalCard` (edit and command) + toast.
+- [x] `ask_decision` tool + inline `DecisionCard`.
+- [x] Command rules and the must-pass safety tests.
 
 **Done when:** you can ask Claude to make a change in a real project, see the diff, Allow it, and
 the file changes — and a Deny leaves it untouched.

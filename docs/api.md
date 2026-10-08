@@ -122,14 +122,12 @@ One socket at `/ws`. Every event: `{ type, at, ...payload }`. The client subscri
 | --- | --- | --- |
 | `projects.updated` | `{ cards: ProjectCard[] }` | projects |
 | `health.updated` | health object | projects |
-| `chat.turn.started` | `{ sessionId, turnId }` | project:id |
-| `chat.text.delta` | `{ turnId, text }` | project:id |
-| `chat.tool.started` | `{ turnId, toolId, kind: read\|edit\|run\|other, label, target }` | project:id |
-| `chat.tool.finished` | `{ toolId, ok, summary, added?, removed?, durationMs }` | project:id |
-| `chat.decision` | `{ turnId, card: DecisionCard }` | project:id |
-| `chat.turn.finished` | `{ turnId, ok, error? }` | project:id |
+| `chat.item` | `{ projectId, conversationId, item: ChatItem }` (upsert by `item.id`: user message, text, tool row, decision, approval, turn end) | project:id |
+| `chat.delta` | `{ projectId, conversationId, itemId, turnId, text }` streamed text appended to a text item | project:id |
+| `chat.state` | `{ projectId, conversationId, running, turnId, touched }` | project:id |
+| `project.changed` | `{ projectId, paths }` files changed on disk | project:id |
 | `approval.requested` | `{ approval }` | approvals + project:id |
-| `approval.resolved` | `{ id, status }` | approvals + project:id |
+| `approval.resolved` | `{ approval }` (with its final status) | approvals + project:id |
 | `git.updated` | git object | project:id |
 | `tree.changed` | `{ paths: string[] }` | project:id |
 | `agent.updated` | agent object (status, activity tail) | project:id |

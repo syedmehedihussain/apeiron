@@ -14,6 +14,10 @@ const child = spawn(process.execPath, ['--import', 'tsx', 'src/main.ts'], {
     APEIRON_HOME: E2E_HOME,
     APEIRON_PORT: String(E2E_DAEMON_PORT),
     APEIRON_WEB_URL: `http://127.0.0.1:${E2E_WEB_PORT}`,
+    APEIRON_FAKE_CLAUDE: path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      'fake-claude.json',
+    ),
   },
 });
 const stop = () => child.kill('SIGTERM');

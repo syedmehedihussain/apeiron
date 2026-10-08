@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { ProjectCardSchema } from './project.ts';
 import { HealthSchema } from './system.ts';
+import type { Approval, ChatItem } from './chat.ts';
 
 /** Client → server over /ws. */
 export const ClientMessageSchema = z.object({
@@ -18,6 +19,26 @@ export interface EventMap {
   'health.updated': z.infer<typeof HealthSchema>;
   /** Files changed on disk in a project (tree, git, open file may be stale). */
   'project.changed': { projectId: string; paths: string[] };
+  /** A transcript item was added or changed (upsert by id). */
+  'chat.item': { projectId: string; conversationId: string; item: ChatItem };
+  /** Streaming text appended to a text item. */
+  'chat.delta': {
+    projectId: string;
+    conversationId: string;
+    itemId: string;
+    turnId: string;
+    text: string;
+  };
+  /** A turn started or stopped; also sent when the conversation is replaced. */
+  'chat.state': {
+    projectId: string;
+    conversationId: string | null;
+    running: boolean;
+    turnId: string | null;
+    touched: string[];
+  };
+  'approval.requested': { approval: Approval };
+  'approval.resolved': { approval: Approval };
 }
 export type EventType = keyof EventMap;
 export type ServerEvent = {

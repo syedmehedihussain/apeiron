@@ -1,5 +1,5 @@
 import { Plus, X } from 'lucide-react';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { create } from 'zustand';
 import { ApiFailure } from '../../api/client.ts';
@@ -11,6 +11,9 @@ import { StatusBlock } from '../../components/StatusBlock/StatusBlock.tsx';
 import { TopBar } from '../../components/TopBar/TopBar.tsx';
 import { tildify } from '../../lib/paths.ts';
 import { useNow } from '../../lib/useNow.ts';
+import { sendChat, useChat, useChatDraft, usePendingApprovals } from '../../api/chat.ts';
+import { Pill } from '../../components/Pill/Pill.tsx';
+import { ChatTab, NewChatButton, useSessionMeta } from './ChatTab.tsx';
 import { DocsTab } from './DocsTab.tsx';
 import { NotesTab } from './NotesTab.tsx';
 import styles from './Workspace.module.css';
@@ -33,13 +36,7 @@ function parseSplat(splat: string): { tab: Tab; path: string | null } {
   return { tab: 'chat', path: null };
 }
 
-export function Workspace({
-  chat,
-  right,
-}: {
-  chat?: (id: string) => ReactNode;
-  right?: (id: string) => ReactNode;
-}) {
+export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
   const params = useParams();
   const id = params.id ?? '';
   const { tab, path } = parseSplat(params['*'] ?? '');
@@ -48,6 +45,13 @@ export function Workspace({
   const detail = useProjectDetail(id);
   const git = useGitInfo(id);
   useLiveProject(id);
+  const chat = useChat(id);
+  const approvals = usePendingApprovals();
+  const setDraft = useChatDraft((s) => s.set);
+  const pendingHere = (approvals.data ?? []).filter((a) => a.projectId === id);
+  const running = !!chat.data?.running;
+  const sessionMeta = useSessionMeta(chat.data, now);
+  const touched = useMemo(() => new Set(chat.data?.touched ?? []), [chat.data?.touched]);
 
   const openFile = useOpenFiles((s) => s.files[id]);
   const setOpenFile = useOpenFiles((s) => s.set);
@@ -88,6 +92,18 @@ export function Workspace({
       <TopBar
         crumbs={[{ label: 'Projects', href: '/' }, { label: card?.name ?? id }]}
         phase={card ? card.phase : null}
+        claude={running ? 'working' : undefined}
+        status={
+          pendingHere.length > 0 ? (
+            <Pill tone="warning" dot>
+              Approval needed
+            </Pill>
+          ) : running ? (
+            <Pill tone="accent" spin>
+              Claude is working
+            </Pill>
+          ) : null
+        }
       />
       <div className={styles.grid}>
         <FileTree
@@ -95,6 +111,7 @@ export function Workspace({
           projectPath={card ? tildify(card.path) : ''}
           selected={tab === 'file' ? path : null}
           onOpen={(p) => void navigate(`${base}/files/${p}`)}
+          touched={touched}
         />
 
         <section aria-label="Project" className={styles.centre}>
@@ -105,12 +122,27 @@ export function Workspace({
               now={now}
               expanded={statusExpanded}
               onToggle={() => setStatusOverride({ tab, open: !statusExpanded })}
-              updateDisabledReason="Chat with Claude arrives in milestone M3"
+              onUpdate={
+                running
+                  ? undefined
+                  : () => {
+                      void sendChat(
+                        id,
+                        'Update _project/STATUS.md from what we did in this session: rewrite "Where we left off" and "Next steps", and keep its format and front matter.',
+                        false,
+                      );
+                      void navigate(base);
+                    }
+              }
+              updateDisabledReason="Claude is working; wait for the turn to finish"
             />
           </div>
           <nav aria-label="Workspace tabs" className={styles.tabs}>
             <TabLink to={base} active={tab === 'chat'}>
               Chat
+              {tab !== 'chat' && pendingHere.length > 0 && (
+                <span className={styles.needsYou} title="Needs you" />
+              )}
             </TabLink>
             <TabLink to={`${base}/docs`} active={tab === 'docs'}>
               Docs
@@ -142,10 +174,27 @@ export function Workspace({
                 </span>
               </>
             )}
+            <span className={styles.tabSpacer} />
+            {tab === 'chat' && (
+              <>
+                {sessionMeta && <span className={styles.sessionMeta}>{sessionMeta}</span>}
+                <NewChatButton projectId={id} state={chat.data} />
+              </>
+            )}
           </nav>
           <div className={styles.tabBody}>
-            {tab === 'chat' && (chat ? chat(id) : <ChatComingSoon />)}
-            {tab === 'docs' && <DocsTab projectId={id} docPath={path} now={now} />}
+            {tab === 'chat' && <ChatTab projectId={id} now={now} />}
+            {tab === 'docs' && (
+              <DocsTab
+                projectId={id}
+                docPath={path}
+                now={now}
+                onAskClaude={(doc) => {
+                  setDraft(id, `About ${doc}: `);
+                  void navigate(base);
+                }}
+              />
+            )}
             {tab === 'notes' && <NotesTab projectId={id} />}
             {tab === 'file' && path && <FileViewer key={path} projectId={id} path={path} />}
           </div>
@@ -167,14 +216,6 @@ function TabLink({ to, active, children }: { to: string; active: boolean; childr
     <Link to={to} className={styles.tab} aria-current={active ? 'page' : undefined}>
       {children}
     </Link>
-  );
-}
-
-function ChatComingSoon() {
-  return (
-    <div className={styles.soon}>
-      <p>Chat with Claude arrives in milestone M3.</p>
-    </div>
   );
 }
 

@@ -129,3 +129,21 @@
   margin-right: 8px;
   accent-color: var(--success);
 }
+
+.md[data-variant='chat'] {
+  font-size: var(--fs-lg);
+  line-height: var(--lh-chat);
+  color: var(--t1);
+}
+.md[data-variant='chat'] h1,
+.md[data-variant='chat'] h2,
+.md[data-variant='chat'] h3 {
+  font-size: var(--fs-xl);
+  margin: 16px 0 6px;
+}
+.md[data-variant='chat'] p:last-child {
+  margin-bottom: 0;
+}
+.md[data-variant='chat'] table {
+  font-size: var(--fs-base);
+}
