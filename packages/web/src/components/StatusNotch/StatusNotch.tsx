@@ -5,7 +5,8 @@ import { useNow } from '../../lib/useNow.ts';
 import styles from './StatusNotch.module.css';
 
 interface StatusNotchProps {
-  status: StatusDoc | null;
+  /** undefined while the project is still loading. */
+  status: StatusDoc | null | undefined;
   /** STATUS.md mtime; a change while you watch makes the notch light up. */
   updatedAt: number | null;
   now: number;
@@ -49,21 +50,23 @@ export function StatusNotch({
     };
   }, [open]);
 
-  const label = !status
-    ? 'No STATUS.md yet'
-    : flash
-      ? `Status updated${next ? ` · Next: ${next}` : ''}`
-      : next
-        ? `Next: ${next}`
-        : 'No open steps';
+  // The notch only says "Status"; the dot tells the state: green ok, blue just updated, red missing.
+  const tone = status === undefined ? 'loading' : !status ? 'missing' : flash ? 'updated' : 'ok';
+  const label =
+    status === undefined
+      ? 'Status · loading'
+      : !status
+        ? 'Status · no STATUS.md yet'
+        : flash
+          ? 'Status · just updated'
+          : `Status${next ? ` · next: ${next}` : ''}`;
 
   return (
     <div className={styles.wrap} ref={wrap}>
       <button
         type="button"
         className={styles.notch}
-        data-flash={flash || undefined}
-        data-empty={!status || undefined}
+        data-tone={tone}
         aria-expanded={open}
         aria-controls={popId}
         aria-label={`Project status. ${label}`}
@@ -71,7 +74,7 @@ export function StatusNotch({
         onClick={() => setOpen(!open)}
       >
         <span className={styles.dot} aria-hidden="true" />
-        <span className={styles.text}>{label}</span>
+        <span className={styles.text}>Status</span>
         <ChevronDown size={12} strokeWidth={2} aria-hidden="true" className={styles.chev} />
       </button>
       {open && (

@@ -151,7 +151,7 @@ export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
             )}
             <span className={styles.tabSpacer} />
             <StatusNotch
-              status={detail.data?.status ?? null}
+              status={detail.data ? detail.data.status : undefined}
               updatedAt={detail.data?.statusMtime ?? null}
               now={now}
               onUpdate={

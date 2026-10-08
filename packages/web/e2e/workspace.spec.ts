@@ -12,7 +12,8 @@ test('opens a project with status, phase bar and git box', async ({ page }) => {
   await expect(page.getByRole('list', { name: 'Project phase' })).toBeVisible();
   // Status lives in a notch: the next step at a glance, the rest in a popover.
   const notch = page.getByRole('button', { name: /^Project status/ });
-  await expect(notch).toHaveText('Next: Build the Study Room floor');
+  await expect(notch).toHaveText('Status');
+  await expect(notch).toHaveAttribute('data-tone', 'ok');
   await expect(page.getByText('Finished the HUD.')).toHaveCount(0);
   await notch.click();
   const pop = page.getByRole('region', { name: 'Project status' });
