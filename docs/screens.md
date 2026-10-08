@@ -13,7 +13,7 @@ Routes are hash-free client routes served by the daemon.
 | `/p/:id` | Workspace — Chat | `Main`, `Workspace-Approval`, `Workspace-Working` |
 | `/p/:id/docs/*` | Workspace — Docs | `Workspace-Docs` |
 | `/p/:id/files/*` | Workspace — File viewer | `Workspace-File` |
-| `/p/:id/notes` | Workspace — Notes & Tasks | *not designed yet* |
+| `/p/:id/notes` | Workspace — Notes & Tasks | *not designed; build from `Components`* |
 | `/settings/:section` | Settings | `Settings` |
 
 ---
@@ -55,7 +55,8 @@ Grid 240 | centre | 300.
   "Answered" one-liners for earlier steps with **Change**.
 - Right: `KnownSoFar`.
 
-Step 1 is a simple form (name — validated as a folder name — and a one-paragraph idea).
+Step 1 is a simple form (name — validated as a folder name — and a one-paragraph idea) with a
+**Quick** toggle that skips Data and Quality bar; the rail then shows 5 steps.
 
 Step 7 Review (`Survey-Review`): grid 240 | centre | 380.
 - Centre: "Ready to create review-qr", answer summary table (`120px | answer | Change`),
@@ -127,6 +128,6 @@ state, default model), GitHub (gh status), About (version, license, links).
 
 ## Global states
 
-- **Daemon unreachable**: full-page message "Apeiron isn't running. Run `apeiron up`." with retry.
+- **Daemon unreachable**: full-page message "Apeiron isn't running. Run `apeiron`." with retry.
 - **WebSocket reconnecting**: small amber pill in the top bar, auto-retry with backoff.
 - **Project folder gone**: workspace placeholder with link Home.

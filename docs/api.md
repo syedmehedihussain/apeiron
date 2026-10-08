@@ -1,8 +1,11 @@
 # Daemon API
 
-Base URL: `http://127.0.0.1:4317`. All routes need the header `Authorization: Bearer <token>`.
-The WebSocket takes the token as the first message (`{"type":"auth","token":"…"}`), not in the
-URL, so it never lands in logs.
+Base URL: `http://127.0.0.1:4317`. All routes except `POST /api/session` need the session cookie
+(ADR-0008). The WebSocket upgrade carries the same cookie. The `Host` and `Origin` checks apply
+to both.
+
+`POST /api/session` — body `{ "code": "…" }` (the login code from the link). Sets the cookie;
+`401` if the code is wrong, used or expired. `DELETE /api/session` logs out this browser.
 
 All bodies are JSON and validated with the zod schemas in `packages/shared`.
 Errors use one shape:

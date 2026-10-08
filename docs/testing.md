@@ -35,7 +35,7 @@ These run in CI and block merges:
 2. `calibrate/write` with an existing `CLAUDE.md` appends, never replaces.
 3. Survey `create` refuses if the target folder exists and is not empty.
 4. A denied edit leaves the file byte-for-byte unchanged.
-5. Requests without a token → 401. Wrong `Host` → 403. Wrong `Origin` → 403.
+5. Requests without a valid session cookie → 401; a used or expired login code → 401. Wrong `Host` → 403. Wrong `Origin` → 403.
 6. Path guard rejects every traversal case.
 7. Blocked commands never reach an approval and are denied with a reason.
 8. Agent **Discard** removes the worktree and branch and leaves the main checkout unchanged.

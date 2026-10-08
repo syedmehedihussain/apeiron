@@ -7,7 +7,7 @@ are strict even though it is "just local".
 
 | Threat | Example | Defence |
 | --- | --- | --- |
-| Another site in the browser calls the daemon | A web page does `fetch("http://127.0.0.1:4317/api/...")` | Token on every request; CORS off; `Origin` must be our own; WebSocket auth message |
+| Another site in the browser calls the daemon | A web page does `fetch("http://127.0.0.1:4317/api/...")` | Session cookie (SameSite=Strict) on every request; CORS off; `Origin` must be our own; WebSocket auth message |
 | DNS rebinding | `evil.com` resolves to 127.0.0.1 | Reject any `Host` header that is not `127.0.0.1:<port>` or `localhost:<port>` |
 | Another user on the same machine | Shared Linux box | Bind 127.0.0.1 only; `~/.apeiron` is `0700`; `daemon.json` is `0600` |
 | Path traversal | `?path=../../.ssh/id_rsa` | Path guard (below) |
@@ -17,12 +17,16 @@ are strict even though it is "just local".
 
 ## The token
 
-- 32 random bytes, base64url, made at each daemon start.
-- Given to the browser once in the URL fragment (`#t=…`), which is never sent to the server and is
-  stripped by the UI on load.
-- Kept in memory only (not localStorage). A reload calls `apeiron open` again or reads it from
-  the CLI's printed URL.
-- Compared with a constant-time function.
+See ADR-0008.
+
+- `apeiron` prints a link with a **login code** in the URL fragment (`#login=…`). The fragment is
+  never sent to the server; the UI strips it on load and posts the code to `POST /api/session`.
+- The code is 32 random bytes, base64url, single-use, valid for 10 minutes.
+- The daemon replies with a session cookie: `HttpOnly; SameSite=Strict; Path=/`, 30 days.
+  Only a hash of the session id is stored, in `~/.apeiron/sessions.json` (`0600`).
+- Every request and the WebSocket upgrade need a valid cookie plus the `Host`/`Origin` checks.
+- Codes and session ids are compared with a constant-time function.
+- `apeiron logout` clears every session.
 
 ## Path guard
 

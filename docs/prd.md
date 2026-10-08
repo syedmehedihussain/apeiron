@@ -73,7 +73,7 @@ Priority: **P0** = MVP cannot ship without it. **P1** = MVP should have it. **P2
 
 | ID | Requirement | Pri |
 | --- | --- | --- |
-| S-1 | Seven steps: 1 Name & idea (typed), 2 Problem & users, 3 Scope, 4 Stack, 5 Data, 6 Quality bar, 7 Review. | P0 |
+| S-1 | Seven steps: 1 Name & idea (typed), 2 Problem & users, 3 Scope, 4 Stack, 5 Data, 6 Quality bar, 7 Review. A **Quick** toggle on step 1 skips steps 5 and 6. | P0 |
 | S-2 | Steps 2–6 are **decision cards**: question, 2–4 options, one marked **Recommended**, a trade-off line per option, "Why Claude recommends it", and "Something else…". | P0 |
 | S-3 | Each answer is saved to `_project/survey.json` the moment it is confirmed. Survey can be paused ("Save and exit") and resumed. | P0 |
 | S-4 | Left rail shows steps and answered count; right rail shows "What we know so far". | P1 |
@@ -145,7 +145,7 @@ Priority: **P0** = MVP cannot ship without it. **P1** = MVP should have it. **P2
 - Meddy opens Apeiron instead of a bare terminal for **5 of 7 days** in the first month.
 - Every project in `~/Projects` is Ready or cctop within two weeks of milestone 4.
 - No file is ever written without an approval (verified by tests, see `testing.md`).
-- Cold start (`apeiron up` → Home rendered) under **2 seconds** with 30 projects.
+- Cold start (`apeiron` → Home rendered) under **2 seconds** with 30 projects.
 
 ## 7. Dependencies
 

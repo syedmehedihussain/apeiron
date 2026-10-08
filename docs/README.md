@@ -9,7 +9,6 @@ Read this page, then open only what your task needs.
 | [`prd.md`](prd.md) | What are we building, for whom, what is in and out of the MVP? |
 | [`screens.md`](screens.md) | What does each screen do, which design artboard shows it, what are its states? |
 | [`roadmap.md`](roadmap.md) | In what order do we build, and when is each milestone done? |
-| [`open-questions.md`](open-questions.md) | What is still undecided? |
 
 ## Engineering
 

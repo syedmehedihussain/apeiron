@@ -22,7 +22,7 @@ See [`docs/roadmap.md`](docs/roadmap.md).
 | Repo | `syedmehedihussain/apeiron` |
 | Assistant | Magnet |
 | Config folder | `~/.apeiron/` |
-| License | Open source (license to be picked, see `docs/open-questions.md`) |
+| License | MIT |
 
 ## Where to start reading
 

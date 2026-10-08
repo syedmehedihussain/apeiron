@@ -1,6 +1,6 @@
 # 0005 — Loopback only, per-run token on every request
 
-- **Status:** Accepted
+- **Status:** Accepted; token handling superseded by 0008
 - **Date:** 2026-10-07
 - **Decided by:** Meddy
 

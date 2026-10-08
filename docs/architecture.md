@@ -36,7 +36,7 @@ git, `gh` or `claude`.
 ```
 apeiron/
 ├── packages/
-│   ├── cli/        `apeiron` command: up, down, status, open, doctor, install-service
+│   ├── cli/        `apeiron` command: (bare = up), down, status, open, logout, doctor, install-service
 │   ├── daemon/     Fastify server, services above, SQLite cache
 │   ├── web/        React 19 + Vite UI
 │   └── shared/     zod schemas + TS types for API, events, files
@@ -53,20 +53,21 @@ apeiron/
 
 | Command | Does |
 | --- | --- |
-| `apeiron` (or `apeiron up`) | Start the daemon in the background if not running, print the link `http://127.0.0.1:4317/#t=<token>`, open it in the browser, and return to the prompt. |
+| `apeiron` (or `apeiron up`) | Start the daemon in the background if not running, print the login link `http://127.0.0.1:4317/#login=<code>`, open it in the browser, and return to the prompt. |
 | `apeiron down` | Stop the daemon. |
 | `apeiron status` | Is it running, which port, how many projects, is `claude` found. |
 | `apeiron open <project>` | Open the browser straight to a project's workspace. |
+| `apeiron logout` | End every browser session. |
 | `apeiron doctor` | Check Node, git, gh, claude, folder permissions; print fixes. |
 | `apeiron install-service` | Install a systemd **user** service (Linux) or launchd agent (macOS). |
 
-The daemon writes `~/.apeiron/run/daemon.json` with `{ pid, port, token, startedAt }`
+The daemon writes `~/.apeiron/run/daemon.json` with `{ pid, port, startedAt }`
 (file mode `0600`). The CLI reads it to talk to a running daemon.
 
 ## Key flows
 
 ### 1. Open Home
-1. Browser loads, reads the token from the URL fragment, stores it in memory, strips it from the URL.
+1. Browser loads. If the URL has `#login=<code>`, the UI strips it and posts it to `POST /api/session`, which sets the session cookie (ADR-0008). Later visits and bookmarks use the cookie.
 2. `GET /api/projects` → daemon returns cards from cache, then rescans in the background.
 3. Changes arrive as `projects.updated` events over the WebSocket.
 

@@ -5,7 +5,7 @@ every box in its **Done when** list is ticked and `pnpm test` passes.
 
 ## M0 — Preparation (repo setup)
 
-- [ ] Create `syedmehedihussain/apeiron`, push these docs.
+- [ ] Create `syedmehedihussain/apeiron`, push these docs (MIT, ADR-0007).
 - [ ] pnpm workspace with `cli`, `daemon`, `web`, `shared`; TS strict; ESLint + Prettier.
 - [ ] Vitest in every package; Playwright set up with the preinstalled Chromium.
 - [ ] GitHub Actions: lint, typecheck, test on push and PR.
@@ -17,7 +17,7 @@ every box in its **Done when** list is ticked and `pnpm test` passes.
 
 ## M1 — Daemon and Home
 
-- [ ] `apeiron up / down / status`, `daemon.json`, token, Host/Origin checks.
+- [ ] `apeiron` (= `up`) / `down` / `status` / `logout`, `daemon.json`, login link + session cookie (ADR-0008), Host/Origin checks.
 - [ ] `ProjectScanner`: classify folders, parse `project.json` + `STATUS.md`, git summary.
 - [ ] SQLite cache + migrations; `projects.md` generator for Magnet.
 - [ ] `GET /api/projects`, `/api/health`, WebSocket with `projects.updated`.
@@ -25,7 +25,7 @@ every box in its **Done when** list is ticked and `pnpm test` passes.
 - [ ] Claude Code check + first-run banner; empty folder state.
 - [ ] File watcher → live updates.
 
-**Done when:** `apeiron up` opens Home listing your real `~/Projects` with correct badges, phases
+**Done when:** `apeiron` opens Home listing your real `~/Projects` with correct badges, phases
 and git chips, in under 2 s.
 
 ## M2 — Workspace, read-only
