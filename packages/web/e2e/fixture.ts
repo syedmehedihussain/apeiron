@@ -59,7 +59,29 @@ export function createFixture(): void {
     '---\nsummary: Terminal dashboard\n---\n## Next steps\n- [ ] Tag release 1.1\n',
   );
   write(path.join(E2E_PROJECTS, 'torongo', 'README.md'), '# torongo\nReal-time translation.\n');
+
+  // A Ready project with a local "remote" and one commit to push (M6).
+  const atlas = path.join(E2E_PROJECTS, 'atlas');
+  const remote = path.join(E2E_ROOT, 'remotes', 'atlas.git');
+  mkdirSync(remote, { recursive: true });
+  git(remote, 'init', '-q', '--bare', '-b', 'main');
+  write(
+    path.join(atlas, '_project', 'project.json'),
+    JSON.stringify({ schema: 1, name: 'atlas', summary: 'API server', phase: 'preparation' }),
+  );
+  write(path.join(atlas, 'README.md'), '# atlas\n');
+  git(atlas, 'init', '-q', '-b', 'main');
+  writeFileSync(path.join(atlas, '.git', 'info', 'exclude'), '_project/\n');
+  git(atlas, 'add', '-A');
+  git(atlas, 'commit', '-q', '-m', 'init');
+  git(atlas, 'remote', 'add', 'origin', remote);
+  git(atlas, 'push', '-q', '-u', 'origin', 'main');
+  write(path.join(atlas, 'src', 'server.ts'), 'export {};\n');
+  git(atlas, 'add', '-A');
+  git(atlas, 'commit', '-q', '-m', 'feat: server skeleton');
 }
+
+export const E2E_REMOTES = path.join(E2E_ROOT, 'remotes');
 
 export async function loginCode(): Promise<string> {
   const info = JSON.parse(readFileSync(path.join(E2E_HOME, 'run', 'daemon.json'), 'utf8')) as {

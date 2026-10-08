@@ -17,7 +17,7 @@ test('the app opens on a dark page with the top bar', async ({ page }) => {
 
 test('Home lists one project in each state', async ({ page }) => {
   const table = page.getByRole('table');
-  await expect(table.getByRole('row')).toHaveCount(4);
+  await expect(table.getByRole('row')).toHaveCount(5);
   const row = (name: string) =>
     table.getByRole('row').filter({ has: page.getByRole('link', { name, exact: true }) });
   await expect(row('core')).toContainText('Ready');

@@ -1,5 +1,6 @@
-import { ArrowUpRight, GitBranch } from 'lucide-react';
-import { relativeTime, type GitInfo } from '@apeiron/shared';
+import { ArrowUpRight, ChevronRight, GitBranch, GitPullRequest } from 'lucide-react';
+import type { ReactNode } from 'react';
+import { relativeTime, type GitInfo, type GitResult, type PullRequestList } from '@apeiron/shared';
 import styles from './GitHubBox.module.css';
 
 interface GitHubBoxProps {
@@ -9,9 +10,29 @@ interface GitHubBoxProps {
   onPull?: () => void;
   onPush?: () => void;
   busy?: 'pull' | 'push' | null;
+  /** The last Pull or Push outcome, shown under the buttons. */
+  result?: GitResult | null;
+  /** Open pull requests, shown when the count is clicked. */
+  prs?: PullRequestList | null;
+  prsOpen?: boolean;
+  onTogglePrs?: () => void;
+  /** Shown inside the box under the footer (the push approval). */
+  children?: ReactNode;
 }
 
-export function GitHubBox({ git, now, compact, onPull, onPush, busy }: GitHubBoxProps) {
+export function GitHubBox({
+  git,
+  now,
+  compact,
+  onPull,
+  onPush,
+  busy,
+  result,
+  prs,
+  prsOpen,
+  onTogglePrs,
+  children,
+}: GitHubBoxProps) {
   if (!git) {
     return (
       <div className={styles.box} aria-busy="true">
@@ -82,13 +103,29 @@ export function GitHubBox({ git, now, compact, onPull, onPush, busy }: GitHubBox
         </ul>
       )}
       <div className={styles.foot}>
-        <span className={styles.prs}>
-          {git.openPRs === null
-            ? git.remote && !git.repo
-              ? 'GitHub CLI not linked'
-              : ''
-            : `${git.openPRs} open pull request${git.openPRs === 1 ? '' : 's'}`}
-        </span>
+        {git.openPRs !== null && onTogglePrs ? (
+          <button
+            type="button"
+            className={styles.prsBtn}
+            aria-expanded={!!prsOpen}
+            onClick={onTogglePrs}
+          >
+            <ChevronRight
+              size={12}
+              aria-hidden="true"
+              style={{ transform: prsOpen ? 'rotate(90deg)' : undefined }}
+            />
+            {git.openPRs} open pull request{git.openPRs === 1 ? '' : 's'}
+          </button>
+        ) : (
+          <span className={styles.prs}>
+            {git.openPRs === null
+              ? git.remote && !git.repo
+                ? 'GitHub CLI not linked'
+                : ''
+              : `${git.openPRs} open pull request${git.openPRs === 1 ? '' : 's'}`}
+          </span>
+        )}
         <div className={styles.actions}>
           <button
             type="button"
@@ -108,6 +145,33 @@ export function GitHubBox({ git, now, compact, onPull, onPush, busy }: GitHubBox
           </button>
         </div>
       </div>
+      {prsOpen && (
+        <ul className={styles.prList} aria-label="Open pull requests">
+          {!prs && <li className={styles.muted}>Loading…</li>}
+          {prs?.error && <li className={styles.muted}>{prs.error}</li>}
+          {prs && !prs.error && prs.prs.length === 0 && (
+            <li className={styles.muted}>No open pull requests.</li>
+          )}
+          {prs?.prs.map((p) => (
+            <li key={p.number}>
+              <GitPullRequest size={13} aria-hidden="true" className={styles.prIcon} />
+              <a href={p.url} target="_blank" rel="noreferrer" className={styles.prTitle}>
+                <span>{p.title}</span>
+                <span className={styles.when}>
+                  #{p.number} · {p.author}
+                  {p.draft ? ' · draft' : ''} · {relativeTime(p.updatedAt, now)}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+      {result && (
+        <p className={styles.result} data-ok={result.ok || undefined} role="status">
+          {result.message}
+        </p>
+      )}
+      {children}
     </section>
   );
 }

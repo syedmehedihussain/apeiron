@@ -49,7 +49,8 @@ the projects folder (see `security.md`).
 | --- | --- | --- |
 | GET | `/api/projects/:id/git` | `{ branch, ahead, behind, changes, commits[3], remote, repo, visibility, openPRs }` |
 | POST | `/api/projects/:id/git/pull` | `git pull --ff-only` |
-| POST | `/api/projects/:id/git/push` | creates a `push` approval first; pushes only after Allow |
+| POST | `/api/projects/:id/git/push` | creates a `push` approval first (title, command, commits); runs `git push` (never forced) only after Allow; returns `{ approvalId }` |
+| GET | `/api/projects/:id/git/prs` | `{ prs: [{ number, title, url, author, branch, draft, updatedAt }], error }` from `gh pr list` |
 
 ## Chat
 
@@ -130,7 +131,7 @@ One socket at `/ws`. Every event: `{ type, at, ...payload }`. The client subscri
 | `project.changed` | `{ projectId, paths }` files changed on disk | project:id |
 | `approval.requested` | `{ approval }` | approvals + project:id |
 | `approval.resolved` | `{ approval }` (with its final status) | approvals + project:id |
-| `git.updated` | git object | project:id |
+| `git.result` | `{ projectId, action: pull\|push, ok, message }` | project:id |
 | `tree.changed` | `{ paths: string[] }` | project:id |
 | `agent.updated` | agent object (status, activity tail) | project:id |
 | `agent.activity` | `{ agentId, row }` | project:id |

@@ -3,10 +3,10 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { create } from 'zustand';
 import { ApiFailure } from '../../api/client.ts';
-import { useGitInfo, useLiveProject, useProjectDetail } from '../../api/workspace.ts';
+import { useLiveProject, useProjectDetail } from '../../api/workspace.ts';
 import { FileTree } from '../../components/FileTree/FileTree.tsx';
 import { FileViewer } from '../../components/FileViewer/FileViewer.tsx';
-import { GitHubBox } from '../../components/GitHubBox/GitHubBox.tsx';
+import { GitPanel } from '../../components/GitHubBox/GitPanel.tsx';
 import { StatusBlock } from '../../components/StatusBlock/StatusBlock.tsx';
 import { TopBar } from '../../components/TopBar/TopBar.tsx';
 import { tildify } from '../../lib/paths.ts';
@@ -43,7 +43,6 @@ export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
   const navigate = useNavigate();
   const now = useNow(60_000);
   const detail = useProjectDetail(id);
-  const git = useGitInfo(id);
   useLiveProject(id);
   const chat = useChat(id);
   const approvals = usePendingApprovals();
@@ -202,7 +201,7 @@ export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
 
         <aside aria-label="Repository and agents" className={styles.right}>
           <div className={styles.rightTop}>
-            <GitHubBox git={git.data} now={now} />
+            <GitPanel key={id} projectId={id} now={now} />
           </div>
           {right ? right(id) : <RightTabsSoon />}
         </aside>

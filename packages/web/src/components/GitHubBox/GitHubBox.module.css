@@ -148,3 +148,58 @@ a.name:hover {
   color: var(--t3);
   font-size: var(--fs-sm2);
 }
+.prsBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  padding: 2px 0;
+  font-size: var(--fs-sm);
+  color: var(--t2);
+  cursor: pointer;
+}
+.prsBtn:hover {
+  color: var(--t1);
+}
+.prList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.prList li {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.prIcon {
+  flex: none;
+  margin-top: 2px;
+  color: var(--success);
+}
+.prTitle {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  color: var(--t1);
+  font-size: var(--fs-base);
+}
+.prTitle > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.prTitle:hover > span:first-child {
+  color: var(--accent-text-strong);
+}
+.result {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--danger-text);
+}
+.result[data-ok] {
+  color: var(--success);
+}

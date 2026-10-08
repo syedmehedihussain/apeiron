@@ -13,9 +13,11 @@ interface ApprovalCardProps {
   onAnswer(answer: 'allow' | 'allow_session' | 'deny', reason?: string): Promise<void>;
   /** Focus the card when it appears (the card, never Allow, so a stray Enter cannot approve). */
   autoFocus?: boolean;
+  /** Narrow columns (the GitHub box): no status pill, no "Runs in" note. */
+  compact?: boolean;
 }
 
-export function ApprovalCard({ approval, now, onAnswer, autoFocus }: ApprovalCardProps) {
+export function ApprovalCard({ approval, now, onAnswer, autoFocus, compact }: ApprovalCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const [busy, setBusy] = useState(false);
@@ -53,13 +55,15 @@ export function ApprovalCard({ approval, now, onAnswer, autoFocus }: ApprovalCar
           </span>
           <h3 id={titleId}>{approval.title}</h3>
         </div>
-        <Pill tone="warning" dot>
-          Waiting for approval
-        </Pill>
+        {!compact && (
+          <Pill tone="warning" dot>
+            Waiting for approval
+          </Pill>
+        )}
       </div>
       {approval.kind === 'edit' &&
         approval.files.map((f, i) => <FileDiff key={f.path} file={f} defaultOpen={i === 0} />)}
-      {approval.kind === 'command' && (
+      {(approval.kind === 'command' || approval.kind === 'push') && (
         <div className={styles.command}>
           <code>
             <span className={styles.dollar}>$</span> {approval.command}
@@ -67,7 +71,7 @@ export function ApprovalCard({ approval, now, onAnswer, autoFocus }: ApprovalCar
           <span className={styles.in}>in {tildify(approval.cwd)}</span>
         </div>
       )}
-      {approval.kind === 'other' && approval.detail && (
+      {(approval.kind === 'other' || approval.kind === 'push') && approval.detail && (
         <pre className={styles.detail}>{approval.detail}</pre>
       )}
       {denying && (
@@ -118,18 +122,22 @@ export function ApprovalCard({ approval, now, onAnswer, autoFocus }: ApprovalCar
             >
               Allow
             </button>
-            <button
-              type="button"
-              className="btn btn-secondary btn-md"
-              disabled={busy}
-              onClick={() => void answer('allow_session')}
-            >
-              Allow for this session
-            </button>
+            {approval.kind !== 'push' && (
+              <button
+                type="button"
+                className="btn btn-secondary btn-md"
+                disabled={busy}
+                onClick={() => void answer('allow_session')}
+              >
+                Allow for this session
+              </button>
+            )}
             <span className={styles.spacer} />
-            <span className={styles.runs}>
-              Runs in <span className="mono">{tildify(approval.cwd)}</span>
-            </span>
+            {!compact && (
+              <span className={styles.runs}>
+                Runs in <span className="mono">{tildify(approval.cwd)}</span>
+              </span>
+            )}
             <button
               type="button"
               className="btn btn-danger btn-md"
@@ -200,7 +208,7 @@ function FileDiff({ file, defaultOpen }: { file: ApprovalFile; defaultOpen: bool
 function AnsweredLine({ approval, now }: { approval: Approval; now: number }) {
   const allowed = approval.status === 'allowed' || approval.status === 'allowed_session';
   const what =
-    approval.kind === 'command' ? (
+    approval.kind === 'command' || approval.kind === 'push' ? (
       <>
         Run <span className="mono">{approval.command}</span>
       </>

@@ -11,6 +11,8 @@ export function ApprovalToasts() {
   const navigate = useNavigate();
   const visible = (approvals.data ?? []).filter((a) => {
     const chatPath = `/p/${encodeURIComponent(a.projectId)}`;
+    // A push approval sits in the GitHub box, which every workspace tab shows.
+    if (a.kind === 'push' && location.pathname.startsWith(chatPath)) return false;
     return !(location.pathname === chatPath || location.pathname === `${chatPath}/`);
   });
   if (visible.length === 0) return null;

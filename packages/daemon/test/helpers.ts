@@ -53,6 +53,7 @@ export async function testDaemon(
   opts: {
     runner?: import('../src/claude/runner.ts').Runner;
     github?: import('../src/survey/service.ts').SurveyGitHub;
+    prList?: import('../src/projects/git-actions.ts').PrLister;
   } = {},
 ): Promise<TestDaemon> {
   const home = tempDir('apeiron-home-');
@@ -70,6 +71,7 @@ export async function testDaemon(
       owner: async () => null,
       createRepo: async () => ({ ok: false, error: 'no gh in tests' }),
     },
+    prList: opts.prList ?? (async () => ({ prs: [], error: 'no gh in tests' })),
   });
   await daemon.app.ready();
   return {

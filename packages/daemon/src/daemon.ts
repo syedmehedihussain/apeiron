@@ -15,6 +15,8 @@ import { chatRoutes } from './routes/chat.ts';
 import { calibrateRoutes } from './routes/calibrate.ts';
 import { CalibrationService } from './calibrate/service.ts';
 import { surveyRoutes } from './routes/survey.ts';
+import { gitRoutes } from './routes/git.ts';
+import { GitActions, type PrLister } from './projects/git-actions.ts';
 import { SurveyService, ghCli, type SurveyGitHub } from './survey/service.ts';
 import { ChatService } from './chat/service.ts';
 import { ApprovalBroker } from './claude/approvals.ts';
@@ -57,6 +59,8 @@ export interface DaemonOptions {
   runner?: Runner;
   /** Replace gh for the survey's "Create a private GitHub repository" (tests). */
   github?: SurveyGitHub;
+  /** Replace `gh pr list` (tests). */
+  prList?: PrLister;
 }
 
 const WEB_DIST = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../web/dist');
@@ -100,6 +104,8 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     opts.github ?? ghCli,
   );
 
+  const gitActions = new GitActions(config, hub, approvals, gitInfo, opts.prList);
+
   const app = buildServer({
     version: pkg.version,
     config,
@@ -115,6 +121,7 @@ export function createDaemon(opts: DaemonOptions): Daemon {
       chatRoutes(chat, approvals, decisions),
       calibrateRoutes(calibration),
       surveyRoutes(survey),
+      gitRoutes(gitActions),
     ],
   });
 

@@ -6,11 +6,14 @@ import {
   FileDiffSchema,
   FileViewSchema,
   GitInfoSchema,
+  GitResultSchema,
   NotesSchema,
   ProjectDetailSchema,
+  PullRequestListSchema,
   TasksFileSchema,
   TreeSchema,
 } from '@apeiron/shared';
+import { z } from 'zod';
 import { api } from './client.ts';
 import { queryClient } from './queries.ts';
 import { socket } from './socket.ts';
@@ -119,3 +122,15 @@ export function useLiveProject(id: string): void {
     };
   }, [id]);
 }
+
+export const pullProject = (id: string) =>
+  api('POST', `${base(id)}/git/pull`, undefined, GitResultSchema);
+export const pushProject = (id: string) =>
+  api('POST', `${base(id)}/git/push`, undefined, z.object({ approvalId: z.string() }));
+export const usePullRequests = (id: string, enabled: boolean) =>
+  useQuery({
+    queryKey: [...wk.git(id), 'prs'],
+    queryFn: () => api('GET', `${base(id)}/git/prs`, undefined, PullRequestListSchema),
+    enabled,
+    staleTime: 60_000,
+  });

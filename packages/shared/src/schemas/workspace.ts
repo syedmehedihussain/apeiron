@@ -99,6 +99,33 @@ export const GitInfoSchema = z.object({
 });
 export type GitInfo = z.infer<typeof GitInfoSchema>;
 
+/** One open pull request from `gh pr list`. */
+export const PullRequestSchema = z.object({
+  number: z.number(),
+  title: z.string(),
+  url: z.string(),
+  author: z.string(),
+  branch: z.string(),
+  draft: z.boolean(),
+  updatedAt: z.number(),
+});
+export type PullRequest = z.infer<typeof PullRequestSchema>;
+
+export const PullRequestListSchema = z.object({
+  prs: z.array(PullRequestSchema),
+  /** Why the list is empty when gh could not answer. */
+  error: z.string().nullable(),
+});
+export type PullRequestList = z.infer<typeof PullRequestListSchema>;
+
+/** The outcome of Pull or Push (also sent as the `git.result` event). */
+export const GitResultSchema = z.object({
+  action: z.enum(['pull', 'push']),
+  ok: z.boolean(),
+  message: z.string(),
+});
+export type GitResult = z.infer<typeof GitResultSchema>;
+
 export const ChangesSchema = z.object({
   entries: z.array(z.object({ path: z.string(), letter: GitLetterSchema })),
 });

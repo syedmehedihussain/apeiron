@@ -74,7 +74,7 @@ workspace at phase Design.
 
 ## M6 — GitHub actions
 
-- [ ] Pull (`--ff-only`), Push behind an approval, open PRs list via `gh`.
+- [x] Pull (`--ff-only`), Push behind an approval, open PRs list via `gh`.
 
 ## M7 — Background agents
 
