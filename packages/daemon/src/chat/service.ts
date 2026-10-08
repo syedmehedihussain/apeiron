@@ -13,6 +13,18 @@ import { Transcript } from '../claude/transcript.ts';
 import { readProjectFiles } from '../projects/scanner.ts';
 import { projectDir } from '../projects/workspace.ts';
 import { recordUsage } from '../usage.ts';
+import { UPLOADS_DIR, saveUpload, uploadPath } from './uploads.ts';
+
+/** Tells Claude where the attached files are; it opens them with Read (images too). */
+export function withAttachments(text: string, attachments: string[]): string {
+  if (!attachments.length) return text;
+  return [
+    text,
+    '',
+    `The user attached ${attachments.length === 1 ? 'a file' : `${attachments.length} files`}. Read ${attachments.length === 1 ? 'it' : 'them'} with the Read tool before you answer:`,
+    ...attachments.map((a) => `- ${UPLOADS_DIR}/${a}`),
+  ].join('\n');
+}
 
 export function chatSystemPrompt(phase: Phase | null): string {
   return [
@@ -158,6 +170,7 @@ export class ChatService {
     let live = this.current(projectId);
     if (live?.running)
       throw conflict('Claude is still working on the last message. Stop it first or wait.');
+    for (const a of body.attachments) uploadPath(dir, a);
     const model = body.model ?? live?.model ?? this.config.get().claude.defaultModel;
     if (!live) {
       const conversationId = randomUUID();
@@ -182,13 +195,13 @@ export class ChatService {
     const current = live;
     current.turnId = turnId;
     current.conversation.startTurn(turnId);
-    current.conversation.addUser(`u_${turnId}`, body.text);
+    current.conversation.addUser(`u_${turnId}`, body.text, body.attachments);
 
     const phase = readProjectFiles(dir).projectJson?.phase ?? null;
     let finished = false;
     const handle = this.runner({
       cwd: dir,
-      prompt: body.text,
+      prompt: withAttachments(body.text, body.attachments),
       resume: current.claudeSessionId,
       model,
       planMode: body.planMode,
@@ -244,6 +257,14 @@ export class ChatService {
       this.live.delete(projectId);
     }
     this.publishState(projectId, null);
+  }
+
+  upload(projectId: string, name: string, data: Buffer) {
+    return saveUpload(projectDir(this.config.projectsDir(), projectId), name, data);
+  }
+
+  uploadFile(projectId: string, id: string): string {
+    return uploadPath(projectDir(this.config.projectsDir(), projectId), id);
   }
 
   /** Stops every running turn (daemon shutdown). */

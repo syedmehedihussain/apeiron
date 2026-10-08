@@ -116,7 +116,14 @@ export type MagnetAction = z.infer<typeof MagnetActionSchema>;
 
 /** One row in the chat transcript. Items are upserted by id. */
 export const ChatItemSchema = z.discriminatedUnion('kind', [
-  z.object({ kind: z.literal('user'), id: z.string(), at: z.number(), text: z.string() }),
+  z.object({
+    kind: z.literal('user'),
+    id: z.string(),
+    at: z.number(),
+    text: z.string(),
+    /** File names under apeiron/uploads/ that came with the message. */
+    attachments: z.array(z.string()).optional(),
+  }),
   z.object({
     kind: z.literal('text'),
     id: z.string(),
@@ -198,12 +205,28 @@ export const ChatStateSchema = z.object({
 });
 export type ChatState = z.infer<typeof ChatStateSchema>;
 
+/** Chat attachments: at most this many files per message, each up to MAX_UPLOAD_BYTES. */
+export const MAX_ATTACHMENTS = 8;
+export const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
+
 export const ChatSendSchema = z.object({
   text: z.string().min(1).max(20_000),
   planMode: z.boolean().default(false),
   model: z.enum(['sonnet', 'opus', 'haiku']).optional(),
+  /** Stored names returned by the upload route. */
+  attachments: z.array(z.string().min(1).max(200)).max(MAX_ATTACHMENTS).default([]),
 });
 export type ChatSend = z.infer<typeof ChatSendSchema>;
+
+/** What the upload route returns for one stored file. */
+export const UploadedFileSchema = z.object({
+  /** Stored file name under apeiron/uploads/ (send this in `attachments`). */
+  id: z.string(),
+  /** Name as the user knows it. */
+  name: z.string(),
+  size: z.number(),
+});
+export type UploadedFile = z.infer<typeof UploadedFileSchema>;
 
 export const MODELS = [
   { id: 'sonnet', label: 'Sonnet' },

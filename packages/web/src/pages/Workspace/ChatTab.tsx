@@ -1,4 +1,4 @@
-import { MessageSquarePlus, RotateCcw } from 'lucide-react';
+import { FileText, MessageSquarePlus, RotateCcw } from 'lucide-react';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { ChatItem, ChatState } from '@apeiron/shared';
 import { ApiFailure } from '../../api/client.ts';
@@ -9,6 +9,10 @@ import {
   newChat,
   sendChat,
   stopChat,
+  uploadAttachment,
+  attachmentLabel,
+  attachmentUrl,
+  isImageFile,
   useChat,
   useChatDraft,
   useLiveChat,
@@ -115,11 +119,11 @@ export function ChatTab({ projectId, now }: ChatTabProps) {
     if (el) stick.current = el.scrollHeight - el.scrollTop - el.clientHeight < 80;
   };
 
-  const send = async (text: string, planMode: boolean, m: string) => {
+  const send = async (text: string, planMode: boolean, m: string, attachments: string[] = []) => {
     setError(null);
     stick.current = true;
     try {
-      await sendChat(projectId, text, planMode, m);
+      await sendChat(projectId, text, planMode, m, attachments);
       if (!state?.conversationId)
         await queryClient.invalidateQueries({ queryKey: chatKey(projectId) });
       return true;
@@ -140,7 +144,12 @@ export function ChatTab({ projectId, now }: ChatTabProps) {
           {blocks.map((b) =>
             b.t === 'user' ? (
               <div key={b.item.id} className={styles.userRow}>
-                <div className={styles.user}>{b.item.text}</div>
+                <div className={styles.user}>
+                  {b.item.attachments && b.item.attachments.length > 0 && (
+                    <Attachments projectId={projectId} files={b.item.attachments} />
+                  )}
+                  {b.item.text}
+                </div>
               </div>
             ) : (
               <ClaudeBlock
@@ -178,9 +187,37 @@ export function ChatTab({ projectId, now }: ChatTabProps) {
           onDraftUsed={() => setDraft(projectId, '')}
           onSend={send}
           onStop={() => void stopChat(projectId)}
+          onUpload={(file) => uploadAttachment(projectId, file)}
           onModel={setModel}
         />
       </div>
+    </div>
+  );
+}
+
+/** Files sent with a message: image thumbnails that open full size, other files as links. */
+function Attachments({ projectId, files }: { projectId: string; files: string[] }) {
+  return (
+    <div className={styles.attachments}>
+      {files.map((f) => (
+        <a
+          key={f}
+          href={attachmentUrl(projectId, f)}
+          target="_blank"
+          rel="noreferrer"
+          className={isImageFile(f) ? styles.attachImage : styles.attachFile}
+          title={attachmentLabel(f)}
+        >
+          {isImageFile(f) ? (
+            <img src={attachmentUrl(projectId, f)} alt={attachmentLabel(f)} loading="lazy" />
+          ) : (
+            <>
+              <FileText size={13} aria-hidden="true" />
+              <span>{attachmentLabel(f)}</span>
+            </>
+          )}
+        </a>
+      ))}
     </div>
   );
 }

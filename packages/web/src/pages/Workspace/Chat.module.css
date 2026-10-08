@@ -107,3 +107,32 @@
   margin: 0 auto;
   max-width: 420px;
 }
+.attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.attachImage img {
+  display: block;
+  max-width: 220px;
+  max-height: 160px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--b);
+  object-fit: cover;
+}
+.attachFile {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--b);
+  background: var(--s1);
+  color: var(--t1);
+  font-size: var(--fs-sm);
+}
+.attachFile:hover {
+  border-color: var(--bs);
+}

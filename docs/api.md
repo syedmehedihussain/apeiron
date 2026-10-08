@@ -57,7 +57,7 @@ the projects folder (see `security.md`).
 | Method | Path | Does |
 | --- | --- | --- |
 | GET | `/api/projects/:id/chat` | current session meta + last 200 transcript events |
-| POST | `/api/projects/:id/chat` | `{ text, planMode?, model? }` → starts a turn |
+| POST | `/api/projects/:id/chat` | `{ text, planMode?, model?, attachments? }` → starts a turn; attachments are upload ids, listed for Claude to Read |
 | POST | `/api/projects/:id/chat/stop` | interrupts the running turn |
 | POST | `/api/projects/:id/chat/new` | starts a fresh session |
 | POST | `/api/decisions/:cardId` | `{ optionId? , custom? }` answer a decision card |
@@ -67,6 +67,8 @@ the projects folder (see `security.md`).
 | Method | Path | Does |
 | --- | --- | --- |
 | GET | `/api/approvals?status=pending` | all pending approvals (for toasts) |
+| POST | `/api/projects/:id/uploads?name=` | raw file as the body (≤ 10 MB) → `{ id, name, size }`; stored in the project's `apeiron/uploads/`, and `apeiron/` is added to its `.gitignore` |
+| GET | `/api/projects/:id/uploads/:file` | the stored file; png/jpeg/gif/webp inline, everything else as a download (`nosniff`, sandbox CSP) |
 | POST | `/api/approvals/:id` | `{ answer: "allow" \| "allow_session" \| "deny", reason? }` |
 
 ## Survey

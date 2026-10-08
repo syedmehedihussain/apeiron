@@ -4,11 +4,13 @@ import { create } from 'zustand';
 import {
   ApprovalSchema,
   ChatStateSchema,
+  UploadedFileSchema,
   type Approval,
   type ApprovalAnswer,
   type ChatItem,
   type ChatState,
   type DecisionAnswer,
+  type UploadedFile,
 } from '@apeiron/shared';
 import { z } from 'zod';
 import { api } from './client.ts';
@@ -25,12 +27,47 @@ export const useChat = (id: string) =>
     queryFn: () => api('GET', `${base(id)}/chat`, undefined, ChatStateSchema),
   });
 
-export const sendChat = (id: string, text: string, planMode: boolean, model?: string) =>
+export const sendChat = (
+  id: string,
+  text: string,
+  planMode: boolean,
+  model?: string,
+  attachments: string[] = [],
+) =>
   api<{ turnId: string; conversationId: string }>('POST', `${base(id)}/chat`, {
     text,
     planMode,
     ...(model ? { model } : {}),
+    ...(attachments.length ? { attachments } : {}),
   });
+
+/** Sends one file as the raw request body; the daemon stores it under apeiron/uploads/. */
+export async function uploadAttachment(id: string, file: File): Promise<UploadedFile> {
+  const res = await fetch(`${base(id)}/uploads?name=${encodeURIComponent(file.name)}`, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: { 'content-type': 'application/octet-stream' },
+    body: file,
+  });
+  const body: unknown = await res.json().catch(() => null);
+  if (!res.ok) {
+    const msg =
+      res.status === 413
+        ? 'The file is larger than 10 MB.'
+        : ((body as { error?: { message?: string } } | null)?.error?.message ?? 'Upload failed.');
+    throw new Error(msg);
+  }
+  return UploadedFileSchema.parse(body);
+}
+
+/** Where the browser loads an attachment from (images show inline). */
+export const attachmentUrl = (id: string, file: string) =>
+  `${base(id)}/uploads/${encodeURIComponent(file)}`;
+
+/** "2026-10-09-a1b2c3-screen-shot.png" → "screen-shot.png". */
+export const attachmentLabel = (file: string) =>
+  file.replace(/^\d{4}-\d{2}-\d{2}-[0-9a-f]{6}-/, '');
+export const isImageFile = (file: string) => /\.(png|jpe?g|gif|webp)$/i.test(file);
 export const stopChat = (id: string) => api('POST', `${base(id)}/chat/stop`);
 export const newChat = async (id: string) => {
   await api('POST', `${base(id)}/chat/new`);

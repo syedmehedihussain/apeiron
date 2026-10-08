@@ -113,8 +113,14 @@ export class Conversation {
     this.o.onItem(item);
   }
 
-  addUser(id: string, text: string): void {
-    this.put({ kind: 'user', id, at: Date.now(), text });
+  addUser(id: string, text: string, attachments: string[] = []): void {
+    this.put({
+      kind: 'user',
+      id,
+      at: Date.now(),
+      text,
+      ...(attachments.length ? { attachments } : {}),
+    });
   }
 
   /** Is this path (relative to cwd, or absolute) inside the project? Symlinks resolved. */

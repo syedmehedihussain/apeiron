@@ -141,3 +141,93 @@
   font-weight: 500;
   cursor: pointer;
 }
+.box[data-dragging] {
+  border-color: var(--accent-border);
+  background: var(--accent-fill-weak);
+}
+.files {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  max-width: 240px;
+  padding: 0 4px 0 6px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--b);
+  background: var(--s2);
+  font-size: var(--fs-sm);
+}
+.file[data-status='error'] {
+  border-color: rgba(248, 81, 73, 0.35);
+}
+.thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+  flex: none;
+}
+.fileIcon {
+  color: var(--t3);
+  flex: none;
+  margin-left: 4px;
+}
+.fileName {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--t1);
+}
+.fileErr {
+  color: var(--danger-text);
+  white-space: nowrap;
+}
+.fileRemove {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--t3);
+  cursor: pointer;
+}
+.fileRemove:hover {
+  color: var(--t1);
+  background: var(--s3);
+}
+.attach {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--b);
+  background: var(--s2);
+  color: var(--t2);
+  cursor: pointer;
+}
+.attach:hover:not(:disabled) {
+  color: var(--t1);
+}
+.attach:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.fileError {
+  margin: 0;
+  padding-left: 4px;
+  font-size: var(--fs-sm);
+  color: var(--danger-text);
+}
