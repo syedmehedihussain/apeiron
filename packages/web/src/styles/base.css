@@ -1,0 +1,148 @@
+/* Shared building blocks used across screens (docs/design-system.md). */
+
+body {
+  min-height: 100vh;
+  line-height: var(--lh-body);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Buttons: primary white pill, secondary, ghost, danger. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--h-btn);
+  padding: 0 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--t1);
+  font-size: var(--fs-sm2);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.btn-sm {
+  height: var(--h-btn-sm);
+  padding: 0 12px;
+  font-size: var(--fs-sm);
+}
+.btn-md {
+  height: var(--h-btn-md);
+}
+.btn-lg {
+  height: var(--h-btn-lg);
+  padding: 0 20px;
+  font-size: var(--fs-lg);
+}
+.btn-primary {
+  background: var(--t1);
+  color: var(--t-on-primary);
+}
+.btn-primary:not(:disabled):hover {
+  background: #ffffff;
+  color: var(--t-on-primary);
+}
+.btn-secondary {
+  background: var(--s2);
+  border-color: var(--bs);
+}
+.btn-secondary:not(:disabled):hover {
+  background: var(--s3);
+  color: var(--t1);
+}
+.btn-ghost {
+  color: var(--t2);
+  padding: 0 10px;
+}
+.btn-ghost:not(:disabled):hover {
+  color: var(--t1);
+  background: var(--s2);
+}
+.btn-danger {
+  color: var(--danger-text);
+}
+.btn-danger:not(:disabled):hover {
+  border-color: var(--danger);
+  color: var(--danger-text);
+}
+.btn-icon {
+  width: var(--h-btn);
+  padding: 0;
+}
+
+/* Inputs */
+.input {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--bs);
+  background: var(--s1);
+  color: var(--t1);
+  font: inherit;
+}
+.input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Section label in sidebars */
+.label {
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--t3);
+}
+
+/* Small mono tag (stack tags, type tags) */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: var(--fs-2xs);
+  color: var(--t2);
+  background: var(--s2);
+  border: 1px solid var(--b);
+  border-radius: var(--r-sm);
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+.mono {
+  font-family: var(--mono);
+}
+
+.shimmer {
+  background: var(--s2);
+  border-radius: var(--r-md);
+  animation: ap-shimmer 1.4s var(--ease) infinite;
+}
+
+.spinner {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.6px solid currentColor;
+  border-right-color: transparent;
+  animation: ap-spin 0.8s linear infinite;
+  display: inline-block;
+}

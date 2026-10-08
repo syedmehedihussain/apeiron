@@ -1,0 +1,26 @@
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  background: rgba(248, 81, 73, 0.07);
+  border-bottom: 1px solid rgba(248, 81, 73, 0.22);
+  font-size: var(--fs-base);
+  flex-wrap: wrap;
+}
+.icon {
+  color: var(--danger);
+  flex: none;
+}
+.title {
+  color: var(--t1);
+}
+.why {
+  color: var(--t2);
+}
+.spacer {
+  flex: 1;
+}
+.fix {
+  font-weight: 500;
+}

@@ -1,9 +1,56 @@
+import { mkdirSync, rmSync } from 'node:fs';
+import path from 'node:path';
 import { DEFAULT_PORT, LOOPBACK_HOST } from '@apeiron/shared';
-import { buildServer } from './server.ts';
+import { createDaemon } from './daemon.ts';
+import { writeFileAtomic } from './fsutil.ts';
+import { apeironHome } from './paths.ts';
 
+const home = apeironHome();
 const port = Number(process.env.APEIRON_PORT ?? DEFAULT_PORT);
-const app = buildServer();
+// In development the UI is served by Vite; links and allowed origins point there.
+const webUrl = process.env.APEIRON_WEB_URL || `http://${LOOPBACK_HOST}:${port}`;
+
+const daemon = createDaemon({
+  home,
+  port,
+  extraOrigins: webUrl.endsWith(`:${port}`) ? [] : [webUrl],
+  watch: true,
+});
 
 // Loopback only (ADR-0005). Never bind 0.0.0.0.
-await app.listen({ host: LOOPBACK_HOST, port });
+await daemon.app.listen({ host: LOOPBACK_HOST, port });
+
+const runDir = path.join(home, 'run');
+const runFile = path.join(runDir, 'daemon.json');
+mkdirSync(runDir, { recursive: true, mode: 0o700 });
+writeFileAtomic(
+  runFile,
+  JSON.stringify(
+    { pid: process.pid, port, webUrl, startedAt: Date.now(), cliSecret: daemon.cliSecret },
+    null,
+    2,
+  ),
+  0o600,
+);
+
+void daemon.projects.list();
+void daemon.health.get();
+
 console.log(`apeiron daemon on http://${LOOPBACK_HOST}:${port}`);
+if (process.env.APEIRON_PRINT_LOGIN) {
+  console.log(`Open Apeiron: ${webUrl}/#login=${daemon.auth.issueLoginCode()}`);
+}
+
+let stopping = false;
+async function stop() {
+  if (stopping) return;
+  stopping = true;
+  try {
+    rmSync(runFile, { force: true });
+    await daemon.close();
+  } finally {
+    process.exit(0);
+  }
+}
+process.on('SIGTERM', () => void stop());
+process.on('SIGINT', () => void stop());

@@ -14,10 +14,10 @@ streaming, and SQLite only for the app's own cache. This ADR pins the libraries.
 | Part | Choice | Why |
 | --- | --- | --- |
 | Monorepo | pnpm workspaces | simple, fast, no extra tool |
-| Server | Fastify + `@fastify/websocket` | small, typed, `inject` for tests |
+| Server | Fastify + `@fastify/websocket`, `@fastify/cookie`, `@fastify/static` | small, typed, `inject` for tests; cookie for ADR-0008; static serves the built UI |
 | Validation | zod (shared package) | one schema for daemon and UI |
 | Cache | better-sqlite3 + plain SQL migrations | sync API, one file, no ORM needed |
-| Git | `simple-git` + direct `git` calls for worktrees | well tested |
+| Git | direct `git` calls (`execFile`, porcelain v2) | no wrapper needed; one parser, easy to test |
 | UI | React 19 + Vite + React Router | standard |
 | UI state | TanStack Query (server state) + Zustand (UI state) | small |
 | Styling | plain CSS modules + `tokens.css` | the design is custom; no UI kit to fight |

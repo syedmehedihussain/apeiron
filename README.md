@@ -10,7 +10,7 @@ computer at `127.0.0.1`, reads your `~/Projects` folder, and drives your local `
 It is not a code editor and not a vibe-coding tool. You read code and docs here, you make the
 decisions here, and Claude does the typing — only after you approve.
 
-**Status:** Plan phase done on paper. Milestone 0 (repo setup) is next.
+**Status:** M0 and M1 done: `apeiron` starts the daemon and Home lists your projects.
 See [`docs/roadmap.md`](docs/roadmap.md).
 
 ## Names
@@ -37,4 +37,13 @@ See [`docs/roadmap.md`](docs/roadmap.md).
 pnpm install
 pnpm dev            # daemon on 127.0.0.1:4317 + web UI with hot reload
 pnpm apeiron        # the real CLI: start the daemon, print the link, open the browser
+```
+
+## Install the `apeiron` command
+
+```bash
+mise install             # Node 22 + pnpm from mise.toml
+pnpm install
+./scripts/install-cli.sh # puts `apeiron` in ~/.local/bin
+apeiron                  # start, print the login link, open the browser
 ```

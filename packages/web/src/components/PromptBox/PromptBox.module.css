@@ -1,0 +1,114 @@
+.box {
+  width: 100%;
+  max-width: var(--prompt-max);
+  background: var(--s1);
+  border: 1px solid var(--bs);
+  border-radius: var(--r-3xl);
+  padding: 16px 14px 12px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+.box[data-disabled] {
+  opacity: 0.6;
+  border-color: var(--b);
+}
+.text {
+  resize: none;
+  background: transparent;
+  border: 0;
+  color: var(--t1);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 0;
+}
+.text:focus-visible {
+  outline: none;
+}
+.text::placeholder {
+  color: var(--t3);
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 11px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--b);
+  background: var(--s2);
+  color: var(--t2);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+.chip:not(:disabled):hover {
+  color: var(--t1);
+}
+.chip[aria-pressed='true'] {
+  border-color: rgba(91, 141, 239, 0.5);
+  background: rgba(91, 141, 239, 0.14);
+  color: var(--accent-text-strong);
+}
+.chip:disabled {
+  cursor: not-allowed;
+}
+.spacer {
+  flex: 1;
+}
+.send {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-pill);
+  border: 0;
+  background: var(--t1);
+  color: var(--t-on-primary);
+  cursor: pointer;
+}
+.send:disabled {
+  background: var(--s3);
+  color: var(--t3);
+  cursor: not-allowed;
+}
+.picker {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.folder {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--t1);
+  text-align: left;
+  cursor: pointer;
+}
+.folder:hover {
+  background: var(--s2);
+}
+.folderState {
+  margin-left: auto;
+  font-size: var(--fs-sm);
+  color: var(--t3);
+}
+.none {
+  font-size: var(--fs-sm2);
+  color: var(--t3);
+  padding: 4px 0;
+}

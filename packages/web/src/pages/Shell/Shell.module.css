@@ -1,0 +1,31 @@
+.gate {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  text-align: center;
+  background: var(--home-glow), var(--bg);
+}
+.gate h1 {
+  margin: 8px 0 0;
+  font-size: var(--fs-3xl);
+  font-weight: 600;
+  letter-spacing: var(--tracking-display);
+}
+.gate p {
+  margin: 0;
+  max-width: 460px;
+  color: var(--t2);
+  font-size: var(--fs-lg);
+}
+.gate code {
+  font-size: 13px;
+  background: var(--s2);
+  border: 1px solid var(--b);
+  border-radius: var(--r-sm);
+  padding: 1px 6px;
+  color: var(--t1);
+}

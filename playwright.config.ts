@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import { defineConfig, devices } from '@playwright/test';
+import { E2E_DAEMON_PORT, E2E_WEB_PORT } from './packages/web/e2e/fixture.ts';
 
 // Locally we use the system Chromium; CI installs Playwright's own build.
 const systemChromium = '/usr/bin/chromium';
@@ -12,7 +13,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   use: {
-    baseURL: 'http://127.0.0.1:5173',
+    baseURL: `http://127.0.0.1:${E2E_WEB_PORT}`,
     trace: 'on-first-retry',
   },
   projects: [
@@ -25,9 +26,19 @@ export default defineConfig({
       },
     },
   ],
-  webServer: {
-    command: 'pnpm --filter @apeiron/web dev',
-    url: 'http://127.0.0.1:5173',
-    reuseExistingServer: !process.env.CI,
-  },
+  webServer: [
+    {
+      command: 'node --import tsx packages/web/e2e/start-daemon.ts',
+      url: `http://127.0.0.1:${E2E_DAEMON_PORT}/api/health`,
+      ignoreHTTPSErrors: true,
+      reuseExistingServer: false,
+    },
+    {
+      command: 'pnpm --filter @apeiron/web dev',
+      url: `http://127.0.0.1:${E2E_WEB_PORT}`,
+      reuseExistingServer: false,
+      env: { APEIRON_PORT: String(E2E_DAEMON_PORT), APEIRON_WEB_PORT: String(E2E_WEB_PORT) },
+    },
+  ],
+  workers: 1,
 });

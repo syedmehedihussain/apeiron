@@ -5,7 +5,7 @@ every box in its **Done when** list is ticked and `pnpm test` passes.
 
 ## M0 — Preparation (repo setup)
 
-- [ ] Create `syedmehedihussain/apeiron`, push these docs (MIT, ADR-0007).
+- [x] Create `syedmehedihussain/apeiron`, push these docs (MIT, ADR-0007).
 - [x] pnpm workspace with `cli`, `daemon`, `web`, `shared`; TS strict; ESLint + Prettier.
 - [x] Vitest in every package; Playwright set up with the preinstalled Chromium.
 - [x] GitHub Actions: lint, typecheck, test on push and PR.
@@ -17,13 +17,13 @@ every box in its **Done when** list is ticked and `pnpm test` passes.
 
 ## M1 — Daemon and Home
 
-- [ ] `apeiron` (= `up`) / `down` / `status` / `logout`, `daemon.json`, login link + session cookie (ADR-0008), Host/Origin checks.
-- [ ] `ProjectScanner`: classify folders, parse `project.json` + `STATUS.md`, git summary.
-- [ ] SQLite cache + migrations; `projects.md` generator for Magnet.
-- [ ] `GET /api/projects`, `/api/health`, WebSocket with `projects.updated`.
-- [ ] Home: prompt box (UI only), Recent cards, All projects table, search, sort.
-- [ ] Claude Code check + first-run banner; empty folder state.
-- [ ] File watcher → live updates.
+- [x] `apeiron` (= `up`) / `down` / `status` / `logout`, `daemon.json`, login link + session cookie (ADR-0008), Host/Origin checks.
+- [x] `ProjectScanner`: classify folders, parse `project.json` + `STATUS.md`, git summary.
+- [x] SQLite cache + migrations; `projects.md` generator for Magnet.
+- [x] `GET /api/projects`, `/api/health`, WebSocket with `projects.updated`.
+- [x] Home: prompt box (UI only), Recent cards, All projects table, search, sort.
+- [x] Claude Code check + first-run banner; empty folder state.
+- [x] File watcher → live updates.
 
 **Done when:** `apeiron` opens Home listing your real `~/Projects` with correct badges, phases
 and git chips, in under 2 s.

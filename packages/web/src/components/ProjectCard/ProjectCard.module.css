@@ -1,0 +1,68 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 196px;
+  padding: 16px;
+  border-radius: var(--r-xl);
+  background: var(--s1);
+  border: 1px solid var(--b);
+  color: var(--t1);
+  transition:
+    background var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+a.card:hover {
+  background: var(--s2);
+  border-color: var(--bs);
+  color: var(--t1);
+}
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.name {
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.summary {
+  flex: 1;
+  font-size: var(--fs-base);
+  color: var(--t2);
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.muted {
+  color: var(--t3);
+}
+.next {
+  font-size: var(--fs-sm2);
+  color: var(--t2);
+  border-top: 1px solid var(--b);
+  padding-top: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.nextText {
+  color: var(--t1);
+}
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.last {
+  font-size: var(--fs-sm);
+  color: var(--t3);
+  white-space: nowrap;
+}
