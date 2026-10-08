@@ -1,0 +1,131 @@
+.md {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #d4d4d8;
+  text-wrap: pretty;
+}
+.md h1 {
+  font-size: var(--fs-3xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--t1);
+  margin: 0 0 12px;
+}
+.md h2 {
+  font-size: var(--fs-2xl);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  color: var(--t1);
+  margin: 30px 0 10px;
+}
+.md h3 {
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  color: var(--t1);
+  margin: 24px 0 8px;
+}
+.md h4 {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  color: var(--t1);
+  margin: 20px 0 6px;
+}
+.md p {
+  margin: 0 0 12px;
+}
+.md ul,
+.md ol {
+  margin: 0 0 12px;
+  padding-left: 22px;
+}
+.md li {
+  margin: 2px 0;
+}
+.md li:has(> .check) {
+  list-style: none;
+  margin-left: -20px;
+}
+.md code {
+  font-family: var(--mono);
+  font-size: 13px;
+  background: var(--s2);
+  padding: 2px 6px;
+  border-radius: 5px;
+  color: var(--t1);
+}
+.md pre {
+  background: var(--code-bg);
+  border: 1px solid var(--b);
+  border-radius: var(--r-lg);
+  padding: 12px 14px;
+  overflow-x: auto;
+  margin: 0 0 14px;
+}
+.md pre code {
+  background: none;
+  padding: 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--t-code);
+}
+.md blockquote {
+  margin: 0 0 12px;
+  padding: 2px 14px;
+  border-left: 2px solid var(--bs);
+  color: var(--t2);
+}
+.md table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--b);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin: 0 0 16px;
+  font-size: 13.5px;
+  display: block;
+  overflow-x: auto;
+}
+.md th {
+  background: var(--s1);
+  text-align: left;
+  padding: 10px 14px;
+  font-weight: 500;
+  color: var(--t2);
+  font-size: var(--fs-sm);
+}
+.md td {
+  padding: 10px 14px;
+  border-top: 1px solid var(--b);
+  vertical-align: top;
+}
+.md hr {
+  border: 0;
+  height: 1px;
+  background: var(--b);
+  margin: 22px 0;
+}
+.md img {
+  max-width: 100%;
+}
+.adr {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 1px 7px;
+  border-radius: var(--r-sm);
+  background: var(--accent-fill-weak);
+  border: 1px solid rgba(91, 141, 239, 0.3);
+  color: var(--accent-text);
+  white-space: nowrap;
+}
+.adr[data-missing] {
+  color: var(--t2);
+  border-color: var(--b);
+  background: var(--s2);
+}
+.check {
+  margin-right: 8px;
+  accent-color: var(--success);
+}

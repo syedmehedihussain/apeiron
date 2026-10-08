@@ -1,0 +1,119 @@
+.viewer {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+.bar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--b);
+  flex-wrap: wrap;
+}
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: var(--fs-sm2);
+  color: var(--t3);
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.leaf {
+  color: var(--t1);
+}
+.readonly {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--bs);
+  font-size: var(--fs-xs);
+  color: var(--t2);
+}
+.meta {
+  font-size: var(--fs-sm);
+  color: var(--t3);
+}
+.spacer {
+  flex: 1;
+}
+.counts {
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+}
+.add {
+  color: var(--success);
+}
+.del {
+  color: var(--danger);
+}
+.code {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background: #0e0e10;
+}
+.code:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.lines {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 22px;
+  padding: 12px 0 40px;
+  white-space: pre;
+  min-width: max-content;
+  color: var(--t-code);
+}
+.line {
+  display: flex;
+  padding-right: 24px;
+}
+.line[data-kind='+'] {
+  background: rgba(63, 185, 80, 0.1);
+  box-shadow: inset 2px 0 0 var(--success);
+}
+.line[data-kind='-'] {
+  background: rgba(248, 81, 73, 0.1);
+  box-shadow: inset 2px 0 0 var(--danger);
+}
+.num {
+  width: 44px;
+  flex: none;
+  text-align: right;
+  padding-right: 12px;
+  color: #5f5f68;
+  user-select: none;
+}
+.lines[data-diff] .num {
+  padding-right: 8px;
+}
+.sign {
+  width: 18px;
+  flex: none;
+  user-select: none;
+}
+.line[data-kind='+'] .sign {
+  color: var(--success);
+}
+.line[data-kind='-'] .sign {
+  color: var(--danger);
+}
+.message {
+  padding: 32px 24px;
+  color: var(--t2);
+  margin: 0;
+}
+.loading {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}

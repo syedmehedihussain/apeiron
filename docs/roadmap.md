@@ -30,13 +30,13 @@ and git chips, in under 2 s.
 
 ## M2 — Workspace, read-only
 
-- [ ] Workspace shell (top bar with phase bar, 280 | centre | 360).
-- [ ] File tree with git letters, filters, ignored folders.
-- [ ] File viewer with syntax highlight (Shiki) and **Show changes**.
-- [ ] Docs tab: grouped list + Markdown reader (with ADR links).
-- [ ] Status block from `STATUS.md`.
-- [ ] GitHub box (read only: branch, ahead/behind, commits, PR count).
-- [ ] **Open in editor**.
+- [x] Workspace shell (top bar with phase bar, 280 | centre | 360).
+- [x] File tree with git letters, filters, ignored folders.
+- [x] File viewer with syntax highlight (Shiki) and **Show changes**.
+- [x] Docs tab: grouped list + Markdown reader (with ADR links).
+- [x] Status block from `STATUS.md`.
+- [x] GitHub box (read only: branch, ahead/behind, commits, PR count).
+- [x] **Open in editor**.
 
 **Done when:** you can browse any Ready or cctop project's files and docs without a terminal.
 

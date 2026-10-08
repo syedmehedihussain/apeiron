@@ -8,7 +8,9 @@ import { openDb, type Db } from './db.ts';
 import { EventHub } from './events.ts';
 import { HealthService } from './health-service.ts';
 import { ensureMagnetFiles } from './magnet/files.ts';
+import { GitInfoService } from './projects/github.ts';
 import { ProjectService } from './projects/service.ts';
+import { workspaceRoutes } from './routes/workspace.ts';
 import { buildServer } from './server.ts';
 import { watchProjects } from './watcher.ts';
 import pkg from '../package.json' with { type: 'json' };
@@ -50,6 +52,7 @@ export function createDaemon(opts: DaemonOptions): Daemon {
   const health = new HealthService(pkg.version, config, hub, opts.healthCheck);
   const projects = new ProjectService(config, db, hub, opts.home);
   const cliSecret = newCliSecret();
+  const gitInfo = new GitInfoService();
 
   const app = buildServer({
     version: pkg.version,
@@ -61,10 +64,16 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     cliSecret,
     origins: [`http://127.0.0.1:${opts.port}`, ...(opts.extraOrigins ?? [])],
     webDist: WEB_DIST,
+    routes: [workspaceRoutes(config, gitInfo)],
   });
 
   const watcher = opts.watch
-    ? watchProjects(config.projectsDir(), () => void projects.rescan())
+    ? watchProjects(config.projectsDir(), (ids) => {
+        void projects.rescan();
+        for (const id of ids) {
+          hub.publish(`project:${id}`, 'project.changed', { projectId: id, paths: [] });
+        }
+      })
     : null;
 
   return {

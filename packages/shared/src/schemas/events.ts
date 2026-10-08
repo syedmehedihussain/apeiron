@@ -16,6 +16,8 @@ export type ClientMessage = z.infer<typeof ClientMessageSchema>;
 export interface EventMap {
   'projects.updated': { cards: z.infer<typeof ProjectCardSchema>[] };
   'health.updated': z.infer<typeof HealthSchema>;
+  /** Files changed on disk in a project (tree, git, open file may be stale). */
+  'project.changed': { projectId: string; paths: string[] };
 }
 export type EventType = keyof EventMap;
 export type ServerEvent = {
