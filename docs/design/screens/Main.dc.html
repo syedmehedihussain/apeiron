@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Workspace — core</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0B0C}
+*{box-sizing:border-box}
+:root{--bg:#0B0B0C;--s1:#141416;--s2:#1C1C1F;--s3:#26262A;--b:rgba(255,255,255,0.08);--bs:rgba(255,255,255,0.14);--t1:#EDEDEF;--t2:#A1A1AA;--t3:#85858F;--ac:#5B8DEF;--act:#8DB0F4;--ok:#3FB950;--warn:#D29922;--bad:#F85149;--pu:#A371F7;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--mono:'Geist Mono',ui-monospace,Menlo,monospace}
+a{color:#8DB0F4;text-decoration:none}a:hover{color:#B3CBF8}
+button{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #5B8DEF;outline-offset:2px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{opacity:.35}}
+</style>
+</helmet>
+<div style="height: 100vh; min-height: 900px; width: 100%; display: flex; flex-direction: column; background: var(--bg); color: var(--t1); font-family: var(--sans); font-size: 13px; overflow: hidden">
+
+<header style="height: 56px; flex: none; display: flex; align-items: center; gap: 16px; padding: 0 16px 0 20px; border-bottom: 1px solid var(--b)">
+  <div style="flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 10px">
+    <a href="Home.dc.html" aria-label="Harness home" style="display: flex; align-items: center; gap: 10px; color: var(--t1)">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="22" height="22" rx="7" fill="#EDEDEF"></rect><path d="M8 7v10M16 7v10M8 12h8" stroke="#0B0B0C" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      <span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">Harness</span>
+    </a>
+    <span style="color: var(--t3)">/</span>
+    <a href="Home.dc.html" style="color: var(--t2)">Projects</a>
+    <span style="color: var(--t3)">/</span>
+    <span style="color: var(--t1); font-weight: 500">core</span>
+  </div>
+  <nav aria-label="Project phase" style="display: flex; align-items: center; gap: 4px">
+    <span style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: var(--s3); color: var(--t2); font-size: 12px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Plan</span>
+    <span style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: var(--s3); color: var(--t2); font-size: 12px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Design</span>
+    <span style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: var(--s3); color: var(--t2); font-size: 12px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Preparation</span>
+    <span aria-current="step" style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 12px; border-radius: 999px; background: rgba(91,141,239,0.16); border: 1px solid rgba(91,141,239,0.55); color: #B3CBF8; font-size: 12px; font-weight: 500"><span style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF"></span>Development</span>
+    <span style="display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px dashed var(--bs); color: var(--t3); font-size: 12px">Deployment</span>
+  </nav>
+  <div style="flex: 1 1 0; display: flex; justify-content: flex-end; align-items: center; gap: 8px">
+    <span style="display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--t2); padding-right: 6px"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3FB950; box-shadow: 0 0 0 3px rgba(63,185,80,0.18)"></span>Claude Code</span>
+    <a href="Settings.dc.html" aria-label="Settings" style="width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; color: var(--t2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"></path><circle cx="15" cy="6" r="2"></circle><circle cx="9" cy="12" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></a>
+    <button aria-label="Open Magnet" style="width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); cursor: pointer; padding: 0">
+      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4.5V2.2" stroke="#5B8DEF" stroke-width="1.6" stroke-linecap="round"></path><circle cx="16" cy="2" r="1.4" fill="#5B8DEF"></circle><rect x="6.5" y="4.5" width="19" height="12" rx="6" fill="#E6EAF2"></rect><rect x="9" y="7" width="14" height="7" rx="3.5" fill="#101320"></rect><circle cx="13.2" cy="10.5" r="1.4" fill="#8DB0F4"></circle><circle cx="18.8" cy="10.5" r="1.4" fill="#8DB0F4"></circle><path d="M10.5 18h11l-1.5 6.5h-8z" fill="#3A4A6B"></path><path d="M13.5 18.2l2.5 1.3 2.5-1.3v2.6l-2.5-1.3-2.5 1.3z" fill="#E6EAF2"></path><circle cx="16" cy="27.5" r="3.5" fill="#1C1C1F" stroke="#5B8DEF" stroke-width="1.6"></circle><circle cx="16" cy="27.5" r="1" fill="#5B8DEF"></circle></svg>
+    </button>
+  </div>
+</header>
+
+<div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 280px minmax(0, 1fr) 360px">
+
+  <aside aria-label="Files" style="border-right: 1px solid var(--b); display: flex; flex-direction: column; min-height: 0">
+    <div style="height: 48px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 0 8px 0 16px; border-bottom: 1px solid var(--b)">
+      <div style="display: flex; align-items: baseline; gap: 8px; min-width: 0">
+        <span style="font-weight: 600; font-size: 13px">core</span>
+        <span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">~/Projects/core</span>
+      </div>
+      <button aria-label="Project menu" style="width: 32px; height: 32px; display: grid; place-items: center; border: 0; background: transparent; border-radius: 8px; color: var(--t2); cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="19" cy="12" r="1.6"></circle></svg></button>
+    </div>
+    <div style="flex: 1; overflow: auto; padding: 10px 8px">
+      <div style="padding: 4px 8px 6px; font-size: 11px; font-weight: 500; color: var(--t3); letter-spacing: 0.04em; text-transform: uppercase">Project files</div>
+      <sc-for list="{{pinned}}" as="r" hint-placeholder-count="3">
+        <button style="{{r.style}}">
+          <span style="width: 14px; flex: none; display: grid; place-items: center; color: var(--t3)"><sc-if value="{{r.folder}}" hint-placeholder-val="{{false}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="{{r.chev}}" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></sc-if></span>
+          <span style="width: 30px; flex: none; font-family: var(--mono); font-size: 10px; color: var(--t3)"><sc-if value="{{r.file}}" hint-placeholder-val="{{true}}">{{r.tag}}</sc-if><sc-if value="{{r.folder}}" hint-placeholder-val="{{false}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></sc-if></span>
+          <span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{r.name}}</span>
+          <sc-if value="{{r.touched}}" hint-placeholder-val="{{false}}"><span title="Touched by Claude this session" style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF; flex: none"></span></sc-if>
+          <span style="{{r.gitStyle}}">{{r.git}}</span>
+        </button>
+      </sc-for>
+      <div style="height: 1px; background: var(--b); margin: 10px 8px"></div>
+      <sc-for list="{{tree}}" as="r" hint-placeholder-count="16">
+        <button style="{{r.style}}">
+          <span style="width: 14px; flex: none; display: grid; place-items: center; color: var(--t3)"><sc-if value="{{r.folder}}" hint-placeholder-val="{{false}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="{{r.chev}}" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></sc-if></span>
+          <span style="width: 30px; flex: none; font-family: var(--mono); font-size: 10px; color: var(--t3)"><sc-if value="{{r.file}}" hint-placeholder-val="{{true}}">{{r.tag}}</sc-if><sc-if value="{{r.folder}}" hint-placeholder-val="{{false}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></sc-if></span>
+          <span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{r.name}}</span>
+          <sc-if value="{{r.touched}}" hint-placeholder-val="{{false}}"><span title="Touched by Claude this session" style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF; flex: none"></span></sc-if>
+          <span style="{{r.gitStyle}}">{{r.git}}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="flex: none; border-top: 1px solid var(--b); padding: 10px 16px; display: flex; gap: 14px; font-size: 11.5px; color: var(--t3)">
+      <span style="display: flex; align-items: center; gap: 5px"><span style="font-family: var(--mono); color: #D29922; font-weight: 500">M</span>3 modified</span>
+      <span style="display: flex; align-items: center; gap: 5px"><span style="font-family: var(--mono); color: #3FB950; font-weight: 500">A</span>1 added</span>
+      <span style="display: flex; align-items: center; gap: 5px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF"></span>Claude touched</span>
+    </div>
+  </aside>
+
+  <section aria-label="Session" style="display: flex; flex-direction: column; min-width: 0; min-height: 0">
+    <div style="padding: 16px 24px 0; flex: none">
+      <div style="background: var(--s1); border: 1px solid var(--b); border-radius: 12px; padding: 14px 16px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 28px; align-items: start">
+        <div>
+          <div style="font-size: 12px; color: var(--t3); font-weight: 500">Where we left off</div>
+          <p style="margin: 6px 0 0; font-size: 13px; line-height: 1.55; color: var(--t1); text-wrap: pretty">Finished the Living Room floor and the HUD. The XP counter works but streaks are not saved yet.</p>
+        </div>
+        <div>
+          <div style="font-size: 12px; color: var(--t3); font-weight: 500">Next steps</div>
+          <div style="margin-top: 6px; display: flex; flex-direction: column; gap: 5px">
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--t1)"><input type="checkbox" style="appearance: none; width: 14px; height: 14px; margin: 0; border: 1.5px solid #5B8DEF; border-radius: 4px; flex: none">Save streaks in the database</label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--t2)"><input type="checkbox" style="appearance: none; width: 14px; height: 14px; margin: 0; border: 1.5px solid var(--bs); border-radius: 4px; flex: none">Build the Study Room floor with three project desks</label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--t2)"><input type="checkbox" style="appearance: none; width: 14px; height: 14px; margin: 0; border: 1.5px solid var(--bs); border-radius: 4px; flex: none">Hook Magnet up to the local Claude CLI</label>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px; white-space: nowrap">
+          <span style="font-size: 12px; color: var(--t3)">Updated 2 h ago</span>
+          <button style="border: 0; background: transparent; padding: 4px 0; color: #8DB0F4; font-size: 12.5px; font-weight: 500; cursor: pointer">Update status</button>
+        </div>
+      </div>
+    </div>
+
+    <nav aria-label="Workspace tabs" style="flex: none; display: flex; align-items: center; gap: 4px; padding: 0 24px; margin-top: 12px; border-bottom: 1px solid var(--b)">
+      <a href="Main.dc.html" aria-current="page" style="padding: 11px 12px; font-weight: 500; color: var(--t1); border-bottom: 2px solid #EDEDEF; margin-bottom: -1px">Chat</a>
+      <a href="Workspace-Docs.dc.html" style="padding: 11px 12px; font-weight: 500; color: var(--t2); border-bottom: 2px solid transparent; margin-bottom: -1px">Docs</a>
+      <a href="#notes" style="padding: 11px 12px; font-weight: 500; color: var(--t2); border-bottom: 2px solid transparent; margin-bottom: -1px">Notes &amp; Tasks</a>
+      <span style="flex: 1"></span>
+      <span style="font-size: 12px; color: var(--t3); font-family: var(--mono)">session 14 · 38 min</span>
+    </nav>
+
+    <div style="flex: 1; min-height: 0; overflow: auto">
+      <div style="max-width: 760px; margin: 0 auto; padding: 24px 24px 16px; display: flex; flex-direction: column; gap: 18px">
+
+        <div style="display: flex; justify-content: flex-end">
+          <div style="max-width: 70%; background: var(--s2); border: 1px solid var(--b); border-radius: 14px 14px 4px 14px; padding: 10px 14px; font-size: 14px; line-height: 1.55">Let's save streaks properly. Where should they live?</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="font-size: 12px; color: var(--t3); font-weight: 500">Claude</div>
+          <p style="margin: 0; font-size: 14px; line-height: 1.65; color: var(--t1); text-wrap: pretty">Streaks need to survive restarts, so they belong in the database. I read the current schema and the services first.</p>
+
+          <div style="background: var(--s1); border: 1px solid var(--b); border-radius: 12px; padding: 4px 12px 6px">
+            <button style="display: flex; align-items: center; gap: 6px; height: 30px; border: 0; background: transparent; padding: 0; color: var(--t2); font-size: 12px; cursor: pointer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>Read 3 files</button>
+            <div style="position: relative; display: grid; grid-template-columns: 20px auto minmax(0, 1fr) auto; gap: 10px; align-items: center; height: 32px">
+              <span style="position: absolute; left: 9.5px; top: 25px; width: 1px; height: 14px; background: var(--bs)"></span>
+              <span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.06); color: var(--t3); display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
+              <span style="font-weight: 500">Read</span>
+              <span style="font-family: var(--mono); font-size: 12px; color: var(--t2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">lib/db/schema.sqlite.ts</span>
+              <span style="font-size: 12px; color: var(--t3)">212 lines</span>
+            </div>
+            <div style="position: relative; display: grid; grid-template-columns: 20px auto minmax(0, 1fr) auto; gap: 10px; align-items: center; height: 32px">
+              <span style="position: absolute; left: 9.5px; top: 25px; width: 1px; height: 14px; background: var(--bs)"></span>
+              <span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.06); color: var(--t3); display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
+              <span style="font-weight: 500">Read</span>
+              <span style="font-family: var(--mono); font-size: 12px; color: var(--t2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">lib/services/project.ts</span>
+              <span style="font-size: 12px; color: var(--t3)">148 lines</span>
+            </div>
+            <div style="position: relative; display: grid; grid-template-columns: 20px auto minmax(0, 1fr) auto; gap: 10px; align-items: center; height: 32px">
+              <span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.06); color: var(--t3); display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
+              <span style="font-weight: 500">Read</span>
+              <span style="font-family: var(--mono); font-size: 12px; color: var(--t2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">docs/03-data-model.md</span>
+              <span style="font-size: 12px; color: var(--t3)">96 lines</span>
+            </div>
+          </div>
+
+          <p style="margin: 0; font-size: 14px; line-height: 1.65; color: var(--t1)">There are two clean ways to do this. Which do you prefer?</p>
+        </div>
+
+        <sc-if value="{{open}}" hint-placeholder-val="{{true}}">
+          <div role="group" aria-labelledby="dq" style="background: var(--s1); border: 1px solid var(--bs); border-radius: 14px; overflow: hidden">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 0">
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--t2)">
+                <span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(91,141,239,0.16); color: #8DB0F4; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v6a6 6 0 0 0 6 6h6M14 11l4 4-4 4"></path></svg></span>
+                Decision · Data model
+              </div>
+              <span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #D29922; background: rgba(210,153,34,0.12)"><span style="width: 6px; height: 6px; border-radius: 50%; background: #D29922"></span>Waiting for you</span>
+            </div>
+            <div style="padding: 10px 16px 0">
+              <h3 id="dq" style="margin: 0; font-size: 16px; font-weight: 600; letter-spacing: -0.01em">How should streaks be stored?</h3>
+              <p style="margin: 4px 0 0; font-size: 13px; color: var(--t2)">You said: streaks must survive restarts. Core has a “no background job” rule.</p>
+            </div>
+            <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+              <sc-for list="{{opts}}" as="o" hint-placeholder-count="2">
+                <button onClick="{{o.pick}}" aria-pressed="{{o.sel}}" style="{{o.style}}">
+                  <span style="{{o.radio}}"><sc-if value="{{o.sel}}" hint-placeholder-val="{{false}}"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5B8DEF"></span></sc-if></span>
+                  <span style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+                    <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+                      <span style="font-size: 14px; font-weight: 500">{{o.title}}</span>
+                      <sc-if value="{{o.rec}}" hint-placeholder-val="{{false}}"><span style="height: 20px; padding: 0 8px; border-radius: 999px; font-size: 11px; font-weight: 500; color: #B3CBF8; background: rgba(91,141,239,0.16); display: inline-flex; align-items: center">Recommended</span></sc-if>
+                    </span>
+                    <span style="font-size: 13px; color: var(--t2)">{{o.benefit}}</span>
+                    <span style="font-size: 12.5px; color: var(--t3)">Trade-off: {{o.trade}}</span>
+                  </span>
+                </button>
+              </sc-for>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 8px 14px; border: 1px dashed var(--bs); border-radius: 10px">
+                <span style="width: 16px; height: 16px; flex: none; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.28)"></span>
+                <label for="else" style="font-size: 13px; color: var(--t2); white-space: nowrap">Something else…</label>
+                <input id="else" placeholder="Describe another approach" style="flex: 1; min-width: 0; height: 30px; background: transparent; border: 0; color: var(--t1); font: inherit; font-size: 13px">
+              </div>
+            </div>
+            <sc-if value="{{why}}" hint-placeholder-val="{{false}}">
+              <div style="margin: 0 16px 14px; padding: 12px 14px; background: var(--s2); border-radius: 10px; font-size: 13px; line-height: 1.6; color: var(--t2)">Core's rules say no background jobs, and every action is already logged in the activity table. Working the streak out from that log means there is nothing extra to keep in sync. The cost is one small query per page load.</div>
+            </sc-if>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-top: 1px solid var(--b)">
+              <button onClick="{{toggleWhy}}" aria-expanded="{{why}}" style="display: flex; align-items: center; gap: 6px; border: 0; background: transparent; padding: 0; color: var(--t2); font-size: 13px; cursor: pointer">Why Claude recommends it<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="{{whyChev}}" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+              <div style="display: flex; gap: 8px">
+                <button style="height: 36px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); font-size: 13px; font-weight: 500; cursor: pointer">Answer in chat</button>
+                <button onClick="{{confirm}}" style="{{confirmStyle}}">Confirm<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{done}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--b); border-radius: 12px; background: var(--s1); font-size: 13px">
+            <span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(63,185,80,0.14); color: #3FB950; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>
+            <span style="color: var(--t2)">Streaks:</span><span style="font-weight: 500">{{chosen}}</span>
+            <span style="flex: 1"></span>
+            <button onClick="{{reset}}" style="border: 0; background: transparent; color: #8DB0F4; font-size: 13px; cursor: pointer; padding: 4px">Change</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+
+    <div style="flex: none; padding: 0 24px 20px">
+      <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--t3)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"></path></svg>Claude reads <span style="font-family: var(--mono); color: var(--t2)">CLAUDE.md</span> and <span style="font-family: var(--mono); color: var(--t2)">STATUS.md</span> first.</div>
+        <div style="background: var(--s1); border: 1px solid var(--bs); border-radius: 16px; padding: 12px 12px 10px 16px; display: flex; flex-direction: column; gap: 10px">
+          <label for="composer" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Message Claude</label>
+          <textarea id="composer" rows="2" placeholder="Reply to Claude, or describe the next task…" style="resize: none; background: transparent; border: 0; color: var(--t1); font: inherit; font-size: 14px; line-height: 1.5; padding: 2px 0"></textarea>
+          <div style="display: flex; align-items: center; gap: 6px">
+            <button aria-pressed="false" style="display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--b); background: var(--s2); color: var(--t2); font-size: 12px; cursor: pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"></path></svg>Plan mode</button>
+            <button style="display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--b); background: var(--s2); color: var(--t2); font-size: 12px; cursor: pointer">Sonnet<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+            <button aria-label="Attach file" style="width: 30px; height: 30px; display: grid; place-items: center; border-radius: 999px; border: 0; background: transparent; color: var(--t2); cursor: pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11l-8.5 8.5a5 5 0 0 1-7-7L13 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L14 7"></path></svg></button>
+            <span style="flex: 1"></span>
+            <button aria-label="Send" style="width: 34px; height: 34px; display: grid; place-items: center; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <aside aria-label="Repository and agents" style="border-left: 1px solid var(--b); display: flex; flex-direction: column; min-height: 0">
+    <div style="padding: 16px; flex: none">
+      <div style="background: var(--s1); border: 1px solid var(--b); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
+          <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+            <span style="font-size: 12px; color: var(--t3)">Repository</span>
+            <a href="#repo" style="display: flex; align-items: center; gap: 6px; color: var(--t1); font-size: 14px; font-weight: 500">syedmehedihussain/core<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#85858F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+          </div>
+          <span style="height: 22px; padding: 0 9px; border-radius: 999px; border: 1px solid var(--bs); font-size: 11.5px; color: var(--t2); display: inline-flex; align-items: center">Private</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap">
+          <button style="display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--b); background: var(--s2); cursor: pointer; font-size: 12px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2"></circle><circle cx="6" cy="19" r="2"></circle><circle cx="18" cy="7" r="2"></circle><path d="M6 7v10M18 9c0 5-6 4-11 8"></path></svg><span style="font-family: var(--mono)">main</span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <span style="height: 28px; padding: 0 9px; border-radius: 8px; background: var(--s2); font-size: 12px; color: var(--t2); display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono)"><span>↑ 0</span><span>↓ 0</span></span>
+          <span style="height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #D29922; background: rgba(210,153,34,0.12); display: inline-flex; align-items: center; margin-left: auto">3 uncommitted</span>
+        </div>
+        <div style="display: flex; flex-direction: column">
+          <div style="position: relative; display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0">
+            <span style="position: absolute; left: 7.5px; top: 24px; width: 1px; height: 20px; background: var(--bs)"></span>
+            <span style="width: 9px; height: 9px; margin-left: 3px; border-radius: 50%; border: 1.5px solid var(--t2)"></span>
+            <div style="min-width: 0"><div style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Bind Core to loopback only and track public/</div><div style="font-size: 11.5px; color: var(--t3); margin-top: 2px">3 days ago</div></div>
+            <span style="font-family: var(--mono); font-size: 11.5px; color: var(--t3)">a41c9e2</span>
+          </div>
+          <div style="position: relative; display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0">
+            <span style="position: absolute; left: 7.5px; top: 24px; width: 1px; height: 20px; background: var(--bs)"></span>
+            <span style="width: 9px; height: 9px; margin-left: 3px; border-radius: 50%; border: 1.5px solid var(--t3)"></span>
+            <div style="min-width: 0"><div style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Add HUD with XP counter</div><div style="font-size: 11.5px; color: var(--t3); margin-top: 2px">4 days ago</div></div>
+            <span style="font-family: var(--mono); font-size: 11.5px; color: var(--t3)">7d02b18</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0">
+            <span style="width: 9px; height: 9px; margin-left: 3px; border-radius: 50%; border: 1.5px solid var(--t3)"></span>
+            <div style="min-width: 0"><div style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Living Room floor layout</div><div style="font-size: 11.5px; color: var(--t3); margin-top: 2px">5 days ago</div></div>
+            <span style="font-family: var(--mono); font-size: 11.5px; color: var(--t3)">c93f5aa</span>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 12px; border-top: 1px solid var(--b)">
+          <span style="font-size: 12px; color: var(--t3)">0 open pull requests</span>
+          <div style="display: flex; gap: 6px">
+            <button style="height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M6 10l6 6 6-6M5 20h14"></path></svg>Pull</button>
+            <button style="height: 34px; padding: 0 14px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V8M6 14l6-6 6 6M5 4h14"></path></svg>Push</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav aria-label="Side panel tabs" style="flex: none; display: flex; gap: 4px; padding: 0 16px; border-bottom: 1px solid var(--b)">
+      <a href="Main.dc.html" aria-current="page" style="padding: 10px 10px; font-weight: 500; color: var(--t1); border-bottom: 2px solid #EDEDEF; margin-bottom: -1px; display: flex; align-items: center; gap: 6px">Agents<span style="font-size: 11px; color: var(--t2); background: var(--s3); border-radius: 999px; padding: 1px 6px">3</span></a>
+      <a href="Workspace-Working.dc.html" style="padding: 10px 10px; font-weight: 500; color: var(--t2); border-bottom: 2px solid transparent; margin-bottom: -1px">Magnet</a>
+    </nav>
+
+    <div style="flex: 1; min-height: 0; overflow: auto; padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 12px">
+      <button style="height: 36px; border-radius: 999px; border: 1px dashed var(--bs); background: transparent; color: var(--t1); font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; flex: none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>New agent</button>
+
+      <article style="background: var(--s1); border: 1px solid var(--b); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; flex: none">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
+          <h4 style="margin: 0; font-size: 13.5px; font-weight: 500; line-height: 1.4">Write tests for streak service</h4>
+          <span style="flex: none; display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #8DB0F4; background: rgba(91,141,239,0.14)"><span style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF; animation: pulse 1.4s ease-in-out infinite"></span>Running</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--t3); flex-wrap: wrap"><span>Sonnet</span><span>·</span><span>3m 12s</span><span>·</span><span style="font-family: var(--mono); color: var(--t2)">agent/tests-streaks</span></div>
+        <div style="display: flex; flex-direction: column; border-top: 1px solid var(--b); padding-top: 6px">
+          <div style="position: relative; display: grid; grid-template-columns: 18px auto minmax(0, 1fr) auto; gap: 8px; align-items: center; height: 28px; font-size: 12px">
+            <span style="position: absolute; left: 8.5px; top: 22px; width: 1px; height: 12px; background: var(--bs)"></span>
+            <span style="width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.06); color: var(--t3); display: grid; place-items: center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path></svg></span>
+            <span style="font-weight: 500">Read</span><span style="font-family: var(--mono); color: var(--t2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">lib/services/streaks.ts</span><span></span>
+          </div>
+          <div style="position: relative; display: grid; grid-template-columns: 18px auto minmax(0, 1fr) auto; gap: 8px; align-items: center; height: 28px; font-size: 12px">
+            <span style="position: absolute; left: 8.5px; top: 22px; width: 1px; height: 12px; background: var(--bs)"></span>
+            <span style="width: 18px; height: 18px; border-radius: 50%; background: rgba(163,113,247,0.16); color: #A371F7; display: grid; place-items: center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"></path></svg></span>
+            <span style="font-weight: 500">Edited</span><span style="font-family: var(--mono); color: var(--t2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">tests/streaks.test.ts</span><span style="font-family: var(--mono); color: #3FB950">+58</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 18px auto minmax(0, 1fr) auto; gap: 8px; align-items: center; height: 28px; font-size: 12px">
+            <span style="width: 18px; height: 18px; display: grid; place-items: center"><span style="width: 13px; height: 13px; border-radius: 50%; border: 2px solid rgba(91,141,239,0.25); border-top-color: #5B8DEF; animation: spin 0.8s linear infinite"></span></span>
+            <span style="font-weight: 500">Running</span><span style="font-family: var(--mono); color: var(--t2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">npm run test streaks</span><span style="color: var(--t3); font-family: var(--mono)">8s</span>
+          </div>
+        </div>
+      </article>
+
+      <article style="background: var(--s1); border: 1px solid var(--b); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; flex: none">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
+          <h4 style="margin: 0; font-size: 13.5px; font-weight: 500; line-height: 1.4">Update README for the Bunker redesign</h4>
+          <span style="flex: none; display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #3FB950; background: rgba(63,185,80,0.12)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Done</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--t3); flex-wrap: wrap"><span>Haiku</span><span>·</span><span>1m 40s</span><span>·</span><span style="font-family: var(--mono); color: var(--t2)">agent/readme</span></div>
+        <p style="margin: 0; font-size: 13px; color: var(--t2); line-height: 1.5">Rewrote 3 sections, added screenshots list.</p>
+        <div style="display: flex; gap: 6px; align-items: center">
+          <button style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); font-size: 12.5px; font-weight: 500; cursor: pointer">Review diff</button>
+          <button style="height: 32px; padding: 0 14px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 12.5px; font-weight: 500; cursor: pointer">Accept</button>
+          <span style="flex: 1"></span>
+          <button style="height: 32px; padding: 0 6px; border: 0; background: transparent; color: var(--t2); font-size: 12.5px; cursor: pointer">Discard</button>
+        </div>
+      </article>
+
+      <article style="background: var(--s1); border: 1px solid var(--b); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; flex: none">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
+          <h4 style="margin: 0; font-size: 13.5px; font-weight: 500; line-height: 1.4">Check for unused dependencies</h4>
+          <span style="flex: none; display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #F85149; background: rgba(248,81,73,0.12)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>Failed</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--t3); flex-wrap: wrap"><span>Haiku</span><span>·</span><span>0m 52s</span><span>·</span><span style="font-family: var(--mono); color: var(--t2)">agent/deps</span></div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; border-radius: 8px; background: rgba(248,81,73,0.08); border: 1px solid rgba(248,81,73,0.2)">
+          <span style="font-size: 12.5px; color: #F7A39E"><span style="font-family: var(--mono)">npm ls</span> timed out</span>
+          <button style="border: 0; background: transparent; color: var(--t1); font-size: 12.5px; font-weight: 500; cursor: pointer; padding: 4px">Try again</button>
+        </div>
+      </article>
+    </div>
+  </aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { picked: null, done: false, why: false };
+  }
+  rows(list, sel) {
+    var colors = { M: '#D29922', A: '#3FB950', U: '#5B8DEF', D: '#F85149' };
+    return list.map(function (r) {
+      var d = r[0], name = r[1], kind = r[2], git = r[3] || '', extra = r[4] || '';
+      var folder = kind === 'dir' || kind === 'dirc';
+      var ign = kind === 'ign';
+      var g = [];
+      for (var i = 1; i <= d; i++) {
+        g.push('linear-gradient(rgba(255,255,255,0.07),rgba(255,255,255,0.07)) ' + (8 + (i - 1) * 16 + 6) + 'px 0 / 1px 100% no-repeat');
+      }
+      g.push(name === sel ? '#26262A' : 'transparent');
+      return {
+        name: name,
+        folder: folder || ign,
+        file: !(folder || ign),
+        tag: kind,
+        touched: extra === 't',
+        git: git,
+        chev: kind === 'dir' ? 'transform: rotate(90deg)' : '',
+        gitStyle: 'width: 12px; flex: none; text-align: right; font-family: var(--mono); font-size: 11px; font-weight: 500; color: ' + (colors[git] || 'transparent'),
+        style: 'display: flex; align-items: center; gap: 6px; width: 100%; height: 30px; padding: 0 10px 0 ' + (8 + d * 16) + 'px; border: 0; border-radius: 8px; background: ' + g.join(', ') + '; cursor: pointer; font: inherit; font-size: 13px; text-align: left; color: ' + (ign ? '#85858F' : '#EDEDEF')
+      };
+    });
+  }
+  renderVals() {
+    var s = this.state;
+    var self = this;
+    var pinned = this.rows([[0, 'CLAUDE.md', 'MD', '', 't'], [0, 'docs', 'dirc'], [0, '_project', 'dirc']], '');
+    var tree = this.rows([
+      [0, 'app', 'dir'],
+      [1, '_components', 'dir'],
+      [2, 'home-screen.tsx', 'TS', 'M'],
+      [2, 'app-sidebar.tsx', 'TS'],
+      [1, 'projects', 'dir'],
+      [2, 'page.tsx', 'TS', 'M'],
+      [1, 'layout.tsx', 'TS'],
+      [0, 'lib', 'dir'],
+      [1, 'db', 'dirc'],
+      [1, 'services', 'dir'],
+      [2, 'project.ts', 'TS', 'M', 't'],
+      [2, 'project-presets.ts', 'TS'],
+      [2, 'streaks.ts', 'TS', 'A', 't'],
+      [0, 'drizzle', 'dirc'],
+      [0, 'node_modules', 'ign'],
+      [0, 'package.json', 'JSON'],
+      [0, 'README.md', 'MD']
+    ], 'project.ts');
+    var data = [
+      { id: 'a', title: 'Compute from activity at read time', benefit: 'Matches Core’s “no background job” rule.', trade: 'a little more work per page load.', rec: true },
+      { id: 'b', title: 'Store a Streak row and update it on each action', benefit: 'Fast reads, one row per project.', trade: 'can drift if an update is missed.', rec: false }
+    ];
+    var opts = data.map(function (o) {
+      var sel = s.picked === o.id;
+      return Object.assign({}, o, {
+        sel: sel,
+        pick: function () { self.setState({ picked: o.id }); },
+        style: 'display: flex; gap: 12px; align-items: flex-start; width: 100%; text-align: left; padding: 12px 14px; border-radius: 10px; cursor: pointer; font: inherit; color: #EDEDEF; border: 1px solid ' + (sel ? '#5B8DEF' : 'rgba(255,255,255,0.08)') + '; background: ' + (sel ? 'rgba(91,141,239,0.08)' : '#1C1C1F'),
+        radio: 'flex: none; width: 16px; height: 16px; margin-top: 2px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid ' + (sel ? '#5B8DEF' : 'rgba(255,255,255,0.28)')
+      });
+    });
+    var chosen = data.filter(function (o) { return o.id === s.picked; })[0];
+    return {
+      pinned: pinned,
+      tree: tree,
+      opts: opts,
+      open: !s.done,
+      done: s.done,
+      why: s.why,
+      chosen: chosen ? chosen.title : '',
+      whyChev: s.why ? 'transform: rotate(90deg)' : '',
+      toggleWhy: function () { self.setState({ why: !s.why }); },
+      confirm: function () { if (s.picked) self.setState({ done: true }); },
+      reset: function () { self.setState({ done: false }); },
+      confirmStyle: 'height: 36px; padding: 0 16px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 6px; cursor: ' + (s.picked ? 'pointer' : 'not-allowed') + '; opacity: ' + (s.picked ? '1' : '0.4')
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+/* Apeiron design tokens — taken from the design canvas (docs/design/screens/).
+   Dark theme only for the MVP. Import once at the app root; never hard-code hex in components. */
+
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap");
+/* For offline use, self-host Geist via the `geist` npm package instead of Google Fonts. */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --bg: #0b0b0c;            /* page */
+  --s1: #141416;            /* cards, panels */
+  --s2: #1c1c1f;            /* inputs, secondary buttons, inner boxes */
+  --s3: #26262a;            /* selected rows, active nav, phase pills (done) */
+  --code-bg: #101012;       /* code blocks, file viewer */
+
+  /* Borders */
+  --b: rgba(255, 255, 255, 0.08);   /* default hairline */
+  --bs: rgba(255, 255, 255, 0.14);  /* strong: inputs, focused cards, dashed future phase */
+  --b-faint: rgba(255, 255, 255, 0.07); /* tree indent guides, timeline rail */
+
+  /* Text */
+  --t1: #ededef;            /* primary */
+  --t2: #a1a1aa;            /* secondary */
+  --t3: #85858f;            /* hints — raised from #71717a so it passes 4.5:1 on --s1 */
+  --t-code: #d4d4d8;        /* code text */
+  --t-on-primary: #0b0b0c;  /* text on the white primary pill */
+
+  /* Accent (blue) — focus, links, current phase, selection */
+  --accent: #5b8def;
+  --accent-text: #8db0f4;   /* accent used as text (passes 4.5:1) */
+  --accent-text-strong: #b3cbf8; /* text on accent-tinted fills, link hover */
+  --accent-fill: rgba(91, 141, 239, 0.16);
+  --accent-fill-weak: rgba(91, 141, 239, 0.08);
+  --accent-border: rgba(91, 141, 239, 0.55);
+
+  /* Status — colour only for meaning */
+  --success: #3fb950;
+  --success-fill: rgba(63, 185, 80, 0.12);
+  --warning: #d29922;
+  --warning-fill: rgba(210, 153, 34, 0.12);
+  --danger: #f85149;
+  --danger-text: #f7a39e;
+  --danger-fill: rgba(248, 81, 73, 0.12);
+  --edited: #a371f7;        /* Claude edits, "Edited" rows */
+  --edited-fill: rgba(163, 113, 247, 0.16);
+  --neutral-fill: rgba(255, 255, 255, 0.06);
+
+  /* Diff */
+  --diff-add-text: #7ee08a;
+  --diff-add-bg: rgba(63, 185, 80, 0.14);
+  --diff-del-text: #f7a39e;
+  --diff-del-bg: rgba(248, 81, 73, 0.12);
+
+  /* Phase bar */
+  --phase-done: #4a4a52;
+  --phase-current: var(--accent);
+  --phase-future: rgba(255, 255, 255, 0.18); /* used as inset 1px outline */
+
+  /* Heatmap (Settings usage), low → high */
+  --heat-0: #1c1c1f;
+  --heat-1: #1f2d4a;
+  --heat-2: #2c4c86;
+  --heat-3: #4373cc;
+  --heat-4: #7aa3f4;
+
+  /* Magnet character */
+  --magnet-head: #e6eaf2;
+  --magnet-visor: #101320;
+  --magnet-body: #3a4a6b;
+  --magnet-tile: #16203a;
+
+  /* Type */
+  --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+  --fs-2xs: 11px;    /* tags, section labels (uppercase), heatmap months */
+  --fs-xs: 11.5px;   /* pills, badges, meta */
+  --fs-sm: 12px;     /* most UI meta, timeline targets, buttons in panels */
+  --fs-sm2: 12.5px;  /* table cells, secondary lines */
+  --fs-base: 13px;   /* body UI */
+  --fs-md: 13.5px;   /* row titles */
+  --fs-lg: 14px;     /* chat text, primary buttons */
+  --fs-xl: 16px;     /* card + section titles */
+  --fs-2xl: 20px;    /* stat numbers */
+  --fs-3xl: 28px;    /* page titles (Settings) */
+  --fs-4xl: 32px;    /* Home greeting */
+  --lh-body: 1.55;
+  --lh-chat: 1.65;
+  --tracking-tight: -0.01em;
+  --tracking-display: -0.025em;
+
+  /* Spacing — 4 px grid */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+
+  /* Radius */
+  --r-xs: 3px;    /* phase segments, heatmap cells */
+  --r-sm: 6px;    /* git chips, stack tags, type tags */
+  --r-md: 8px;    /* nav rows, small boxes */
+  --r-lg: 10px;   /* inner boxes, option rows, "why" box */
+  --r-xl: 12px;   /* cards, panels, tables */
+  --r-2xl: 14px;  /* decision + approval cards */
+  --r-3xl: 16px;  /* big prompt box */
+  --r-pill: 999px;
+
+  /* Layout */
+  --topbar-h: 56px;
+  --left-w: 280px;
+  --right-w: 360px;
+  --home-max: 1088px;
+  --prompt-max: 760px;
+
+  /* Control heights */
+  --h-pill-sm: 22px;  /* badges */
+  --h-chip: 26px;     /* phase pills, segmented */
+  --h-btn-sm: 30px;
+  --h-btn: 32px;
+  --h-btn-md: 36px;
+  --h-btn-lg: 44px;   /* Start project, primary CTAs (touch target) */
+  --h-row: 32px;      /* timeline, tree rows */
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 120ms;
+  --dur: 200ms;
+
+  /* Effects */
+  --focus-ring: 0 0 0 2px var(--accent);
+  --status-dot-glow-success: 0 0 0 3px rgba(63, 185, 80, 0.18);
+  --home-glow: radial-gradient(ellipse 900px 320px at 50% -60px, rgba(91, 141, 239, 0.16), rgba(91, 141, 239, 0) 70%);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--t1); font-family: var(--sans); font-size: var(--fs-base); }
+a { color: var(--accent-text); text-decoration: none; }
+a:hover { color: var(--accent-text-strong); }
+button { font: inherit; color: inherit; }
+:is(a, button, input, textarea, [tabindex]):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code, kbd, pre, .mono { font-family: var(--mono); }
+
+@keyframes ap-spin { to { transform: rotate(360deg); } }
+@keyframes ap-pulse { 50% { opacity: 0.35; } }
+@keyframes ap-shimmer { 50% { opacity: 0.5; } }
+@keyframes ap-slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(340%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Survey — Stack</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0B0C}
+*{box-sizing:border-box}
+:root{--bg:#0B0B0C;--s1:#141416;--s2:#1C1C1F;--s3:#26262A;--b:rgba(255,255,255,0.08);--bs:rgba(255,255,255,0.14);--t1:#EDEDEF;--t2:#A1A1AA;--t3:#85858F;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--mono:'Geist Mono',ui-monospace,Menlo,monospace}
+a{color:#8DB0F4;text-decoration:none}a:hover{color:#B3CBF8}
+button{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #5B8DEF;outline-offset:2px}
+</style>
+</helmet>
+<div style="height: 100vh; min-height: 900px; width: 100%; display: flex; flex-direction: column; background: var(--bg); color: var(--t1); font-family: var(--sans); font-size: 13px; overflow: hidden">
+
+<header style="height: 56px; flex: none; display: flex; align-items: center; gap: 16px; padding: 0 16px 0 20px; border-bottom: 1px solid var(--b)">
+  <div style="flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 10px">
+    <a href="Home.dc.html" aria-label="Harness home" style="display: flex; align-items: center; gap: 10px; color: var(--t1)">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="22" height="22" rx="7" fill="#EDEDEF"></rect><path d="M8 7v10M16 7v10M8 12h8" stroke="#0B0B0C" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      <span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">Harness</span>
+    </a>
+    <span style="color: var(--t3)">/</span>
+    <a href="Home.dc.html" style="color: var(--t2)">Projects</a>
+    <span style="color: var(--t3)">/</span>
+    <span style="color: var(--t1); font-weight: 500">review-qr</span>
+    <span style="height: 20px; padding: 0 8px; border-radius: 999px; border: 1px solid var(--bs); font-size: 11px; color: var(--t2); display: inline-flex; align-items: center">New</span>
+  </div>
+  <nav aria-label="Project phase" style="display: flex; align-items: center; gap: 4px">
+    <span aria-current="step" style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 12px; border-radius: 999px; background: rgba(91,141,239,0.16); border: 1px solid rgba(91,141,239,0.55); color: #B3CBF8; font-size: 12px; font-weight: 500"><span style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF"></span>Plan</span>
+    <span style="display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px dashed var(--bs); color: var(--t3); font-size: 12px">Design</span>
+    <span style="display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px dashed var(--bs); color: var(--t3); font-size: 12px">Preparation</span>
+    <span style="display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px dashed var(--bs); color: var(--t3); font-size: 12px">Development</span>
+    <span style="display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px dashed var(--bs); color: var(--t3); font-size: 12px">Deployment</span>
+  </nav>
+  <div style="flex: 1 1 0; display: flex; justify-content: flex-end; align-items: center; gap: 8px">
+    <span style="font-size: 12px; color: var(--t3); padding-right: 6px">Draft saved · 25 min ago</span>
+    <a href="Home.dc.html" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--b); color: var(--t2); font-size: 12.5px; display: inline-flex; align-items: center">Save and exit</a>
+  </div>
+</header>
+
+<div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 240px minmax(0, 1fr) 300px">
+
+  <nav aria-label="Survey steps" style="border-right: 1px solid var(--b); padding: 28px 16px; display: flex; flex-direction: column; gap: 2px">
+    <div style="padding: 0 10px 12px; font-size: 12px; color: var(--t3); font-weight: 500">New project survey</div>
+    <sc-for list="{{steps}}" as="s" hint-placeholder-count="7">
+      <a href="#step" aria-current="{{s.current}}" style="{{s.style}}">
+        <span style="{{s.dot}}"><sc-if value="{{s.done}}" hint-placeholder-val="{{false}}"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></sc-if><sc-if value="{{s.notDone}}" hint-placeholder-val="{{true}}">{{s.n}}</sc-if></span>
+        <span>{{s.label}}</span>
+      </a>
+    </sc-for>
+    <div style="margin: 16px 10px 0; height: 4px; border-radius: 2px; background: var(--s3); overflow: hidden"><div style="width: 43%; height: 100%; background: #5B8DEF"></div></div>
+    <div style="padding: 8px 10px; font-size: 12px; color: var(--t3)">3 of 7 answered</div>
+  </nav>
+
+  <main style="overflow: auto; padding: 48px 32px">
+    <div style="max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px">
+      <div role="group" aria-labelledby="sq" style="background: var(--s1); border: 1px solid var(--bs); border-radius: 16px; overflow: hidden">
+        <div style="padding: 24px 28px 0; display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--t3)"><span>Step 4 of 7</span><span>·</span><span style="color: #B3CBF8; font-weight: 500">Stack</span></div>
+          <h1 id="sq" style="margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.02em">Where should review-qr run?</h1>
+          <p style="margin: 0; font-size: 14px; color: var(--t2); line-height: 1.55">You said: small UK businesses, one page per business, you host it.</p>
+        </div>
+        <div style="padding: 22px 28px 8px; display: flex; flex-direction: column; gap: 10px">
+          <sc-for list="{{opts}}" as="o" hint-placeholder-count="2">
+            <button onClick="{{o.pick}}" aria-pressed="{{o.sel}}" style="{{o.style}}">
+              <span style="{{o.radio}}"><sc-if value="{{o.sel}}" hint-placeholder-val="{{false}}"><span style="width: 9px; height: 9px; border-radius: 50%; background: #5B8DEF"></span></sc-if></span>
+              <span style="display: flex; flex-direction: column; gap: 5px; min-width: 0">
+                <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+                  <span style="font-size: 15px; font-weight: 500">{{o.title}}</span>
+                  <sc-if value="{{o.rec}}" hint-placeholder-val="{{false}}"><span style="height: 20px; padding: 0 8px; border-radius: 999px; font-size: 11px; font-weight: 500; color: #B3CBF8; background: rgba(91,141,239,0.16); display: inline-flex; align-items: center">Recommended</span></sc-if>
+                </span>
+                <span style="font-size: 13.5px; color: var(--t2)">{{o.benefit}}</span>
+                <span style="font-size: 13px; color: var(--t3)">Trade-off: {{o.trade}}</span>
+              </span>
+            </button>
+          </sc-for>
+          <div style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border: 1px dashed var(--bs); border-radius: 12px">
+            <span style="width: 18px; height: 18px; flex: none; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.28)"></span>
+            <label for="else2" style="font-size: 14px; color: var(--t2); white-space: nowrap">Something else…</label>
+            <input id="else2" placeholder="Describe where it should run" style="flex: 1; min-width: 0; height: 32px; background: transparent; border: 0; color: var(--t1); font: inherit; font-size: 14px">
+          </div>
+        </div>
+        <div style="padding: 8px 28px 0">
+          <button onClick="{{toggleWhy}}" aria-expanded="{{why}}" style="display: flex; align-items: center; gap: 6px; border: 0; background: transparent; padding: 6px 0; color: var(--t2); font-size: 13px; cursor: pointer">Why Claude recommends it<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="{{whyChev}}" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+          <sc-if value="{{why}}" hint-placeholder-val="{{true}}">
+            <p style="margin: 6px 0 0; padding: 14px 16px; background: var(--s2); border-radius: 10px; font-size: 13.5px; line-height: 1.6; color: var(--t2)">Each business gets one small static page, so almost nothing runs on the server. You already keep a home server online for other projects, so this costs nothing extra. The scan counter is the only part that needs an API, and it is a single endpoint.</p>
+          </sc-if>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 28px; margin-top: 18px; border-top: 1px solid var(--b)">
+          <button style="height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); font-size: 13.5px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Back</button>
+          <a href="Survey-Review.dc.html" style="{{confirmStyle}}">Confirm<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 0 4px">
+        <div style="font-size: 12px; color: var(--t3)">Answered</div>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--b); border-radius: 12px; background: var(--s1); font-size: 13px">
+          <span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(63,185,80,0.14); color: #3FB950; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>
+          <span style="color: var(--t2)">Scope:</span><span style="font-weight: 500">QR generator, per-business link, scan counter</span><span style="flex: 1"></span><button style="border: 0; background: transparent; color: #8DB0F4; font-size: 13px; cursor: pointer; padding: 4px">Change</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside aria-label="What we know so far" style="border-left: 1px solid var(--b); padding: 28px 20px; overflow: auto; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; align-items: center; justify-content: space-between">
+      <h2 style="margin: 0; font-size: 14px; font-weight: 600">What we know so far</h2>
+      <span style="font-size: 11.5px; color: var(--t3)">Live</span>
+    </div>
+    <dl style="margin: 0; display: flex; flex-direction: column; gap: 2px">
+      <sc-for list="{{known}}" as="k" hint-placeholder-count="6">
+        <a href="#step" style="display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 10px; color: var(--t1)">
+          <dt style="display: flex; justify-content: space-between; font-size: 11.5px; color: var(--t3)"><span>{{k.label}}</span><span>Step {{k.step}}</span></dt>
+          <dd style="margin: 0; font-size: 13px; line-height: 1.45">{{k.value}}</dd>
+        </a>
+      </sc-for>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border: 1px dashed var(--b); border-radius: 10px; margin-top: 6px">
+        <span style="font-size: 11.5px; color: var(--t3)">Stack · Step 4</span>
+        <span style="height: 10px; width: 70%; border-radius: 4px; background: var(--s2)"></span>
+      </div>
+    </dl>
+  </aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { picked: 'a', why: true };
+  }
+  renderVals() {
+    var s = this.state, self = this;
+    var labels = ['Idea', 'Problem & users', 'Scope', 'Stack', 'Data', 'Quality bar', 'Review'];
+    var steps = labels.map(function (l, i) {
+      var done = i < 3, cur = i === 3;
+      return {
+        n: i + 1, label: l, done: done, notDone: !done, current: cur ? 'step' : 'false',
+        style: 'display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 10px; border-radius: 10px; font-size: 13.5px; ' + (cur ? 'background: #26262A; color: #EDEDEF; font-weight: 500' : done ? 'color: #A1A1AA' : 'color: #85858F'),
+        dot: 'width: 22px; height: 22px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 11.5px; font-family: var(--mono); ' + (done ? 'background: rgba(63,185,80,0.14); color: #3FB950' : cur ? 'background: #5B8DEF; color: #0B0B0C; font-weight: 600' : 'box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18); color: #85858F')
+      };
+    });
+    var data = [
+      { id: 'a', title: 'Static site + small API on your home server', benefit: 'Cheap, and you already run the server.', trade: 'your uptime is their uptime.', rec: true },
+      { id: 'b', title: 'Serverless on a free hosting tier', benefit: 'No server to look after.', trade: 'cold starts and vendor limits.', rec: false }
+    ];
+    var opts = data.map(function (o) {
+      var sel = s.picked === o.id;
+      return Object.assign({}, o, {
+        sel: sel,
+        pick: function () { self.setState({ picked: o.id }); },
+        style: 'display: flex; gap: 14px; align-items: flex-start; width: 100%; text-align: left; padding: 16px 18px; border-radius: 12px; cursor: pointer; font: inherit; color: #EDEDEF; border: 1px solid ' + (sel ? '#5B8DEF' : 'rgba(255,255,255,0.08)') + '; background: ' + (sel ? 'rgba(91,141,239,0.08)' : '#1C1C1F'),
+        radio: 'flex: none; width: 18px; height: 18px; margin-top: 2px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid ' + (sel ? '#5B8DEF' : 'rgba(255,255,255,0.28)')
+      });
+    });
+    return {
+      steps: steps,
+      opts: opts,
+      why: s.why,
+      whyChev: s.why ? 'transform: rotate(90deg)' : '',
+      toggleWhy: function () { self.setState({ why: !s.why }); },
+      confirmStyle: 'height: 40px; padding: 0 20px; border-radius: 999px; background: #EDEDEF; color: #0B0B0C; font-size: 13.5px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; opacity: ' + (s.picked ? '1' : '0.4'),
+      known: [
+        { label: 'Name', step: 1, value: 'review-qr' },
+        { label: 'Idea', step: 1, value: 'Printable QR code that opens a business’s Google review page' },
+        { label: 'Users', step: 2, value: 'Small shop owners in the UK' },
+        { label: 'Must have', step: 3, value: 'QR generator, per-business link, scan counter' },
+        { label: 'Out of scope', step: 3, value: 'Payments' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

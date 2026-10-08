@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0B0C}
+*{box-sizing:border-box}
+:root{--bg:#0B0B0C;--s1:#141416;--s2:#1C1C1F;--s3:#26262A;--b:rgba(255,255,255,0.08);--bs:rgba(255,255,255,0.14);--t1:#EDEDEF;--t2:#A1A1AA;--t3:#85858F;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--mono:'Geist Mono',ui-monospace,Menlo,monospace}
+a{color:#8DB0F4;text-decoration:none}a:hover{color:#B3CBF8}
+button{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #5B8DEF;outline-offset:2px}
+</style>
+</helmet>
+<div style="min-height: 100vh; width: 100%; background: radial-gradient(ellipse 900px 320px at 50% -60px, rgba(91,141,239,0.16), rgba(91,141,239,0) 70%), var(--bg); color: var(--t1); font-family: var(--sans); font-size: 13px">
+
+<header style="height: 56px; display: flex; align-items: center; gap: 16px; padding: 0 16px 0 20px; border-bottom: 1px solid var(--b)">
+  <a href="Home.dc.html" aria-label="Harness home" style="display: flex; align-items: center; gap: 10px; color: var(--t1)">
+    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="22" height="22" rx="7" fill="#EDEDEF"></rect><path d="M8 7v10M16 7v10M8 12h8" stroke="#0B0B0C" stroke-width="2.2" stroke-linecap="round"></path></svg>
+    <span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">Harness</span>
+  </a>
+  <span style="flex: 1"></span>
+  <span style="display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--t2); padding-right: 6px"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3FB950; box-shadow: 0 0 0 3px rgba(63,185,80,0.18)"></span>Claude Code</span>
+  <a href="Settings.dc.html" aria-label="Settings" style="width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; color: var(--t2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"></path><circle cx="15" cy="6" r="2"></circle><circle cx="9" cy="12" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></a>
+  <a href="Home-Magnet.dc.html" aria-label="Open Magnet" style="width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2)">
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4.5V2.2" stroke="#5B8DEF" stroke-width="1.6" stroke-linecap="round"></path><circle cx="16" cy="2" r="1.4" fill="#5B8DEF"></circle><rect x="6.5" y="4.5" width="19" height="12" rx="6" fill="#E6EAF2"></rect><rect x="9" y="7" width="14" height="7" rx="3.5" fill="#101320"></rect><circle cx="13.2" cy="10.5" r="1.4" fill="#8DB0F4"></circle><circle cx="18.8" cy="10.5" r="1.4" fill="#8DB0F4"></circle><path d="M10.5 18h11l-1.5 6.5h-8z" fill="#3A4A6B"></path><path d="M13.5 18.2l2.5 1.3 2.5-1.3v2.6l-2.5-1.3-2.5 1.3z" fill="#E6EAF2"></path><circle cx="16" cy="27.5" r="3.5" fill="#1C1C1F" stroke="#5B8DEF" stroke-width="1.6"></circle><circle cx="16" cy="27.5" r="1" fill="#5B8DEF"></circle></svg>
+  </a>
+</header>
+
+<main style="max-width: 1088px; margin: 0 auto; padding: 72px 24px 80px; display: flex; flex-direction: column; gap: 48px">
+
+  <section aria-label="Start" style="display: flex; flex-direction: column; gap: 20px; align-items: center">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+      <span style="font-size: 14px; color: var(--t2)">Good evening, Meddy</span>
+      <h1 style="margin: 0; font-size: 32px; font-weight: 600; letter-spacing: -0.025em">What are we building?</h1>
+    </div>
+    <div style="width: 100%; max-width: 760px; background: var(--s1); border: 1px solid var(--bs); border-radius: 16px; padding: 16px 14px 12px 18px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset">
+      <label for="homeprompt" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Describe a new project, or ask Magnet</label>
+      <textarea id="homeprompt" rows="2" placeholder="Describe a new project, or ask Magnet anything…" style="resize: none; background: transparent; border: 0; color: var(--t1); font: inherit; font-size: 15px; line-height: 1.5; padding: 0"></textarea>
+      <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap">
+        <button aria-pressed="true" style="display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border-radius: 999px; border: 1px solid rgba(91,141,239,0.5); background: rgba(91,141,239,0.14); color: #B3CBF8; font-size: 12px; cursor: pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>New project</button>
+        <button aria-pressed="false" style="display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--b); background: var(--s2); color: var(--t2); font-size: 12px; cursor: pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Calibrate a folder</button>
+        <button aria-pressed="false" style="display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--b); background: var(--s2); color: var(--t2); font-size: 12px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 32 32" aria-hidden="true"><rect x="6.5" y="4.5" width="19" height="12" rx="6" fill="#A1A1AA"></rect><rect x="9" y="7" width="14" height="7" rx="3.5" fill="#1C1C1F"></rect><path d="M10.5 18h11l-1.5 6.5h-8z" fill="#A1A1AA"></path><circle cx="16" cy="27.5" r="3.2" fill="none" stroke="#A1A1AA" stroke-width="2"></circle></svg>Ask Magnet</button>
+        <span style="flex: 1"></span>
+        <button aria-label="Send" style="width: 36px; height: 36px; display: grid; place-items: center; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg></button>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center">
+      <a href="Survey-Stack.dc.html" style="height: 44px; padding: 0 20px; border-radius: 999px; background: #EDEDEF; color: #0B0B0C; font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Start project</a>
+      <span style="font-size: 13px; color: var(--t3)">A short survey first. Claude drafts the plan before any code.</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="recent" style="display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; align-items: baseline; justify-content: space-between">
+      <h2 id="recent" style="margin: 0; font-size: 16px; font-weight: 600">Recent</h2>
+      <span style="font-size: 12px; color: var(--t3)">Last worked on</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 12px">
+      <sc-for list="{{recent}}" as="p" hint-placeholder-count="4">
+        <a href="{{p.href}}" style="display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 12px; background: var(--s1); border: 1px solid var(--b); color: var(--t1); min-height: 196px">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
+            <span style="font-size: 16px; font-weight: 600; letter-spacing: -0.01em">{{p.name}}</span>
+            <span style="{{p.badgeStyle}}">{{p.state}}</span>
+          </div>
+          <span style="font-size: 13px; color: var(--t2); line-height: 1.45; flex: 1">{{p.summary}}</span>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px"><sc-for list="{{p.segs}}" as="s"><span style="{{s}}"></span></sc-for></div>
+            <span style="font-size: 11.5px; color: var(--t3)">{{p.phaseLabel}}</span>
+          </div>
+          <div style="font-size: 12.5px; color: var(--t2); border-top: 1px solid var(--b); padding-top: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Next: <span style="color: var(--t1)">{{p.next}}</span></div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+            <span style="{{p.gitStyle}}">{{p.git}}</span>
+            <span style="font-size: 12px; color: var(--t3)">Last worked {{p.last}}</span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section aria-labelledby="all" style="display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+      <div style="display: flex; align-items: baseline; gap: 8px">
+        <h2 id="all" style="margin: 0; font-size: 16px; font-weight: 600">All projects</h2>
+        <span style="font-size: 12px; color: var(--t3)">7 folders in <span style="font-family: var(--mono)">~/Projects</span></span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px">
+        <button style="height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--b); background: var(--s1); color: var(--t2); font-size: 12.5px; cursor: pointer; display: flex; align-items: center; gap: 6px">Last worked<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"></path></svg></button>
+        <div style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s1); width: 240px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#85858F" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-4.5-4.5"></path></svg>
+          <label for="search" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search projects</label>
+          <input id="search" placeholder="Search projects" style="flex: 1; min-width: 0; background: transparent; border: 0; color: var(--t1); font: inherit; font-size: 13px">
+        </div>
+      </div>
+    </div>
+    <div style="border: 1px solid var(--b); border-radius: 12px; background: var(--s1); overflow-x: auto">
+      <div style="min-width: 900px">
+        <div style="display: grid; grid-template-columns: minmax(0, 1.9fr) 140px 170px minmax(0, 1fr) 110px 110px 104px; gap: 16px; align-items: center; height: 40px; padding: 0 16px; border-bottom: 1px solid var(--b); font-size: 12px; color: var(--t3); font-weight: 500">
+          <span>Project</span><span>State</span><span>Phase</span><span>Stack</span><span>Last worked</span><span>Git</span><span></span>
+        </div>
+        <sc-for list="{{all}}" as="p" hint-placeholder-count="7">
+          <div style="display: grid; grid-template-columns: minmax(0, 1.9fr) 140px 170px minmax(0, 1fr) 110px 110px 104px; gap: 16px; align-items: center; min-height: 56px; padding: 8px 16px; border-bottom: 1px solid var(--b)">
+            <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+              <a href="{{p.href}}" style="color: var(--t1); font-weight: 500; font-size: 13.5px">{{p.name}}</a>
+              <span style="font-size: 12px; color: var(--t3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{p.summary}}</span>
+            </div>
+            <span><span style="{{p.badgeStyle}}">{{p.state}}</span></span>
+            <div style="display: flex; flex-direction: column; gap: 5px">
+              <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px; width: 110px"><sc-for list="{{p.segs}}" as="s"><span style="{{s}}"></span></sc-for></div>
+              <span style="font-size: 12px; color: var(--t2)">{{p.phaseLabel}}</span>
+            </div>
+            <div style="display: flex; gap: 4px; flex-wrap: wrap"><sc-for list="{{p.stack}}" as="t"><span style="font-family: var(--mono); font-size: 11px; color: var(--t2); background: var(--s2); border: 1px solid var(--b); border-radius: 6px; padding: 2px 6px">{{t}}</span></sc-for></div>
+            <span style="font-size: 12.5px; color: var(--t2)">{{p.last}}</span>
+            <span><span style="{{p.gitStyle}}">{{p.git}}</span></span>
+            <span style="display: flex; justify-content: flex-end"><sc-if value="{{p.uncal}}" hint-placeholder-val="{{false}}"><a href="Calibrate-Prompt.dc.html" style="height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); color: var(--t1); font-size: 12px; font-weight: 500; display: inline-flex; align-items: center">Calibrate</a></sc-if></span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var phases = ['Plan', 'Design', 'Preparation', 'Development', 'Deployment'];
+    var badge = {
+      'Ready': 'color: #3FB950; background: rgba(63,185,80,0.12)',
+      'cctop': 'color: #8DB0F4; background: rgba(91,141,239,0.14)',
+      'Not calibrated': 'color: #D29922; background: rgba(210,153,34,0.12)'
+    };
+    var gitTone = function (g) {
+      if (g === 'clean') return 'color: #3FB950; background: rgba(63,185,80,0.10)';
+      if (/ahead/.test(g)) return 'color: #8DB0F4; background: rgba(91,141,239,0.12)';
+      if (/behind|changes/.test(g)) return 'color: #D29922; background: rgba(210,153,34,0.12)';
+      return 'color: #A1A1AA; background: rgba(255,255,255,0.06)';
+    };
+    var data = [
+      ['core', 'Local personal dashboard, Bunker redesign', 'Ready', 3, ['Next.js', 'SQLite'], '3 changes', '2 h ago', 'Build the Study Room floor', 'Main.dc.html'],
+      ['review-qr', 'QR code that sends customers to a Google review page', 'Ready', 0, [], 'No remote', '25 min ago', 'Finish the survey: Data step', 'Survey-Stack.dc.html'],
+      ['cctop', 'Terminal dashboard for Claude Code', 'cctop', 4, ['Python'], 'clean', 'Yesterday', 'Tag release 1.1', '#cctop'],
+      ['sysdash', 'Glanceable system dashboard with a Claude helper', 'cctop', 4, ['Python'], '1 ahead', '3 days ago', 'Add a disk temperature tile', '#sysdash'],
+      ['hunch', 'A programming language with built-in AI judgement', 'Ready', 1, ['Rust'], 'clean', '1 week ago', 'Write ADR for the judge keyword', '#hunch'],
+      ['couple-clock', 'ESP32 OLED anniversary clock with pets', 'cctop', 4, ['C++', 'ESP32'], 'clean', '2 weeks ago', '', '#couple-clock'],
+      ['torongo', 'Real-time AI healthcare translation for Bangladesh', 'Not calibrated', -1, [], '2 behind', '1 month ago', '', 'Calibrate-Prompt.dc.html']
+    ];
+    var rows = data.map(function (r) {
+      var ph = r[3];
+      var segs = phases.map(function (_, i) {
+        var bg = i < ph ? 'background: #4A4A52' : i === ph ? 'background: #5B8DEF' : 'background: transparent; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)';
+        return 'height: 6px; border-radius: 3px; ' + bg;
+      });
+      return {
+        name: r[0], summary: r[1], state: r[2],
+        badgeStyle: 'display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; white-space: nowrap; ' + badge[r[2]],
+        segs: segs,
+        phaseLabel: ph < 0 ? 'Unknown' : (ph === 4 ? 'Deployment' : phases[ph]),
+        stack: r[4].length ? r[4] : ['—'],
+        git: r[5],
+        gitStyle: 'display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font-family: var(--mono); font-size: 11.5px; white-space: nowrap; ' + gitTone(r[5]),
+        last: r[6], next: r[7], href: r[8], uncal: r[2] === 'Not calibrated'
+      };
+    });
+    return { recent: rows.slice(0, 4), all: rows };
+  }
+}
+</script>
+</body>
+</html>

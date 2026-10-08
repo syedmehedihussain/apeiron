@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Survey — Review</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0B0C}
+*{box-sizing:border-box}
+:root{--bg:#0B0B0C;--s1:#141416;--s2:#1C1C1F;--s3:#26262A;--b:rgba(255,255,255,0.08);--bs:rgba(255,255,255,0.14);--t1:#EDEDEF;--t2:#A1A1AA;--t3:#85858F;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--mono:'Geist Mono',ui-monospace,Menlo,monospace}
+a{color:#8DB0F4;text-decoration:none}a:hover{color:#B3CBF8}
+button{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #5B8DEF;outline-offset:2px}
+</style>
+</helmet>
+<div style="height: 100vh; min-height: 900px; width: 100%; display: flex; flex-direction: column; background: var(--bg); color: var(--t1); font-family: var(--sans); font-size: 13px; overflow: hidden">
+
+<header style="height: 56px; flex: none; display: flex; align-items: center; gap: 16px; padding: 0 16px 0 20px; border-bottom: 1px solid var(--b)">
+  <div style="flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 10px">
+    <a href="Home.dc.html" aria-label="Harness home" style="display: flex; align-items: center; gap: 10px; color: var(--t1)">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="22" height="22" rx="7" fill="#EDEDEF"></rect><path d="M8 7v10M16 7v10M8 12h8" stroke="#0B0B0C" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      <span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">Harness</span>
+    </a>
+    <span style="color: var(--t3)">/</span>
+    <a href="Home.dc.html" style="color: var(--t2)">Projects</a>
+    <span style="color: var(--t3)">/</span>
+    <span style="color: var(--t1); font-weight: 500">review-qr</span>
+    <span style="height: 20px; padding: 0 8px; border-radius: 999px; border: 1px solid var(--bs); font-size: 11px; color: var(--t2); display: inline-flex; align-items: center">New</span>
+  </div>
+  <nav aria-label="Project phase" style="display: flex; align-items: center; gap: 4px">
+    <span aria-current="step" style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 12px; border-radius: 999px; background: rgba(91,141,239,0.16); border: 1px solid rgba(91,141,239,0.55); color: #B3CBF8; font-size: 12px; font-weight: 500"><span style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF"></span>Plan</span>
+    <span style="display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px dashed var(--bs); color: var(--t3); font-size: 12px">Design</span>
+    <span style="display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px dashed var(--bs); color: var(--t3); font-size: 12px">Preparation</span>
+    <span style="display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px dashed var(--bs); color: var(--t3); font-size: 12px">Development</span>
+    <span style="display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px dashed var(--bs); color: var(--t3); font-size: 12px">Deployment</span>
+  </nav>
+  <div style="flex: 1 1 0; display: flex; justify-content: flex-end; align-items: center; gap: 8px">
+    <span style="font-size: 12px; color: var(--t3); padding-right: 6px">Draft saved · just now</span>
+    <a href="Home.dc.html" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--b); color: var(--t2); font-size: 12.5px; display: inline-flex; align-items: center">Save and exit</a>
+  </div>
+</header>
+
+<div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 240px minmax(0, 1fr) 380px">
+
+  <nav aria-label="Survey steps" style="border-right: 1px solid var(--b); padding: 28px 16px; display: flex; flex-direction: column; gap: 2px">
+    <div style="padding: 0 10px 12px; font-size: 12px; color: var(--t3); font-weight: 500">New project survey</div>
+    <sc-for list="{{steps}}" as="s" hint-placeholder-count="7">
+      <a href="#step" style="{{s.style}}">
+        <span style="{{s.dot}}"><sc-if value="{{s.done}}" hint-placeholder-val="{{true}}"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></sc-if><sc-if value="{{s.notDone}}" hint-placeholder-val="{{false}}">{{s.n}}</sc-if></span>
+        <span>{{s.label}}</span>
+      </a>
+    </sc-for>
+    <div style="margin: 16px 10px 0; height: 4px; border-radius: 2px; background: var(--s3); overflow: hidden"><div style="width: 86%; height: 100%; background: #5B8DEF"></div></div>
+    <div style="padding: 8px 10px; font-size: 12px; color: var(--t3)">6 of 7 answered</div>
+  </nav>
+
+  <main style="overflow: auto; padding: 40px 32px 48px">
+    <div style="max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="font-size: 12.5px; color: var(--t3)">Step 7 of 7 · <span style="color: #B3CBF8; font-weight: 500">Review</span></div>
+        <h1 style="margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.02em">Ready to create review-qr</h1>
+        <p style="margin: 0; font-size: 14px; color: var(--t2)">Check the answers. Claude writes these files into <span style="font-family: var(--mono); color: var(--t1)">~/Projects/review-qr</span> and the project moves to Design.</p>
+      </div>
+
+      <section aria-label="Answers" style="background: var(--s1); border: 1px solid var(--b); border-radius: 14px">
+        <sc-for list="{{answers}}" as="a" hint-placeholder-count="6">
+          <div style="{{a.style}}">
+            <span style="font-size: 12.5px; color: var(--t3)">{{a.label}}</span>
+            <span style="font-size: 13.5px; line-height: 1.5">{{a.value}}</span>
+            <button style="border: 0; background: transparent; color: #8DB0F4; font-size: 12.5px; cursor: pointer; padding: 4px; justify-self: end">Change</button>
+          </div>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="files" style="display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between">
+          <h2 id="files" style="margin: 0; font-size: 15px; font-weight: 600">Files to be created</h2>
+          <span style="font-size: 12px; color: var(--t3)">7 files · nothing is overwritten</span>
+        </div>
+        <div style="background: var(--s1); border: 1px solid var(--b); border-radius: 14px; overflow: hidden">
+          <sc-for list="{{files}}" as="f" hint-placeholder-count="7">
+            <div style="{{f.style}}">
+              <span style="font-family: var(--mono); font-size: 10px; color: var(--t3); width: 34px">{{f.tag}}</span>
+              <span style="font-family: var(--mono); font-size: 12.5px; flex: 1; min-width: 0">{{f.path}}</span>
+              <span style="font-size: 12px; color: var(--t3)">{{f.note}}</span>
+              <button style="{{f.btn}}">Preview</button>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 0 0; border-top: 1px solid var(--b); flex-wrap: wrap">
+        <label style="display: flex; align-items: center; gap: 10px; font-size: 13.5px; cursor: pointer">
+          <input type="checkbox" checked="" style="width: 16px; height: 16px; margin: 0; accent-color: #5B8DEF">
+          Create a private GitHub repository <span style="font-family: var(--mono); font-size: 12.5px; color: var(--t3)">syedmehedihussain/review-qr</span>
+        </label>
+        <div style="display: flex; gap: 8px">
+          <a href="Survey-Stack.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); color: var(--t1); font-size: 14px; font-weight: 500; display: inline-flex; align-items: center">Back</a>
+          <a href="Main.dc.html" style="height: 44px; padding: 0 22px; border-radius: 999px; background: #EDEDEF; color: #0B0B0C; font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px">Create project<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside aria-label="Preview" style="border-left: 1px solid var(--b); display: flex; flex-direction: column; min-height: 0">
+    <div style="flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 16px 20px; border-bottom: 1px solid var(--b)">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 12px; color: var(--t3)">Preview</span>
+        <span style="font-family: var(--mono); font-size: 13px">CLAUDE.md</span>
+      </div>
+      <span style="height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #3FB950; background: rgba(63,185,80,0.12); display: inline-flex; align-items: center">New · 1.8 KB</span>
+    </div>
+    <article style="flex: 1; overflow: auto; padding: 20px 22px; font-size: 13.5px; line-height: 1.65; color: #D4D4D8">
+      <h3 style="margin: 0 0 8px; font-size: 18px; font-weight: 600; color: var(--t1)">review-qr</h3>
+      <p style="margin: 0 0 14px">A printable QR code that opens a business's Google review page. One page per business, hosted on the owner's home server.</p>
+      <h4 style="margin: 18px 0 6px; font-size: 14px; font-weight: 600; color: var(--t1)">Read first</h4>
+      <ul style="margin: 0; padding-left: 18px">
+        <li><span style="font-family: var(--mono); font-size: 12.5px">_project/STATUS.md</span> — where we are</li>
+        <li><span style="font-family: var(--mono); font-size: 12.5px">docs/prd.md</span> — what we are building</li>
+      </ul>
+      <h4 style="margin: 18px 0 6px; font-size: 14px; font-weight: 600; color: var(--t1)">Rules</h4>
+      <ul style="margin: 0; padding-left: 18px">
+        <li>Ask before editing files or running commands.</li>
+        <li>Record every real choice as an ADR in <span style="font-family: var(--mono); font-size: 12.5px">docs/adr/</span>.</li>
+        <li>No payments. They are out of scope.</li>
+      </ul>
+      <h4 style="margin: 18px 0 6px; font-size: 14px; font-weight: 600; color: var(--t1)">Stack</h4>
+      <pre style="margin: 0; padding: 12px 14px; background: #101012; border: 1px solid var(--b); border-radius: 8px; font-family: var(--mono); font-size: 12px; line-height: 1.6; white-space: pre-wrap">static site  → one page per business
+small API    → scan counter
+host         → home server</pre>
+    </article>
+  </aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var labels = ['Idea', 'Problem & users', 'Scope', 'Stack', 'Data', 'Quality bar', 'Review'];
+    var steps = labels.map(function (l, i) {
+      var done = i < 6, cur = i === 6;
+      return {
+        n: i + 1, label: l, done: done, notDone: !done,
+        style: 'display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 10px; border-radius: 10px; font-size: 13.5px; ' + (cur ? 'background: #26262A; color: #EDEDEF; font-weight: 500' : 'color: #A1A1AA'),
+        dot: 'width: 22px; height: 22px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 11.5px; font-family: var(--mono); ' + (done ? 'background: rgba(63,185,80,0.14); color: #3FB950' : 'background: #5B8DEF; color: #0B0B0C; font-weight: 600')
+      };
+    });
+    var ans = [
+      ['Idea', 'Printable QR code that opens a business’s Google review page'],
+      ['Users', 'Small shop owners in the UK'],
+      ['Scope', 'QR generator, per-business link, scan counter. Not payments.'],
+      ['Stack', 'Static site + small API on your home server'],
+      ['Data', 'Business, ReviewLink, Scan'],
+      ['Quality bar', 'Tests for links and the counter; scans cleanly from a phone camera']
+    ];
+    var answers = ans.map(function (a, i) {
+      return { label: a[0], value: a[1], style: 'display: grid; grid-template-columns: 120px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 12px 18px; ' + (i ? 'border-top: 1px solid rgba(255,255,255,0.08)' : '') };
+    });
+    var fl = [
+      ['MD', 'CLAUDE.md', 'Instructions for Claude', true],
+      ['MD', 'docs/prd.md', 'Requirements'],
+      ['MD', 'docs/architecture.md', 'Parts and how they talk'],
+      ['MD', 'docs/data-model.md', '3 entities'],
+      ['MD', 'docs/adr/0001-host-on-home-server.md', 'Decision record'],
+      ['MD', '_project/STATUS.md', 'Where we left off'],
+      ['JSON', '_project/project.json', 'Phase and settings']
+    ];
+    var files = fl.map(function (f, i) {
+      return {
+        tag: f[0], path: f[1], note: f[2],
+        style: 'display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px 0 18px; ' + (i ? 'border-top: 1px solid rgba(255,255,255,0.08); ' : '') + (f[3] ? 'background: #1C1C1F' : ''),
+        btn: 'height: 30px; padding: 0 12px; border-radius: 999px; font-size: 12px; cursor: pointer; ' + (f[3] ? 'border: 1px solid rgba(91,141,239,0.5); background: rgba(91,141,239,0.14); color: #B3CBF8' : 'border: 0; background: transparent; color: #8DB0F4')
+      };
+    });
+    return { steps: steps, answers: answers, files: files };
+  }
+}
+</script>
+</body>
+</html>

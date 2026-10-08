@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Component sheet</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0B0C}
+*{box-sizing:border-box}
+:root{--bg:#0B0B0C;--s1:#141416;--s2:#1C1C1F;--s3:#26262A;--b:rgba(255,255,255,0.08);--bs:rgba(255,255,255,0.14);--t1:#EDEDEF;--t2:#A1A1AA;--t3:#85858F;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--mono:'Geist Mono',ui-monospace,Menlo,monospace}
+a{color:#8DB0F4;text-decoration:none}a:hover{color:#B3CBF8}
+button{font:inherit;color:inherit}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{opacity:.35}}
+@keyframes shimmer{50%{opacity:.5}}
+</style>
+</helmet>
+<div style="width: 1600px; min-height: 2700px; padding: 64px; background: var(--bg); color: var(--t1); font-family: var(--sans); font-size: 13px; display: flex; flex-direction: column; gap: 48px">
+
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding-bottom: 28px; border-bottom: 1px solid var(--b)">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 13px; color: var(--t3)">Harness · design handoff</span>
+      <h1 style="margin: 0; font-size: 40px; font-weight: 600; letter-spacing: -0.03em">Components and states</h1>
+    </div>
+    <div style="display: flex; gap: 24px; font-size: 12.5px; color: var(--t2)">
+      <span>UI: <span style="color: var(--t1)">Geist</span></span>
+      <span>Code: <span style="font-family: var(--mono); color: var(--t1)">Geist Mono</span></span>
+      <span>Radius 8 · 12 · 16 · full</span>
+      <span>Spacing 4-px grid</span>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 48px; align-items: start">
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Magnet · robot butler</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 28px; display: flex; align-items: flex-end; gap: 36px">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <span style="width: 120px; height: 120px; border-radius: 32px; background: #16203A; border: 1px solid rgba(91,141,239,0.35); display: grid; place-items: center"><svg width="96" height="96" viewBox="0 0 32 32" aria-label="Magnet"><path d="M16 4.5V2.2" stroke="#5B8DEF" stroke-width="1.1" stroke-linecap="round"></path><circle cx="16" cy="2" r="1.1" fill="#5B8DEF"></circle><rect x="6.5" y="4.5" width="19" height="12" rx="6" fill="#E6EAF2"></rect><rect x="9" y="7" width="14" height="7" rx="3.5" fill="#101320"></rect><circle cx="13.2" cy="10.5" r="1.4" fill="#8DB0F4"></circle><circle cx="18.8" cy="10.5" r="1.4" fill="#8DB0F4"></circle><path d="M10.5 18h11l-1.5 6.5h-8z" fill="#3A4A6B"></path><path d="M13.5 18.2l2.5 1.3 2.5-1.3v2.6l-2.5-1.3-2.5 1.3z" fill="#E6EAF2"></path><path d="M10.6 19.5L8 22.5" stroke="#3A4A6B" stroke-width="1.3" stroke-linecap="round"></path><path d="M21.4 19.5L24 22.5" stroke="#3A4A6B" stroke-width="1.3" stroke-linecap="round"></path><circle cx="16" cy="27.5" r="3.5" fill="#1C1C1F" stroke="#5B8DEF" stroke-width="1.1"></circle><circle cx="16" cy="27.5" r="1" fill="#5B8DEF"></circle></svg></span>
+          <span style="font-size: 11.5px; color: var(--t3); font-family: var(--mono)">96</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <span style="width: 56px; height: 56px; border-radius: 50%; background: #16203A; border: 1px solid rgba(91,141,239,0.35); display: grid; place-items: center"><svg width="44" height="44" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4.5V2.2" stroke="#5B8DEF" stroke-width="1.6" stroke-linecap="round"></path><circle cx="16" cy="2" r="1.4" fill="#5B8DEF"></circle><rect x="6.5" y="4.5" width="19" height="12" rx="6" fill="#E6EAF2"></rect><rect x="9" y="7" width="14" height="7" rx="3.5" fill="#101320"></rect><circle cx="13.2" cy="10.5" r="1.4" fill="#8DB0F4"></circle><circle cx="18.8" cy="10.5" r="1.4" fill="#8DB0F4"></circle><path d="M10.5 18h11l-1.5 6.5h-8z" fill="#3A4A6B"></path><path d="M13.5 18.2l2.5 1.3 2.5-1.3v2.6l-2.5-1.3-2.5 1.3z" fill="#E6EAF2"></path><circle cx="16" cy="27.5" r="3.5" fill="#1C1C1F" stroke="#5B8DEF" stroke-width="1.6"></circle><circle cx="16" cy="27.5" r="1" fill="#5B8DEF"></circle></svg></span>
+          <span style="font-size: 11.5px; color: var(--t3); font-family: var(--mono)">48</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <span style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--bs); background: var(--s2); display: grid; place-items: center"><svg width="24" height="24" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4.5V2.2" stroke="#5B8DEF" stroke-width="1.8" stroke-linecap="round"></path><circle cx="16" cy="2" r="1.6" fill="#5B8DEF"></circle><rect x="6.5" y="4.5" width="19" height="12" rx="6" fill="#E6EAF2"></rect><rect x="9" y="7" width="14" height="7" rx="3.5" fill="#101320"></rect><circle cx="13.2" cy="10.5" r="1.6" fill="#8DB0F4"></circle><circle cx="18.8" cy="10.5" r="1.6" fill="#8DB0F4"></circle><path d="M10.5 18h11l-1.5 6.5h-8z" fill="#3A4A6B"></path><circle cx="16" cy="27.5" r="3.5" fill="#1C1C1F" stroke="#5B8DEF" stroke-width="1.8"></circle></svg></span>
+          <span style="font-size: 11.5px; color: var(--t3); font-family: var(--mono)">24</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <span style="width: 28px; height: 28px; display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 32 32" aria-hidden="true"><rect x="6.5" y="4.5" width="19" height="12" rx="6" fill="#A1A1AA"></rect><rect x="9" y="7" width="14" height="7" rx="3.5" fill="#0B0B0C"></rect><path d="M10.5 18h11l-1.5 6.5h-8z" fill="#A1A1AA"></path><circle cx="16" cy="27.5" r="3.2" fill="none" stroke="#A1A1AA" stroke-width="2"></circle></svg></span>
+          <span style="font-size: 11.5px; color: var(--t3); font-family: var(--mono)">16 mono</span>
+        </div>
+        <p style="margin: 0 0 4px; flex: 1; font-size: 13px; color: var(--t2); line-height: 1.6">Round visor head with two eyes, one antenna, a bow tie, a small body and one wheel. Below 24 px the bow tie and arms drop out; the mono glyph is for chips and buttons.</p>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Colour</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 24px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px">
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="height: 52px; border-radius: 10px; background: #0B0B0C; border: 1px solid var(--bs)"></span><span style="font-size: 12px">bg</span><span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">#0B0B0C</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="height: 52px; border-radius: 10px; background: #141416; border: 1px solid var(--b)"></span><span style="font-size: 12px">surface-1</span><span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">#141416</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="height: 52px; border-radius: 10px; background: #1C1C1F; border: 1px solid var(--b)"></span><span style="font-size: 12px">surface-2</span><span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">#1C1C1F</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="height: 52px; border-radius: 10px; background: #26262A"></span><span style="font-size: 12px">surface-3</span><span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">#26262A</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="height: 52px; border-radius: 10px; background: #EDEDEF"></span><span style="font-size: 12px">text-1 · primary</span><span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">#EDEDEF</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="height: 52px; border-radius: 10px; background: #5B8DEF"></span><span style="font-size: 12px">accent</span><span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">#5B8DEF</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="height: 52px; border-radius: 10px; background: #3FB950"></span><span style="font-size: 12px">success</span><span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">#3FB950</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="height: 52px; border-radius: 10px; background: #D29922"></span><span style="font-size: 12px">warning</span><span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">#D29922</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="height: 52px; border-radius: 10px; background: #F85149"></span><span style="font-size: 12px">danger</span><span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">#F85149</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="height: 52px; border-radius: 10px; background: #A371F7"></span><span style="font-size: 12px">edited</span><span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">#A371F7</span></div>
+        <div style="grid-column: 1 / -1; font-size: 12px; color: var(--t2); line-height: 1.55">text-3 raised to <span style="font-family: var(--mono)">#85858F</span> so hints pass 4.5:1 on surface-1. Accent text uses <span style="font-family: var(--mono)">#8DB0F4</span> for the same reason.</div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Buttons and chips</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 18px">
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap">
+          <button style="height: 40px; padding: 0 18px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 13.5px; font-weight: 500">Primary</button>
+          <button style="height: 40px; padding: 0 18px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 13.5px; font-weight: 500; opacity: 0.4">Disabled</button>
+          <button style="height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); font-size: 13.5px; font-weight: 500">Secondary</button>
+          <button style="height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.24); background: var(--s3); font-size: 13.5px; font-weight: 500">Secondary hover</button>
+          <button style="height: 40px; padding: 0 12px; border-radius: 999px; border: 0; background: transparent; color: var(--t2); font-size: 13.5px">Ghost</button>
+          <button style="height: 40px; padding: 0 12px; border-radius: 999px; border: 0; background: transparent; color: #F7A39E; font-size: 13.5px; font-weight: 500">Deny</button>
+          <button style="height: 40px; padding: 0 18px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 13.5px; font-weight: 500; outline: 2px solid #5B8DEF; outline-offset: 2px">Focus</button>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+          <span style="display: flex; align-items: center; height: 30px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--b); background: var(--s2); color: var(--t2); font-size: 12px">Chip</span>
+          <span style="display: flex; align-items: center; height: 30px; padding: 0 11px; border-radius: 999px; border: 1px solid rgba(91,141,239,0.5); background: rgba(91,141,239,0.14); color: #B3CBF8; font-size: 12px">Selected chip</span>
+          <span style="display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--b); background: var(--s2); color: var(--t2); font-size: 12px">Sonnet<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span>
+          <span style="font-family: var(--mono); font-size: 11px; color: var(--t2); background: var(--s2); border: 1px solid var(--b); border-radius: 6px; padding: 3px 7px">Next.js</span>
+          <span style="width: 34px; height: 34px; display: grid; place-items: center; border-radius: 999px; background: #EDEDEF; color: #0B0B0C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg></span>
+          <span style="height: 34px; padding: 0 14px; display: flex; align-items: center; gap: 8px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); font-size: 13px; font-weight: 500"><span style="width: 9px; height: 9px; border-radius: 2px; background: #EDEDEF"></span>Stop</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Status pills and git chips</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap">
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #3FB950; background: rgba(63,185,80,0.12)">Ready</span>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #8DB0F4; background: rgba(91,141,239,0.14)">cctop</span>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #D29922; background: rgba(210,153,34,0.12)">Not calibrated</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #8DB0F4; background: rgba(91,141,239,0.14)"><span style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF; animation: pulse 1.4s ease-in-out infinite"></span>Running</span>
+          <span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #3FB950; background: rgba(63,185,80,0.12)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Done</span>
+          <span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #F85149; background: rgba(248,81,73,0.12)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>Failed</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #D29922; background: rgba(210,153,34,0.12)"><span style="width: 6px; height: 6px; border-radius: 50%; background: #D29922"></span>Waiting</span>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #B3CBF8; background: rgba(91,141,239,0.16)">Recommended</span>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap">
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font-family: var(--mono); font-size: 11.5px; color: #3FB950; background: rgba(63,185,80,0.10)">clean</span>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font-family: var(--mono); font-size: 11.5px; color: #8DB0F4; background: rgba(91,141,239,0.12)">2 ahead</span>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font-family: var(--mono); font-size: 11.5px; color: #D29922; background: rgba(210,153,34,0.12)">1 behind</span>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font-family: var(--mono); font-size: 11.5px; color: #D29922; background: rgba(210,153,34,0.12)">5 changes</span>
+          <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font-family: var(--mono); font-size: 11.5px; color: #A1A1AA; background: rgba(255,255,255,0.06)">No remote</span>
+        </div>
+        <div style="display: flex; gap: 18px; font-family: var(--mono); font-size: 12px; font-weight: 500">
+          <span style="color: #D29922">M modified</span><span style="color: #3FB950">A added</span><span style="color: #5B8DEF">U untracked</span><span style="color: #F85149">D deleted</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Phase bar</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 22px">
+        <div style="display: flex; align-items: center; gap: 4px">
+          <span style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: var(--s3); color: var(--t2); font-size: 12px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Plan</span>
+          <span style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: var(--s3); color: var(--t2); font-size: 12px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Design</span>
+          <span style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 12px; border-radius: 999px; background: rgba(91,141,239,0.16); border: 1px solid rgba(91,141,239,0.55); color: #B3CBF8; font-size: 12px; font-weight: 500"><span style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF"></span>Preparation</span>
+          <span style="display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px dashed var(--bs); color: var(--t3); font-size: 12px">Development</span>
+          <span style="display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px dashed var(--bs); color: var(--t3); font-size: 12px">Deployment</span>
+          <span style="margin-left: 12px; font-size: 12px; color: var(--t3)">Full · top bar · done / current / future</span>
+        </div>
+        <div style="display: flex; gap: 32px">
+          <div style="display: flex; flex-direction: column; gap: 6px; width: 140px"><div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px"><span style="height: 6px; border-radius: 3px; background: #5B8DEF"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span></div><span style="font-size: 11.5px; color: var(--t3)">Plan</span></div>
+          <div style="display: flex; flex-direction: column; gap: 6px; width: 140px"><div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px"><span style="height: 6px; border-radius: 3px; background: #4A4A52"></span><span style="height: 6px; border-radius: 3px; background: #4A4A52"></span><span style="height: 6px; border-radius: 3px; background: #4A4A52"></span><span style="height: 6px; border-radius: 3px; background: #5B8DEF"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span></div><span style="font-size: 11.5px; color: var(--t3)">Development</span></div>
+          <div style="display: flex; flex-direction: column; gap: 6px; width: 140px"><div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px"><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span></div><span style="font-size: 11.5px; color: var(--t3)">Unknown</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Activity rows</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 18px 24px">
+        <div style="position: relative; display: grid; grid-template-columns: 20px 64px minmax(0, 1fr) auto; gap: 10px; align-items: center; height: 34px"><span style="position: absolute; left: 9.5px; top: 26px; width: 1px; height: 16px; background: var(--bs)"></span><span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.06); color: var(--t3); display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path></svg></span><span style="font-weight: 500">Read</span><span style="font-family: var(--mono); font-size: 12px; color: var(--t2)">lib/services/project.ts</span><span style="font-size: 12px; color: var(--t3)">2 min ago</span></div>
+        <div style="position: relative; display: grid; grid-template-columns: 20px 64px minmax(0, 1fr) auto; gap: 10px; align-items: center; height: 34px"><span style="position: absolute; left: 9.5px; top: 26px; width: 1px; height: 16px; background: var(--bs)"></span><span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(163,113,247,0.16); color: #A371F7; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"></path></svg></span><span style="font-weight: 500">Edited</span><span style="font-family: var(--mono); font-size: 12px; color: var(--t2)">app/page.tsx</span><span style="font-family: var(--mono); font-size: 12px"><span style="color: #3FB950">+12</span> <span style="color: #F85149">−3</span></span></div>
+        <div style="position: relative; display: grid; grid-template-columns: 20px 64px minmax(0, 1fr) auto; gap: 10px; align-items: center; height: 34px"><span style="position: absolute; left: 9.5px; top: 26px; width: 1px; height: 16px; background: var(--bs)"></span><span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(91,141,239,0.16); color: #8DB0F4; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l4 4-4 4M12 16h7"></path></svg></span><span style="font-weight: 500">Ran</span><span style="font-family: var(--mono); font-size: 12px; color: var(--t2)">npm run lint</span><span style="font-size: 12px; color: var(--t3)">3.1s</span></div>
+        <div style="position: relative; display: grid; grid-template-columns: 20px 64px minmax(0, 1fr) auto; gap: 10px; align-items: center; height: 34px"><span style="position: absolute; left: 9.5px; top: 26px; width: 1px; height: 16px; background: var(--bs)"></span><span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(63,185,80,0.14); color: #3FB950; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span><span style="font-weight: 500">Ran</span><span style="font-family: var(--mono); font-size: 12px; color: var(--t2)">npm run test</span><span style="font-size: 12px; color: #3FB950">✓ 24 passed</span></div>
+        <div style="position: relative; display: grid; grid-template-columns: 20px 64px minmax(0, 1fr) auto; gap: 10px; align-items: center; height: 34px"><span style="position: absolute; left: 9.5px; top: 26px; width: 1px; height: 16px; background: var(--bs)"></span><span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(210,153,34,0.14); color: #D29922; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path></svg></span><span style="font-weight: 500">Waiting</span><span style="font-family: var(--mono); font-size: 12px; color: var(--t2)">npm install zod</span><span style="font-size: 12px; color: #D29922">needs approval</span></div>
+        <div style="position: relative; display: grid; grid-template-columns: 20px 64px minmax(0, 1fr) auto; gap: 10px; align-items: center; height: 34px"><span style="position: absolute; left: 9.5px; top: 26px; width: 1px; height: 16px; background: var(--bs)"></span><span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(248,81,73,0.14); color: #F85149; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></span><span style="font-weight: 500">Failed</span><span style="font-family: var(--mono); font-size: 12px; color: var(--t2)">npm ls</span><span style="font-size: 12px; color: #F85149">timed out</span></div>
+        <div style="position: relative; display: grid; grid-template-columns: 20px 64px minmax(0, 1fr) auto; gap: 10px; align-items: center; height: 34px"><span style="position: absolute; left: 9.5px; top: 26px; width: 1px; height: 16px; background: var(--bs)"></span><span style="width: 20px; height: 20px; display: grid; place-items: center"><span style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(91,141,239,0.25); border-top-color: #5B8DEF; animation: spin 0.8s linear infinite"></span></span><span style="font-weight: 500; color: #B3CBF8">Running</span><span style="font-family: var(--mono); font-size: 12px; color: var(--t2)">npm run build</span><span style="font-family: var(--mono); font-size: 12px; color: var(--t3)">12s</span></div>
+        <div style="display: flex; align-items: center; gap: 10px; height: 34px; color: var(--t2); font-size: 12.5px"><span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.06); display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path></svg></span><span style="font-weight: 500; color: var(--t1)">Read 8 files</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg><span style="color: var(--t3)">collapsed group</span></div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Decision card · states</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+        <div style="background: var(--s1); border: 1px solid var(--bs); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 12px; color: var(--t2)">Decision · Stack</span><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #D29922; background: rgba(210,153,34,0.12)">Option selected</span></div>
+          <span style="font-size: 15px; font-weight: 600">Which backend should atlas-api use?</span>
+          <div style="display: flex; gap: 12px; padding: 12px 14px; border-radius: 10px; border: 1px solid #5B8DEF; background: rgba(91,141,239,0.08)"><span style="width: 16px; height: 16px; flex: none; margin-top: 2px; border-radius: 50%; border: 1.5px solid #5B8DEF; display: grid; place-items: center"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5B8DEF"></span></span><span style="display: flex; flex-direction: column; gap: 3px"><span style="display: flex; gap: 8px; align-items: center"><span style="font-weight: 500; font-size: 14px">Node 22 + Fastify + SQLite</span><span style="height: 20px; padding: 0 8px; border-radius: 999px; font-size: 11px; font-weight: 500; color: #B3CBF8; background: rgba(91,141,239,0.16); display: inline-flex; align-items: center">Recommended</span></span><span style="font-size: 13px; color: var(--t2)">Fast to build, one file database, easy backups</span><span style="font-size: 12.5px; color: var(--t3)">Trade-off: SQLite limits many writers at once</span></span></div>
+          <div style="display: flex; gap: 12px; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--b); background: var(--s2)"><span style="width: 16px; height: 16px; flex: none; margin-top: 2px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.28)"></span><span style="display: flex; flex-direction: column; gap: 3px"><span style="font-weight: 500; font-size: 14px">Python + FastAPI + PostgreSQL</span><span style="font-size: 13px; color: var(--t2)">Strong typing, scales to many writers</span><span style="font-size: 12.5px; color: var(--t3)">Trade-off: a database server to look after</span></span></div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--b); border-radius: 12px; background: var(--s1)"><span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(63,185,80,0.14); color: #3FB950; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span><span style="color: var(--t2)">Stack:</span><span style="font-weight: 500">Node 22 + Fastify + SQLite</span><span style="flex: 1"></span><span style="color: #8DB0F4">Change</span><span style="font-size: 11.5px; color: var(--t3); margin-left: 8px">Confirmed</span></div>
+        <div aria-busy="true" style="background: var(--s1); border: 1px solid var(--b); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--t2)"><span style="width: 12px; height: 12px; border-radius: 50%; border: 2px solid rgba(91,141,239,0.25); border-top-color: #5B8DEF; animation: spin 0.8s linear infinite"></span>Drafting options…</div>
+          <span style="height: 14px; width: 60%; border-radius: 4px; background: var(--s2); animation: shimmer 1.4s ease-in-out infinite"></span>
+          <span style="height: 58px; border-radius: 10px; background: var(--s2); animation: shimmer 1.4s ease-in-out infinite"></span>
+          <span style="height: 58px; border-radius: 10px; background: var(--s2); animation: shimmer 1.4s ease-in-out infinite"></span>
+        </div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Approval card · states</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+        <div style="background: var(--s1); border: 1px solid rgba(210,153,34,0.45); border-radius: 14px; overflow: hidden">
+          <div style="display: flex; align-items: center; gap: 10px; padding: 14px 16px">
+            <span style="width: 24px; height: 24px; border-radius: 50%; background: rgba(210,153,34,0.14); color: #D29922; display: grid; place-items: center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path></svg></span>
+            <span style="font-size: 15px; font-weight: 600">Claude wants to run a command</span>
+            <span style="flex: 1"></span>
+            <span style="display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #D29922; background: rgba(210,153,34,0.12)">Waiting</span>
+          </div>
+          <div style="margin: 0 16px; font-family: var(--mono); font-size: 13px; background: #101012; border: 1px solid var(--b); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px"><span><span style="color: var(--t3)">$</span> npm install zod</span><span style="font-family: var(--sans); font-size: 12px; color: var(--t3)">in ~/Projects/core</span></div>
+          <div style="display: flex; align-items: center; gap: 8px; padding: 14px 16px">
+            <button style="height: 36px; padding: 0 16px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 13px; font-weight: 500">Allow</button>
+            <button style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); font-size: 13px; font-weight: 500">Allow for this session</button>
+            <span style="flex: 1"></span>
+            <button style="height: 36px; padding: 0 10px; border-radius: 999px; border: 0; background: transparent; color: #F7A39E; font-size: 13px; font-weight: 500">Deny</button>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid rgba(63,185,80,0.25); border-radius: 12px; background: rgba(63,185,80,0.06)"><span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(63,185,80,0.14); color: #3FB950; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span><span style="font-weight: 500; color: #7EE08A">Allowed</span><span style="color: var(--t2)">Edit 2 files</span><span style="flex: 1"></span><span style="font-size: 12px; color: var(--t3)">1 min ago</span></div>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid rgba(248,81,73,0.25); border-radius: 12px; background: rgba(248,81,73,0.06)"><span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(248,81,73,0.14); color: #F85149; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></span><span style="font-weight: 500; color: #F7A39E">Denied</span><span style="color: var(--t2)">Run <span style="font-family: var(--mono)">rm -rf drizzle/</span></span><span style="flex: 1"></span><span style="font-size: 12px; color: var(--t3)">just now</span></div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">File tree rows</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 2px; max-width: 360px">
+        <div style="display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px 0 8px; border-radius: 8px"><span style="width: 14px; display: grid; place-items: center; color: var(--t3)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(90deg)" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></span><span style="width: 30px; color: var(--t3)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><span style="flex: 1">services</span><span style="font-size: 11px; color: var(--t3)">open folder</span></div>
+        <div style="display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px 0 24px; border-radius: 8px; background: linear-gradient(rgba(255,255,255,0.07),rgba(255,255,255,0.07)) 14px 0 / 1px 100% no-repeat"><span style="width: 14px"></span><span style="width: 30px; font-family: var(--mono); font-size: 10px; color: var(--t3)">TS</span><span style="flex: 1">project-presets.ts</span><span style="font-size: 11px; color: var(--t3)">default</span></div>
+        <div style="display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px 0 24px; border-radius: 8px; background: linear-gradient(rgba(255,255,255,0.07),rgba(255,255,255,0.07)) 14px 0 / 1px 100% no-repeat, #1C1C1F"><span style="width: 14px"></span><span style="width: 30px; font-family: var(--mono); font-size: 10px; color: var(--t3)">TS</span><span style="flex: 1">index.ts</span><span style="font-size: 11px; color: var(--t3); margin-right: 6px">hover</span><span style="font-family: var(--mono); font-size: 11px; font-weight: 500; color: #D29922">M</span></div>
+        <div style="display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px 0 24px; border-radius: 8px; background: linear-gradient(rgba(255,255,255,0.07),rgba(255,255,255,0.07)) 14px 0 / 1px 100% no-repeat, #26262A"><span style="width: 14px"></span><span style="width: 30px; font-family: var(--mono); font-size: 10px; color: var(--t3)">TS</span><span style="flex: 1">streaks.ts</span><span style="font-size: 11px; color: var(--t3); margin-right: 6px">selected</span><span style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF"></span><span style="font-family: var(--mono); font-size: 11px; font-weight: 500; color: #3FB950">A</span></div>
+        <div style="display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px 0 24px; border-radius: 8px; background: linear-gradient(rgba(255,255,255,0.07),rgba(255,255,255,0.07)) 14px 0 / 1px 100% no-repeat"><span style="width: 14px"></span><span style="width: 30px; font-family: var(--mono); font-size: 10px; color: var(--t3)">TS</span><span style="flex: 1">old-streaks.ts</span><span style="font-family: var(--mono); font-size: 11px; font-weight: 500; color: #F85149">D</span></div>
+        <div style="display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px 0 8px; border-radius: 8px; color: var(--t3)"><span style="width: 14px; display: grid; place-items: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></span><span style="width: 30px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><span style="flex: 1">node_modules</span><span style="font-size: 11px">ignored</span></div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Project card · hover</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 24px; display: flex; gap: 16px">
+        <div style="width: 260px; display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 12px; background: var(--s1); border: 1px solid var(--b)">
+          <div style="display: flex; justify-content: space-between"><span style="font-size: 16px; font-weight: 600">hunch</span><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #3FB950; background: rgba(63,185,80,0.12)">Ready</span></div>
+          <span style="font-size: 13px; color: var(--t2); line-height: 1.45">A programming language with built-in AI judgement</span>
+          <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px"><span style="height: 6px; border-radius: 3px; background: #4A4A52"></span><span style="height: 6px; border-radius: 3px; background: #5B8DEF"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span></div>
+          <div style="font-size: 12.5px; color: var(--t2); border-top: 1px solid var(--b); padding-top: 10px">Next: <span style="color: var(--t1)">Write ADR for the judge keyword</span></div>
+          <div style="display: flex; justify-content: space-between"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font-family: var(--mono); font-size: 11.5px; color: #3FB950; background: rgba(63,185,80,0.10)">clean</span><span style="font-size: 12px; color: var(--t3)">1 week ago</span></div>
+        </div>
+        <div style="width: 260px; display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 12px; background: var(--s1); border: 1px solid var(--bs); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.35)">
+          <div style="display: flex; justify-content: space-between"><span style="font-size: 16px; font-weight: 600">torongo</span><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #D29922; background: rgba(210,153,34,0.12)">Not calibrated</span></div>
+          <span style="font-size: 13px; color: var(--t2); line-height: 1.45">Real-time AI healthcare translation for Bangladesh</span>
+          <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px"><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span><span style="height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18)"></span></div>
+          <div style="font-size: 12.5px; color: var(--t2); border-top: 1px solid var(--b); padding-top: 10px">Next: <span style="color: #8DB0F4">Calibrate this folder</span></div>
+          <div style="display: flex; justify-content: space-between"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font-family: var(--mono); font-size: 11.5px; color: #D29922; background: rgba(210,153,34,0.12)">2 behind</span><span style="font-size: 12px; color: var(--t3)">1 month ago</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">GitHub box · no remote</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 24px">
+        <div style="max-width: 328px; background: var(--s1); border: 1px solid var(--b); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start"><div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 12px; color: var(--t3)">Repository</span><span style="font-size: 14px; font-weight: 500">No remote</span></div><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font-family: var(--mono); font-size: 11.5px; color: #A1A1AA; background: rgba(255,255,255,0.06)">local only</span></div>
+          <p style="margin: 0; font-size: 13px; color: var(--t2); line-height: 1.5"><span style="font-family: var(--mono)">review-qr</span> has 4 local commits that are not backed up anywhere.</p>
+          <button style="height: 36px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 13px; font-weight: 500">Create repository on GitHub</button>
+          <span style="font-size: 12px; color: var(--t3); text-align: center">Private by default · syedmehedihussain</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Agent card · waiting · new agent form</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 24px; display: flex; gap: 16px; align-items: flex-start">
+        <article style="width: 328px; background: var(--s1); border: 1px solid rgba(210,153,34,0.35); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 13.5px; font-weight: 500">Write tests for streak service</span><span style="flex: none; display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #D29922; background: rgba(210,153,34,0.12)"><span style="width: 6px; height: 6px; border-radius: 50%; background: #D29922"></span>Waiting</span></div>
+          <div style="font-size: 12px; color: var(--t3)">Sonnet · 4m 02s · <span style="font-family: var(--mono); color: var(--t2)">agent/tests-streaks</span></div>
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; background: rgba(210,153,34,0.08)"><span style="font-size: 12.5px; color: var(--t2)">Wants to run <span style="font-family: var(--mono); color: var(--t1)">npm install -D vitest</span></span><span style="font-size: 12.5px; font-weight: 500">Review</span></div>
+        </article>
+        <div style="width: 328px; background: var(--s1); border: 1px solid var(--bs); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+          <span style="font-size: 13.5px; font-weight: 600">New agent</span>
+          <label for="ag" style="font-size: 12px; color: var(--t3)">Task</label>
+          <textarea id="ag" rows="2" style="resize: none; margin-top: -6px; background: var(--s2); border: 1px solid var(--bs); border-radius: 8px; color: var(--t1); font: inherit; font-size: 13px; padding: 8px 10px">Write tests for the auth module</textarea>
+          <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 12px; color: var(--t3)">Model</span><span style="display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--b); background: var(--s2); font-size: 12px">Sonnet<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span></div>
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><span style="font-size: 12.5px; color: var(--t2)">Run in a separate copy (worktree)</span><span style="position: relative; width: 30px; height: 18px; border-radius: 999px; background: #5B8DEF; flex: none"><span style="position: absolute; top: 2px; left: 14px; width: 14px; height: 14px; border-radius: 50%; background: #FFFFFF"></span></span></div>
+          <button style="height: 36px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 13px; font-weight: 500">Start agent</button>
+        </div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Proposed action · toast</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 24px; display: flex; gap: 16px; align-items: flex-start">
+        <div style="width: 340px; border: 1px solid rgba(91,141,239,0.45); background: rgba(91,141,239,0.06); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+          <span style="font-size: 12.5px; color: #B3CBF8; font-weight: 500">Magnet wants to start an agent in core</span>
+          <span style="font-size: 13px; color: var(--t2); line-height: 1.5">“Check for unused dependencies” · Haiku · worktree <span style="font-family: var(--mono)">agent/deps</span></span>
+          <div style="display: flex; gap: 6px"><button style="height: 32px; padding: 0 14px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 12.5px; font-weight: 500">Approve</button><button style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); font-size: 12.5px; font-weight: 500">Cancel</button></div>
+        </div>
+        <div style="width: 340px; background: #1C1C1F; border: 1px solid rgba(210,153,34,0.5); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 16px 48px rgba(0,0,0,0.55)">
+          <span style="font-size: 13.5px; font-weight: 500">Claude wants to run <span style="font-family: var(--mono); font-size: 12.5px">npm install zod</span></span>
+          <div style="display: flex; gap: 6px"><button style="height: 32px; padding: 0 14px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 12.5px; font-weight: 500">Review</button><button style="height: 32px; padding: 0 10px; border-radius: 999px; border: 0; background: transparent; color: #F7A39E; font-size: 12.5px; font-weight: 500">Deny</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Empty · loading · error</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; border: 1px dashed var(--bs); border-radius: 12px"><span style="font-size: 13px; color: var(--t2)">No agents yet. Start one to work on the side.</span><button style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); font-size: 12.5px; font-weight: 500">New agent</button></div>
+        <div aria-busy="true" style="display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 1px solid var(--b); border-radius: 12px; background: var(--s1)"><span style="height: 12px; width: 40%; border-radius: 4px; background: var(--s2); animation: shimmer 1.4s ease-in-out infinite"></span><span style="height: 12px; width: 85%; border-radius: 4px; background: var(--s2); animation: shimmer 1.4s ease-in-out infinite"></span><span style="height: 12px; width: 70%; border-radius: 4px; background: var(--s2); animation: shimmer 1.4s ease-in-out infinite"></span></div>
+        <div role="alert" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; border-radius: 10px; background: rgba(248,81,73,0.08); border: 1px solid rgba(248,81,73,0.22)"><span style="font-size: 13px; color: #F7A39E">Couldn't reach GitHub. Your files are safe.</span><button style="height: 30px; padding: 0 10px; border: 0; background: transparent; color: var(--t1); font-size: 12.5px; font-weight: 500">Try again</button></div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 12px; font-weight: 500; color: var(--t3); letter-spacing: 0.06em; text-transform: uppercase">Status strip · full and collapsed</h2>
+      <div style="border: 1px solid var(--b); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <div style="background: var(--s1); border: 1px solid var(--b); border-radius: 12px; padding: 14px 16px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 20px">
+          <div><div style="font-size: 12px; color: var(--t3); font-weight: 500">Where we left off</div><p style="margin: 6px 0 0; font-size: 13px; line-height: 1.5">Finished the Living Room floor and the HUD.</p></div>
+          <div><div style="font-size: 12px; color: var(--t3); font-weight: 500">Next steps</div><div style="margin-top: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500"><span style="width: 14px; height: 14px; border: 1.5px solid #5B8DEF; border-radius: 4px"></span>Save streaks in the database</div></div>
+          <div style="font-size: 12px; color: var(--t3)">Updated 2 h ago</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px; height: 44px; padding: 0 14px; background: var(--s1); border: 1px solid var(--b); border-radius: 12px"><span style="font-size: 12px; color: var(--t3); font-weight: 500">Where we left off</span><span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--t2)">Finished the Living Room floor and the HUD.</span><span style="font-size: 12px; color: var(--t3)">Next: <span style="color: var(--t1)">Save streaks</span></span></div>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":2700}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

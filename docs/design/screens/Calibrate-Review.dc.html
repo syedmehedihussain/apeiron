@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Calibration — review proposal</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0B0C}
+*{box-sizing:border-box}
+:root{--bg:#0B0B0C;--s1:#141416;--s2:#1C1C1F;--s3:#26262A;--b:rgba(255,255,255,0.08);--bs:rgba(255,255,255,0.14);--t1:#EDEDEF;--t2:#A1A1AA;--t3:#85858F;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--mono:'Geist Mono',ui-monospace,Menlo,monospace}
+a{color:#8DB0F4;text-decoration:none}a:hover{color:#B3CBF8}
+button{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #5B8DEF;outline-offset:2px}
+</style>
+</helmet>
+<div style="height: 100vh; min-height: 900px; width: 100%; display: flex; flex-direction: column; background: var(--bg); color: var(--t1); font-family: var(--sans); font-size: 13px; overflow: hidden">
+
+<header style="height: 56px; flex: none; display: flex; align-items: center; gap: 16px; padding: 0 16px 0 20px; border-bottom: 1px solid var(--b)">
+  <div style="flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 10px">
+    <a href="Home.dc.html" aria-label="Harness home" style="display: flex; align-items: center; gap: 10px; color: var(--t1)">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="22" height="22" rx="7" fill="#EDEDEF"></rect><path d="M8 7v10M16 7v10M8 12h8" stroke="#0B0B0C" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      <span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">Harness</span>
+    </a>
+    <span style="color: var(--t3)">/</span>
+    <a href="Home.dc.html" style="color: var(--t2)">Projects</a>
+    <span style="color: var(--t3)">/</span>
+    <span style="color: var(--t1); font-weight: 500">torongo</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 8px">
+    <span style="display: inline-flex; align-items: center; gap: 7px; height: 26px; padding: 0 12px; border-radius: 999px; font-size: 12px; font-weight: 500; color: #D29922; background: rgba(210,153,34,0.12)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path></svg>Waiting for your review</span>
+  </div>
+  <div style="flex: 1 1 0; display: flex; justify-content: flex-end; align-items: center; gap: 8px">
+    <span style="display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--t2); padding-right: 6px"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3FB950; box-shadow: 0 0 0 3px rgba(63,185,80,0.18)"></span>Claude Code</span>
+    <a href="Settings.dc.html" aria-label="Settings" style="width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; color: var(--t2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"></path><circle cx="15" cy="6" r="2"></circle><circle cx="9" cy="12" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></a>
+    <a href="Home-Magnet.dc.html" aria-label="Open Magnet" style="width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2)">
+      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4.5V2.2" stroke="#5B8DEF" stroke-width="1.6" stroke-linecap="round"></path><circle cx="16" cy="2" r="1.4" fill="#5B8DEF"></circle><rect x="6.5" y="4.5" width="19" height="12" rx="6" fill="#E6EAF2"></rect><rect x="9" y="7" width="14" height="7" rx="3.5" fill="#101320"></rect><circle cx="13.2" cy="10.5" r="1.4" fill="#8DB0F4"></circle><circle cx="18.8" cy="10.5" r="1.4" fill="#8DB0F4"></circle><path d="M10.5 18h11l-1.5 6.5h-8z" fill="#3A4A6B"></path><path d="M13.5 18.2l2.5 1.3 2.5-1.3v2.6l-2.5-1.3-2.5 1.3z" fill="#E6EAF2"></path><circle cx="16" cy="27.5" r="3.5" fill="#1C1C1F" stroke="#5B8DEF" stroke-width="1.6"></circle><circle cx="16" cy="27.5" r="1" fill="#5B8DEF"></circle></svg>
+    </a>
+  </div>
+</header>
+
+<div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 280px minmax(0, 1fr)">
+  <aside aria-label="Calibration steps" style="border-right: 1px solid var(--b); padding: 24px 16px; display: flex; flex-direction: column; gap: 4px">
+    <div style="padding: 0 10px 12px; font-size: 12px; color: var(--t3); font-weight: 500">Calibrating torongo</div>
+    <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 10px; color: var(--t2); font-size: 13.5px"><span style="width: 22px; height: 22px; border-radius: 50%; background: rgba(63,185,80,0.14); color: #3FB950; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>Read the project</div>
+    <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 10px; color: var(--t2); font-size: 13.5px"><span style="width: 22px; height: 22px; border-radius: 50%; background: rgba(63,185,80,0.14); color: #3FB950; display: grid; place-items: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>Questions</div>
+    <div aria-current="step" style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 10px; border-radius: 10px; background: var(--s3); font-size: 13.5px; font-weight: 500"><span style="width: 22px; height: 22px; border-radius: 50%; background: #5B8DEF; color: #0B0B0C; display: grid; place-items: center; font-family: var(--mono); font-size: 11.5px; font-weight: 600">3</span>Review proposal</div>
+
+    <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 8px; padding: 14px; border: 1px solid var(--b); border-radius: 12px; background: var(--s1)">
+      <span style="font-size: 12px; color: var(--t3)">Your answers</span>
+      <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="color: var(--t2)">Phase</span><span style="font-weight: 500">Development</span></div>
+      <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="color: var(--t2)">Users</span><span style="font-weight: 500">Clinics in Bangladesh</span></div>
+      <button style="align-self: flex-start; border: 0; background: transparent; color: #8DB0F4; font-size: 12.5px; cursor: pointer; padding: 4px 0">Change answers</button>
+    </div>
+  </aside>
+
+  <main style="display: flex; flex-direction: column; min-width: 0; min-height: 0">
+    <div style="flex: none; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 24px 28px 18px; border-bottom: 1px solid var(--b); flex-wrap: wrap">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <h1 style="margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.02em">Review proposed files</h1>
+        <p style="margin: 0; font-size: 14px; color: var(--t2)">5 new files and 1 change to <span style="font-family: var(--mono); font-size: 13px">README.md</span>. Untick anything you don't want.</p>
+      </div>
+      <div style="display: flex; gap: 8px">
+        <a href="Home.dc.html" style="height: 40px; padding: 0 16px; border-radius: 999px; color: var(--t2); font-size: 13.5px; font-weight: 500; display: inline-flex; align-items: center">Discard</a>
+        <a href="Main.dc.html" style="height: 40px; padding: 0 20px; border-radius: 999px; background: #EDEDEF; color: #0B0B0C; font-size: 13.5px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px">Write {{count}} selected files</a>
+      </div>
+    </div>
+
+    <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 400px minmax(0, 1fr)">
+      <div role="list" style="border-right: 1px solid var(--b); overflow: auto; padding: 12px">
+        <sc-for list="{{files}}" as="f" hint-placeholder-count="6">
+          <div role="listitem" style="{{f.style}}">
+            <input type="checkbox" checked="{{f.on}}" onChange="{{f.toggle}}" aria-label="Include {{f.path}}" style="width: 16px; height: 16px; margin: 0; accent-color: #5B8DEF; flex: none">
+            <button onClick="{{f.pick}}" style="flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; border: 0; background: transparent; padding: 0; height: 100%; cursor: pointer; text-align: left">
+              <span style="{{f.tagStyle}}">{{f.tag}}</span>
+              <span style="flex: 1; min-width: 0; font-family: var(--mono); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{f.path}}</span>
+              <span style="font-family: var(--mono); font-size: 11.5px; color: var(--t3)">{{f.size}}</span>
+            </button>
+          </div>
+        </sc-for>
+        <div style="margin: 14px 6px 0; padding: 12px; border-radius: 10px; background: var(--s1); font-size: 12.5px; color: var(--t2); line-height: 1.55">Your existing files stay as they are. <span style="font-family: var(--mono)">README.md</span> only gets a new section at the end.</div>
+      </div>
+
+      <section aria-label="Preview" style="display: flex; flex-direction: column; min-width: 0; min-height: 0">
+        <div style="flex: none; display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-bottom: 1px solid var(--b)">
+          <span style="font-family: var(--mono); font-size: 13px">{{sel.path}}</span>
+          <span style="{{sel.tagStyle}}">{{sel.tag}}</span>
+          <span style="flex: 1"></span>
+          <span style="font-size: 12px; color: var(--t3)">{{sel.note}}</span>
+        </div>
+        <div style="flex: 1; min-height: 0; overflow: auto; background: #0E0E10">
+          <div style="font-family: var(--mono); font-size: 13px; line-height: 22px; padding: 12px 0 32px; white-space: pre-wrap">
+            <sc-for list="{{sel.lines}}" as="ln" hint-placeholder-count="16">
+              <div style="{{ln.style}}"><span style="width: 48px; flex: none; text-align: right; padding-right: 14px; color: #5F5F68">{{ln.n}}</span><span style="width: 16px; flex: none; color: {{ln.signColor}}">{{ln.sign}}</span><span style="{{ln.textStyle}}">{{ln.t}}</span></div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sel: 0, off: {} };
+  }
+  renderVals() {
+    var s = this.state, self = this;
+    var F = [
+      { tag: 'New', path: 'CLAUDE.md', size: '2.1 KB', note: 'Instructions Claude reads first', body: [
+        '# torongo', '', 'Real-time AI healthcare translation for Bangladesh.', '',
+        '## Read first', '- _project/STATUS.md', '- docs/architecture.md', '',
+        '## Stack', '- Node 20 and Express, server in src/server.js', '- React pages in src/pages/', '- Translation calls in src/translate.js', '',
+        '## Rules', '- Ask before editing files or running commands.', '- There are no tests yet. Add them before changing translate.js.', '- Never log patient text.'
+      ] },
+      { tag: 'New', path: 'docs/architecture.md', size: '3.4 KB', note: 'Parts and how they talk', body: ['# Architecture', '', 'browser → src/pages → src/server.js → translate.js', '', '## Parts', '- Web page: speech in, text out', '- Server: one Express app', '- Translator: wraps the model API'] },
+      { tag: 'New', path: 'docs/data-model.md', size: '1.2 KB', note: '2 entities', body: ['# Data model', '', '## Session', '- id, language pair, started at', '', '## Utterance', '- session id, source text, translated text, time'] },
+      { tag: 'New', path: '_project/STATUS.md', size: '0.6 KB', note: 'Where we left off', body: ['# Status', '', 'Phase: Development', '', '## Where we left off', 'Live translation works in the web page.', 'Last commit was 1 month ago.', '', '## Next steps', '- [ ] Pull the 2 new commits from GitHub', '- [ ] Add tests for translate.js'] },
+      { tag: 'New', path: '_project/project.json', size: '0.4 KB', note: 'Phase and settings', body: ['{', '  "name": "torongo",', '  "phase": "development",', '  "calibrated": "2026-10-07",', '  "remote": "syedmehedihussain/torongo"', '}'] },
+      { tag: 'Changed', path: 'README.md', size: '+18 −2', note: 'Adds a Project files section', diff: [
+        [' ', '## Running locally'], [' ', ''], [' ', '    npm install'], ['-', '    npm start'], ['-', 'Open localhost:3000.'], ['+', '    npm run dev'], ['+', 'Open http://localhost:3000.'], [' ', ''],
+        ['+', '## Project files'], ['+', ''], ['+', 'This project is managed with Harness.'], ['+', '- CLAUDE.md: notes for Claude'], ['+', '- docs/: architecture and data model'], ['+', '- _project/STATUS.md: where we left off']
+      ] }
+    ];
+    var tagStyle = function (t) {
+      return 'flex: none; height: 20px; padding: 0 7px; border-radius: 999px; font-size: 10.5px; font-weight: 500; display: inline-flex; align-items: center; ' + (t === 'New' ? 'color: #3FB950; background: rgba(63,185,80,0.12)' : 'color: #D29922; background: rgba(210,153,34,0.12)');
+    };
+    var files = F.map(function (f, i) {
+      var on = !s.off[i], cur = s.sel === i;
+      return {
+        tag: f.tag, path: f.path, size: f.size, on: on, tagStyle: tagStyle(f.tag),
+        pick: function () { self.setState({ sel: i }); },
+        toggle: function () { var o = Object.assign({}, s.off); o[i] = on; self.setState({ off: o }); },
+        style: 'display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 12px; border-radius: 10px; ' + (cur ? 'background: #26262A' : '') + (on ? '' : '; opacity: 0.5')
+      };
+    });
+    var f = F[s.sel];
+    var lines;
+    if (f.diff) {
+      var n = 40;
+      lines = f.diff.map(function (d) {
+        if (d[0] !== '-') n++;
+        return {
+          n: d[0] === '-' ? '' : n, sign: d[0] === ' ' ? '' : d[0], t: d[1] || ' ',
+          signColor: d[0] === '+' ? '#3FB950' : '#F85149',
+          textStyle: 'color: ' + (d[0] === '-' ? '#F7A39E' : '#D4D4D8'),
+          style: 'display: flex; padding-right: 24px; background: ' + (d[0] === '+' ? 'rgba(63,185,80,0.10)' : d[0] === '-' ? 'rgba(248,81,73,0.10)' : 'transparent')
+        };
+      });
+    } else {
+      lines = f.body.map(function (t, i) {
+        var h = /^#/.test(t);
+        return { n: i + 1, sign: '', t: t || ' ', signColor: '', textStyle: 'color: ' + (h ? '#EDEDEF; font-weight: 500' : '#D4D4D8'), style: 'display: flex; padding-right: 24px' };
+      });
+    }
+    var count = F.filter(function (_, i) { return !s.off[i]; }).length;
+    return {
+      files: files, count: count,
+      sel: { path: f.path, tag: f.tag, note: f.note, tagStyle: tagStyle(f.tag), lines: lines }
+    };
+  }
+}
+</script>
+</body>
+</html>

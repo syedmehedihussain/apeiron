@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Calibration — prompt</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0B0C}
+*{box-sizing:border-box}
+:root{--bg:#0B0B0C;--s1:#141416;--s2:#1C1C1F;--s3:#26262A;--b:rgba(255,255,255,0.08);--bs:rgba(255,255,255,0.14);--t1:#EDEDEF;--t2:#A1A1AA;--t3:#85858F;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--mono:'Geist Mono',ui-monospace,Menlo,monospace}
+a{color:#8DB0F4;text-decoration:none}a:hover{color:#B3CBF8}
+button{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #5B8DEF;outline-offset:2px}
+</style>
+</helmet>
+<div style="height: 100vh; min-height: 900px; width: 100%; display: flex; flex-direction: column; background: var(--bg); color: var(--t1); font-family: var(--sans); font-size: 13px; overflow: hidden">
+
+<header style="height: 56px; flex: none; display: flex; align-items: center; gap: 16px; padding: 0 16px 0 20px; border-bottom: 1px solid var(--b)">
+  <div style="flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 10px">
+    <a href="Home.dc.html" aria-label="Harness home" style="display: flex; align-items: center; gap: 10px; color: var(--t1)">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="22" height="22" rx="7" fill="#EDEDEF"></rect><path d="M8 7v10M16 7v10M8 12h8" stroke="#0B0B0C" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      <span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">Harness</span>
+    </a>
+    <span style="color: var(--t3)">/</span>
+    <a href="Home.dc.html" style="color: var(--t2)">Projects</a>
+    <span style="color: var(--t3)">/</span>
+    <span style="color: var(--t1); font-weight: 500">torongo</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 8px">
+    <span style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 12px; border-radius: 999px; font-size: 12px; font-weight: 500; color: #D29922; background: rgba(210,153,34,0.12)">Not calibrated</span>
+    <span style="font-size: 12px; color: var(--t3)">Phase unknown</span>
+  </div>
+  <div style="flex: 1 1 0; display: flex; justify-content: flex-end; align-items: center; gap: 8px">
+    <span style="display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--t2); padding-right: 6px"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3FB950; box-shadow: 0 0 0 3px rgba(63,185,80,0.18)"></span>Claude Code</span>
+    <a href="Settings.dc.html" aria-label="Settings" style="width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; color: var(--t2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"></path><circle cx="15" cy="6" r="2"></circle><circle cx="9" cy="12" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></a>
+    <a href="Home-Magnet.dc.html" aria-label="Open Magnet" style="width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2)">
+      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4.5V2.2" stroke="#5B8DEF" stroke-width="1.6" stroke-linecap="round"></path><circle cx="16" cy="2" r="1.4" fill="#5B8DEF"></circle><rect x="6.5" y="4.5" width="19" height="12" rx="6" fill="#E6EAF2"></rect><rect x="9" y="7" width="14" height="7" rx="3.5" fill="#101320"></rect><circle cx="13.2" cy="10.5" r="1.4" fill="#8DB0F4"></circle><circle cx="18.8" cy="10.5" r="1.4" fill="#8DB0F4"></circle><path d="M10.5 18h11l-1.5 6.5h-8z" fill="#3A4A6B"></path><path d="M13.5 18.2l2.5 1.3 2.5-1.3v2.6l-2.5-1.3-2.5 1.3z" fill="#E6EAF2"></path><circle cx="16" cy="27.5" r="3.5" fill="#1C1C1F" stroke="#5B8DEF" stroke-width="1.6"></circle><circle cx="16" cy="27.5" r="1" fill="#5B8DEF"></circle></svg>
+    </a>
+  </div>
+</header>
+
+<div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 280px minmax(0, 1fr) 360px">
+  <aside aria-label="Files" style="border-right: 1px solid var(--b); display: flex; flex-direction: column; min-height: 0">
+    <div style="height: 48px; flex: none; display: flex; align-items: center; padding: 0 16px; border-bottom: 1px solid var(--b); gap: 8px">
+      <span style="font-weight: 600; font-size: 13px">torongo</span>
+      <span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">~/Projects/torongo</span>
+    </div>
+    <div style="flex: 1; overflow: auto; padding: 10px 8px">
+      <sc-for list="{{tree}}" as="r" hint-placeholder-count="14">
+        <button style="{{r.style}}">
+          <span style="width: 14px; flex: none; display: grid; place-items: center; color: var(--t3)"><sc-if value="{{r.folder}}" hint-placeholder-val="{{false}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="{{r.chev}}" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></sc-if></span>
+          <span style="width: 30px; flex: none; font-family: var(--mono); font-size: 10px; color: var(--t3)"><sc-if value="{{r.file}}" hint-placeholder-val="{{true}}">{{r.tag}}</sc-if><sc-if value="{{r.folder}}" hint-placeholder-val="{{false}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></sc-if></span>
+          <span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{r.name}}</span>
+        </button>
+      </sc-for>
+    </div>
+  </aside>
+
+  <main style="overflow: auto; display: flex; align-items: center; justify-content: center; padding: 40px 32px">
+    <div style="width: 100%; max-width: 560px; background: var(--s1); border: 1px solid var(--bs); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 22px">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <span style="width: 40px; height: 40px; border-radius: 12px; background: rgba(210,153,34,0.12); color: #D29922; display: grid; place-items: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="M12 11v4M10 13h4"></path></svg></span>
+        <h1 style="margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.02em">torongo isn't set up for Harness yet.</h1>
+        <p style="margin: 0; font-size: 14px; color: var(--t2); line-height: 1.55">Calibration gives it the same structure as your other projects, so Claude knows where things stand next time.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <span style="font-size: 12px; color: var(--t3); font-weight: 500">What calibration does</span>
+        <div style="display: flex; gap: 10px; font-size: 14px; line-height: 1.5"><span style="color: #8DB0F4; font-family: var(--mono); font-size: 12px; padding-top: 2px">1</span>Reads your code, README and git history.</div>
+        <div style="display: flex; gap: 10px; font-size: 14px; line-height: 1.5"><span style="color: #8DB0F4; font-family: var(--mono); font-size: 12px; padding-top: 2px">2</span>Asks you about anything it can't work out, like the current phase.</div>
+        <div style="display: flex; gap: 10px; font-size: 14px; line-height: 1.5"><span style="color: #8DB0F4; font-family: var(--mono); font-size: 12px; padding-top: 2px">3</span>Proposes <span style="font-family: var(--mono); font-size: 13px">CLAUDE.md</span>, docs and a status file for you to review.</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border-radius: 12px; background: var(--s2)">
+        <span style="font-size: 12px; color: var(--t3); font-weight: 500">What it will not do</span>
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 13.5px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3FB950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path></svg>Never overwrites your files</div>
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 13.5px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3FB950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>Reads only until you approve</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px">
+        <a href="Calibrate-Scan.dc.html" style="height: 44px; padding: 0 22px; border-radius: 999px; background: #EDEDEF; color: #0B0B0C; font-size: 14px; font-weight: 500; display: inline-flex; align-items: center">Calibrate</a>
+        <a href="Home.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); color: var(--t1); font-size: 14px; font-weight: 500; display: inline-flex; align-items: center">Not now</a>
+        <span style="flex: 1"></span>
+        <span style="font-size: 12px; color: var(--t3)">Usually under 2 minutes</span>
+      </div>
+    </div>
+  </main>
+
+  <aside aria-label="Repository" style="border-left: 1px solid var(--b); display: flex; flex-direction: column; min-height: 0; padding: 16px; gap: 16px">
+    <div style="background: var(--s1); border: 1px solid var(--b); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
+        <div style="display: flex; flex-direction: column; gap: 3px">
+          <span style="font-size: 12px; color: var(--t3)">Repository</span>
+          <a href="#repo" style="color: var(--t1); font-size: 14px; font-weight: 500">syedmehedihussain/torongo</a>
+        </div>
+        <span style="height: 22px; padding: 0 9px; border-radius: 999px; border: 1px solid var(--bs); font-size: 11.5px; color: var(--t2); display: inline-flex; align-items: center">Public</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px">
+        <span style="height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--b); background: var(--s2); font-family: var(--mono); font-size: 12px; display: inline-flex; align-items: center">main</span>
+        <span style="height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #D29922; background: rgba(210,153,34,0.12); display: inline-flex; align-items: center">2 behind</span>
+        <span style="margin-left: auto; font-size: 12px; color: var(--t3)">clean</span>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px; padding-top: 12px; border-top: 1px solid var(--b)">
+        <button style="height: 34px; padding: 0 14px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 13px; font-weight: 500; cursor: pointer">Pull 2 commits</button>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 32px 16px; border: 1px dashed var(--b); border-radius: 12px; text-align: center">
+      <span style="font-size: 13px; color: var(--t2)">No agents yet</span>
+      <span style="font-size: 12px; color: var(--t3)">Agents become available after calibration.</span>
+    </div>
+  </aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var list = [[0, 'public', 'dirc'], [0, 'src', 'dir'], [1, 'components', 'dirc'], [1, 'lib', 'dirc'], [1, 'pages', 'dirc'], [1, 'server.js', 'JS'], [1, 'translate.js', 'JS'], [0, 'node_modules', 'ign'], [0, '.env.example', 'ENV'], [0, 'package.json', 'JSON'], [0, 'README.md', 'MD']];
+    return {
+      tree: list.map(function (r) {
+        var d = r[0], kind = r[2], folder = kind === 'dir' || kind === 'dirc' || kind === 'ign';
+        var g = [];
+        for (var i = 1; i <= d; i++) g.push('linear-gradient(rgba(255,255,255,0.07),rgba(255,255,255,0.07)) ' + (8 + (i - 1) * 16 + 6) + 'px 0 / 1px 100% no-repeat');
+        g.push('transparent');
+        return {
+          name: r[1], folder: folder, file: !folder, tag: kind, chev: kind === 'dir' ? 'transform: rotate(90deg)' : '',
+          style: 'display: flex; align-items: center; gap: 6px; width: 100%; height: 30px; padding: 0 10px 0 ' + (8 + d * 16) + 'px; border: 0; border-radius: 8px; background: ' + g.join(', ') + '; cursor: pointer; font: inherit; font-size: 13px; text-align: left; color: ' + (kind === 'ign' ? '#85858F' : '#EDEDEF')
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Workspace — Docs</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0B0C}
+*{box-sizing:border-box}
+:root{--bg:#0B0B0C;--s1:#141416;--s2:#1C1C1F;--s3:#26262A;--b:rgba(255,255,255,0.08);--bs:rgba(255,255,255,0.14);--t1:#EDEDEF;--t2:#A1A1AA;--t3:#85858F;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--mono:'Geist Mono',ui-monospace,Menlo,monospace}
+a{color:#8DB0F4;text-decoration:none}a:hover{color:#B3CBF8}
+button{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #5B8DEF;outline-offset:2px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{opacity:.35}}
+</style>
+</helmet>
+<div style="position: relative; height: 100vh; min-height: 900px; width: 100%; display: flex; flex-direction: column; background: var(--bg); color: var(--t1); font-family: var(--sans); font-size: 13px; overflow: hidden">
+
+<header style="height: 56px; flex: none; display: flex; align-items: center; gap: 16px; padding: 0 16px 0 20px; border-bottom: 1px solid var(--b)">
+  <div style="flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 10px">
+    <a href="Home.dc.html" aria-label="Harness home" style="display: flex; align-items: center; gap: 10px; color: var(--t1)">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="22" height="22" rx="7" fill="#EDEDEF"></rect><path d="M8 7v10M16 7v10M8 12h8" stroke="#0B0B0C" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      <span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">Harness</span>
+    </a>
+    <span style="color: var(--t3)">/</span>
+    <a href="Home.dc.html" style="color: var(--t2)">Projects</a>
+    <span style="color: var(--t3)">/</span>
+    <span style="color: var(--t1); font-weight: 500">core</span>
+  </div>
+  <nav aria-label="Project phase" style="display: flex; align-items: center; gap: 4px">
+    <span style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: var(--s3); color: var(--t2); font-size: 12px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Plan</span>
+    <span style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: var(--s3); color: var(--t2); font-size: 12px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Design</span>
+    <span style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: var(--s3); color: var(--t2); font-size: 12px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Preparation</span>
+    <span aria-current="step" style="display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 12px; border-radius: 999px; background: rgba(91,141,239,0.16); border: 1px solid rgba(91,141,239,0.55); color: #B3CBF8; font-size: 12px; font-weight: 500"><span style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF"></span>Development</span>
+    <span style="display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px dashed var(--bs); color: var(--t3); font-size: 12px">Deployment</span>
+  </nav>
+  <div style="flex: 1 1 0; display: flex; justify-content: flex-end; align-items: center; gap: 8px">
+    <span style="display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--t2); padding-right: 6px"><span style="width: 7px; height: 7px; border-radius: 50%; background: #3FB950; box-shadow: 0 0 0 3px rgba(63,185,80,0.18)"></span>Claude Code</span>
+    <a href="Settings.dc.html" aria-label="Settings" style="width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; color: var(--t2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"></path><circle cx="15" cy="6" r="2"></circle><circle cx="9" cy="12" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></a>
+    <button aria-label="Open Magnet" style="width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); cursor: pointer; padding: 0">
+      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4.5V2.2" stroke="#5B8DEF" stroke-width="1.6" stroke-linecap="round"></path><circle cx="16" cy="2" r="1.4" fill="#5B8DEF"></circle><rect x="6.5" y="4.5" width="19" height="12" rx="6" fill="#E6EAF2"></rect><rect x="9" y="7" width="14" height="7" rx="3.5" fill="#101320"></rect><circle cx="13.2" cy="10.5" r="1.4" fill="#8DB0F4"></circle><circle cx="18.8" cy="10.5" r="1.4" fill="#8DB0F4"></circle><path d="M10.5 18h11l-1.5 6.5h-8z" fill="#3A4A6B"></path><path d="M13.5 18.2l2.5 1.3 2.5-1.3v2.6l-2.5-1.3-2.5 1.3z" fill="#E6EAF2"></path><circle cx="16" cy="27.5" r="3.5" fill="#1C1C1F" stroke="#5B8DEF" stroke-width="1.6"></circle><circle cx="16" cy="27.5" r="1" fill="#5B8DEF"></circle></svg>
+    </button>
+  </div>
+</header>
+
+<div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 280px minmax(0, 1fr) 360px">
+
+  <aside aria-label="Files" style="border-right: 1px solid var(--b); display: flex; flex-direction: column; min-height: 0">
+    <div style="height: 48px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 0 8px 0 16px; border-bottom: 1px solid var(--b)">
+      <div style="display: flex; align-items: baseline; gap: 8px; min-width: 0">
+        <span style="font-weight: 600; font-size: 13px">core</span>
+        <span style="font-family: var(--mono); font-size: 11px; color: var(--t3)">~/Projects/core</span>
+      </div>
+      <button aria-label="Project menu" style="width: 32px; height: 32px; display: grid; place-items: center; border: 0; background: transparent; border-radius: 8px; color: var(--t2); cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="19" cy="12" r="1.6"></circle></svg></button>
+    </div>
+    <div style="flex: 1; overflow: auto; padding: 10px 8px">
+      <div style="padding: 4px 8px 6px; font-size: 11px; font-weight: 500; color: var(--t3); letter-spacing: 0.04em; text-transform: uppercase">Project files</div>
+      <sc-for list="{{tree}}" as="r" hint-placeholder-count="18">
+        <button style="{{r.style}}">
+          <span style="width: 14px; flex: none; display: grid; place-items: center; color: var(--t3)"><sc-if value="{{r.folder}}" hint-placeholder-val="{{false}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="{{r.chev}}" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></sc-if></span>
+          <span style="width: 30px; flex: none; font-family: var(--mono); font-size: 10px; color: var(--t3)"><sc-if value="{{r.file}}" hint-placeholder-val="{{true}}">{{r.tag}}</sc-if><sc-if value="{{r.folder}}" hint-placeholder-val="{{false}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></sc-if></span>
+          <span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{r.name}}</span>
+          <sc-if value="{{r.touched}}" hint-placeholder-val="{{false}}"><span title="Touched by Claude this session" style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF; flex: none"></span></sc-if>
+          <span style="{{r.gitStyle}}">{{r.git}}</span>
+        </button>
+      </sc-for>
+    </div>
+  </aside>
+
+  <section aria-label="Docs" style="display: flex; flex-direction: column; min-width: 0; min-height: 0">
+    <div style="padding: 16px 24px 0; flex: none">
+      <button aria-expanded="false" style="width: 100%; display: flex; align-items: center; gap: 14px; height: 44px; padding: 0 14px; background: var(--s1); border: 1px solid var(--b); border-radius: 12px; cursor: pointer; text-align: left; font-size: 13px">
+        <span style="color: var(--t3); font-size: 12px; font-weight: 500; white-space: nowrap">Where we left off</span>
+        <span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--t2)">Finished the Living Room floor and the HUD. The XP counter works but streaks are not saved yet.</span>
+        <span style="color: var(--t3); font-size: 12px; white-space: nowrap">Next: <span style="color: var(--t1)">Save streaks in the database</span></span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#85858F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+      </button>
+    </div>
+
+    <nav aria-label="Workspace tabs" style="flex: none; display: flex; align-items: center; gap: 4px; padding: 0 24px; margin-top: 12px; border-bottom: 1px solid var(--b)">
+      <a href="Main.dc.html" style="padding: 11px 12px; font-weight: 500; color: var(--t2); border-bottom: 2px solid transparent; margin-bottom: -1px; display: flex; align-items: center; gap: 6px">Chat<span style="width: 6px; height: 6px; border-radius: 50%; background: #D29922" title="Needs you"></span></a>
+      <a href="Workspace-Docs.dc.html" aria-current="page" style="padding: 11px 12px; font-weight: 500; color: var(--t1); border-bottom: 2px solid #EDEDEF; margin-bottom: -1px">Docs</a>
+      <a href="#notes" style="padding: 11px 12px; font-weight: 500; color: var(--t2); border-bottom: 2px solid transparent; margin-bottom: -1px">Notes &amp; Tasks</a>
+    </nav>
+
+    <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 210px minmax(0, 1fr)">
+      <nav aria-label="Documents" style="border-right: 1px solid var(--b); overflow: auto; padding: 14px 10px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <div style="padding: 0 8px 4px; font-size: 11px; font-weight: 500; color: var(--t3); letter-spacing: 0.04em; text-transform: uppercase">Project</div>
+          <a href="#status" style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px; border-radius: 8px; color: var(--t2)"><span style="font-family: var(--mono); font-size: 10px; color: var(--t3); width: 22px">MD</span>STATUS.md</a>
+          <a href="#claude" style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px; border-radius: 8px; color: var(--t2)"><span style="font-family: var(--mono); font-size: 10px; color: var(--t3); width: 22px">MD</span>CLAUDE.md</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <div style="padding: 0 8px 4px; font-size: 11px; font-weight: 500; color: var(--t3); letter-spacing: 0.04em; text-transform: uppercase">Engineering</div>
+          <a href="#prd" style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px; border-radius: 8px; color: var(--t2)"><span style="font-family: var(--mono); font-size: 10px; color: var(--t3); width: 22px">PRD</span>Requirements</a>
+          <a href="#arch" aria-current="page" style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px; border-radius: 8px; color: var(--t1); background: var(--s3); font-weight: 500"><span style="font-family: var(--mono); font-size: 10px; color: var(--t3); width: 22px">ARC</span>Architecture</a>
+          <a href="#data" style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px; border-radius: 8px; color: var(--t2)"><span style="font-family: var(--mono); font-size: 10px; color: var(--t3); width: 22px">DM</span>Data model<span style="margin-left: auto; width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF" title="Changed by Claude"></span></a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <div style="padding: 0 8px 4px; font-size: 11px; font-weight: 500; color: var(--t3); letter-spacing: 0.04em; text-transform: uppercase">Decisions</div>
+          <a href="#adr1" style="display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 6px 8px; border-radius: 8px; color: var(--t2); line-height: 1.35"><span style="font-family: var(--mono); font-size: 10px; color: var(--t3); width: 22px; flex: none">0001</span>Use SQLite with Drizzle</a>
+          <a href="#adr2" style="display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 6px 8px; border-radius: 8px; color: var(--t2); line-height: 1.35"><span style="font-family: var(--mono); font-size: 10px; color: var(--t3); width: 22px; flex: none">0002</span>Bind to loopback only</a>
+          <a href="#adr3" style="display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 6px 8px; border-radius: 8px; color: var(--t2); line-height: 1.35"><span style="font-family: var(--mono); font-size: 10px; color: var(--t3); width: 22px; flex: none">0003</span>No background jobs</a>
+          <a href="#adr4" style="display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 6px 8px; border-radius: 8px; color: var(--t2); line-height: 1.35"><span style="font-family: var(--mono); font-size: 10px; color: var(--t3); width: 22px; flex: none">0004</span>Compute streaks on read<span style="margin-left: auto; height: 18px; padding: 0 6px; border-radius: 999px; font-size: 10px; color: #3FB950; background: rgba(63,185,80,0.12); display: inline-flex; align-items: center">New</span></a>
+        </div>
+      </nav>
+
+      <div style="overflow: auto; min-width: 0">
+        <article style="max-width: 760px; margin: 0 auto; padding: 28px 36px 64px">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em">Architecture</h1>
+              <div style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--t3); flex-wrap: wrap"><span style="font-family: var(--mono); color: var(--t2)">docs/architecture.md</span><span>·</span><span>Last changed by Claude · 3 h ago</span></div>
+            </div>
+            <div style="display: flex; gap: 6px">
+              <button style="height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); font-size: 12.5px; font-weight: 500; cursor: pointer">Ask Claude about this doc</button>
+              <button style="height: 34px; padding: 0 10px; border-radius: 999px; border: 0; background: transparent; color: var(--t2); font-size: 12.5px; cursor: pointer; display: flex; align-items: center; gap: 6px">Open in editor<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></button>
+            </div>
+          </div>
+
+          <div style="height: 1px; background: var(--b); margin: 22px 0 6px"></div>
+
+          <h2 style="margin: 22px 0 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Overview</h2>
+          <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #D4D4D8; text-wrap: pretty">Core is a local personal dashboard. It runs on this computer at <code style="font-family: var(--mono); font-size: 13px; background: var(--s2); padding: 2px 6px; border-radius: 5px; color: var(--t1)">127.0.0.1</code> and nothing else on the network can reach it. One Next.js app serves the pages and the API. All data lives in one SQLite file.</p>
+
+          <h2 style="margin: 30px 0 10px; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Building blocks</h2>
+          <div style="border: 1px solid var(--b); border-radius: 10px; overflow: hidden">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13.5px">
+              <thead><tr style="background: var(--s1)"><th style="text-align: left; padding: 10px 14px; font-weight: 500; color: var(--t2); font-size: 12px">Part</th><th style="text-align: left; padding: 10px 14px; font-weight: 500; color: var(--t2); font-size: 12px">Where</th><th style="text-align: left; padding: 10px 14px; font-weight: 500; color: var(--t2); font-size: 12px">Job</th></tr></thead>
+              <tbody>
+                <tr style="border-top: 1px solid var(--b)"><td style="padding: 10px 14px">Floors and HUD</td><td style="padding: 10px 14px; font-family: var(--mono); font-size: 12.5px; color: var(--t2)">app/</td><td style="padding: 10px 14px; color: #D4D4D8">Living Room, Study Room, XP counter</td></tr>
+                <tr style="border-top: 1px solid var(--b)"><td style="padding: 10px 14px">Services</td><td style="padding: 10px 14px; font-family: var(--mono); font-size: 12.5px; color: var(--t2)">lib/services/</td><td style="padding: 10px 14px; color: #D4D4D8">Projects, presets, streaks</td></tr>
+                <tr style="border-top: 1px solid var(--b)"><td style="padding: 10px 14px">Database</td><td style="padding: 10px 14px; font-family: var(--mono); font-size: 12.5px; color: var(--t2)">lib/db/ · drizzle/</td><td style="padding: 10px 14px; color: #D4D4D8">Schema and migrations</td></tr>
+                <tr style="border-top: 1px solid var(--b)"><td style="padding: 10px 14px">Magnet bridge</td><td style="padding: 10px 14px; font-family: var(--mono); font-size: 12.5px; color: var(--t2)">lib/magnet/</td><td style="padding: 10px 14px; color: #D4D4D8">Talks to the local Claude CLI <span style="color: var(--t3)">(planned)</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2 style="margin: 30px 0 10px; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">How a page loads</h2>
+          <pre style="margin: 0; padding: 14px 16px; background: #101012; border: 1px solid var(--b); border-radius: 10px; font-family: var(--mono); font-size: 12.5px; line-height: 1.7; color: #D4D4D8; overflow-x: auto">browser
+  → app/page.tsx            <span style="color: #85858F">// server component</span>
+  → lib/services/*          <span style="color: #85858F">// plain functions, no cache</span>
+  → core.db (SQLite)</pre>
+
+          <h2 style="margin: 30px 0 10px; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Rules</h2>
+          <ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.7; color: #D4D4D8; display: flex; flex-direction: column; gap: 4px">
+            <li>No background jobs. Everything is worked out when a page loads. <a href="#adr3">ADR-0003</a></li>
+            <li>The server binds to loopback only. <a href="#adr2">ADR-0002</a></li>
+            <li>Services never import from <code style="font-family: var(--mono); font-size: 13px; background: var(--s2); padding: 2px 6px; border-radius: 5px">app/</code>.</li>
+          </ul>
+
+          <h2 style="margin: 30px 0 10px; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Open questions</h2>
+          <div style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; color: #D4D4D8">
+            <label style="display: flex; align-items: center; gap: 10px"><input type="checkbox" checked="" disabled="" style="width: 15px; height: 15px; margin: 0; accent-color: #3FB950"><span style="color: var(--t3); text-decoration: line-through">Where do streaks live?</span><a href="#adr4" style="font-size: 13px">ADR-0004</a></label>
+            <label style="display: flex; align-items: center; gap: 10px"><input type="checkbox" disabled="" style="width: 15px; height: 15px; margin: 0">How does Magnet sign in to the local CLI?</label>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <aside aria-label="Repository and agents" style="border-left: 1px solid var(--b); display: flex; flex-direction: column; min-height: 0">
+    <div style="padding: 16px; flex: none">
+      <div style="background: var(--s1); border: 1px solid var(--b); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
+          <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+            <span style="font-size: 12px; color: var(--t3)">Repository</span>
+            <a href="#repo" style="display: flex; align-items: center; gap: 6px; color: var(--t1); font-size: 14px; font-weight: 500">syedmehedihussain/core<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#85858F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+          </div>
+          <span style="height: 22px; padding: 0 9px; border-radius: 999px; border: 1px solid var(--bs); font-size: 11.5px; color: var(--t2); display: inline-flex; align-items: center">Private</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap">
+          <button style="display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--b); background: var(--s2); cursor: pointer; font-size: 12px"><span style="font-family: var(--mono)">main</span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <span style="height: 28px; padding: 0 9px; border-radius: 8px; background: var(--s2); font-size: 12px; color: var(--t2); display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono)"><span>↑ 0</span><span>↓ 0</span></span>
+          <span style="height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #D29922; background: rgba(210,153,34,0.12); display: inline-flex; align-items: center; margin-left: auto">3 uncommitted</span>
+        </div>
+        <div style="display: flex; flex-direction: column">
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 6px 0; font-size: 13px"><span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Bind Core to loopback only and track public/</span><span style="font-family: var(--mono); font-size: 11.5px; color: var(--t3)">a41c9e2</span></div>
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 6px 0; font-size: 13px"><span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Add HUD with XP counter</span><span style="font-family: var(--mono); font-size: 11.5px; color: var(--t3)">7d02b18</span></div>
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 6px 0; font-size: 13px"><span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Living Room floor layout</span><span style="font-family: var(--mono); font-size: 11.5px; color: var(--t3)">c93f5aa</span></div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 12px; border-top: 1px solid var(--b)">
+          <span style="font-size: 12px; color: var(--t3)">0 open pull requests</span>
+          <div style="display: flex; gap: 6px">
+            <button style="height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--bs); background: var(--s2); font-size: 13px; font-weight: 500; cursor: pointer">Pull</button>
+            <button style="height: 34px; padding: 0 14px; border-radius: 999px; border: 0; background: #EDEDEF; color: #0B0B0C; font-size: 13px; font-weight: 500; cursor: pointer">Push</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav aria-label="Side panel tabs" style="flex: none; display: flex; gap: 4px; padding: 0 16px; border-bottom: 1px solid var(--b)">
+      <a href="Main.dc.html" aria-current="page" style="padding: 10px 10px; font-weight: 500; color: var(--t1); border-bottom: 2px solid #EDEDEF; margin-bottom: -1px; display: flex; align-items: center; gap: 6px">Agents<span style="font-size: 11px; color: var(--t2); background: var(--s3); border-radius: 999px; padding: 1px 6px">3</span></a>
+      <a href="Workspace-Working.dc.html" style="padding: 10px 10px; font-weight: 500; color: var(--t2); border-bottom: 2px solid transparent; margin-bottom: -1px">Magnet</a>
+    </nav>
+    <div style="flex: 1; min-height: 0; overflow: auto; padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 12px">
+      <article style="background: var(--s1); border: 1px solid var(--b); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
+          <h4 style="margin: 0; font-size: 13.5px; font-weight: 500; line-height: 1.4">Write tests for streak service</h4>
+          <span style="flex: none; display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #8DB0F4; background: rgba(91,141,239,0.14)"><span style="width: 6px; height: 6px; border-radius: 50%; background: #5B8DEF; animation: pulse 1.4s ease-in-out infinite"></span>Running</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--t3)"><span>Sonnet</span><span>·</span><span>3m 12s</span><span>·</span><span style="font-family: var(--mono); color: var(--t2)">agent/tests-streaks</span></div>
+      </article>
+      <article style="background: var(--s1); border: 1px solid var(--b); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
+          <h4 style="margin: 0; font-size: 13.5px; font-weight: 500; line-height: 1.4">Update README for the Bunker redesign</h4>
+          <span style="flex: none; display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; color: #3FB950; background: rgba(63,185,80,0.12)">Done</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--t3)"><span>Haiku</span><span>·</span><span>1m 40s</span><span>·</span><span style="font-family: var(--mono); color: var(--t2)">agent/readme</span></div>
+      </article>
+    </div>
+  </aside>
+</div>
+
+<div role="status" style="position: absolute; right: 24px; bottom: 24px; width: 360px; background: #1C1C1F; border: 1px solid rgba(210,153,34,0.5); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 16px 48px rgba(0,0,0,0.55)">
+  <div style="display: flex; align-items: center; gap: 10px">
+    <span style="width: 24px; height: 24px; border-radius: 50%; background: rgba(210,153,34,0.14); color: #D29922; display: grid; place-items: center; flex: none"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path></svg></span>
+    <span style="font-size: 13.5px; font-weight: 500">Claude wants to run a command</span>
+    <span style="flex: 1"></span>
+    <span style="font-size: 11.5px; color: var(--t3)">now</span>
+  </div>
+  <div style="font-family: var(--mono); font-size: 12.5px; background: #101012; border: 1px solid var(--b); border-radius: 8px; padding: 8px 10px">npm install zod</div>
+  <div style="display: flex; align-items: center; gap: 6px">
+    <a href="Workspace-Approval.dc.html" style="height: 32px; padding: 0 14px; border-radius: 999px; background: #EDEDEF; color: #0B0B0C; font-size: 12.5px; font-weight: 500; display: inline-flex; align-items: center">Review</a>
+    <button style="height: 32px; padding: 0 10px; border-radius: 999px; border: 0; background: transparent; color: #F7A39E; font-size: 12.5px; font-weight: 500; cursor: pointer">Deny</button>
+    <span style="flex: 1"></span>
+    <span style="font-size: 11.5px; color: var(--t3); font-family: var(--mono)">~/Projects/core</span>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  rows(list, sel) {
+    var colors = { M: '#D29922', A: '#3FB950', U: '#5B8DEF', D: '#F85149' };
+    return list.map(function (r) {
+      var d = r[0], name = r[1], kind = r[2], git = r[3] || '', extra = r[4] || '';
+      var folder = kind === 'dir' || kind === 'dirc';
+      var ign = kind === 'ign';
+      var g = [];
+      for (var i = 1; i <= d; i++) {
+        g.push('linear-gradient(rgba(255,255,255,0.07),rgba(255,255,255,0.07)) ' + (8 + (i - 1) * 16 + 6) + 'px 0 / 1px 100% no-repeat');
+      }
+      g.push(name === sel ? '#26262A' : 'transparent');
+      return {
+        name: name, folder: folder || ign, file: !(folder || ign), tag: kind, touched: extra === 't', git: git,
+        chev: kind === 'dir' ? 'transform: rotate(90deg)' : '',
+        gitStyle: 'width: 12px; flex: none; text-align: right; font-family: var(--mono); font-size: 11px; font-weight: 500; color: ' + (colors[git] || 'transparent'),
+        style: 'display: flex; align-items: center; gap: 6px; width: 100%; height: 30px; padding: 0 10px 0 ' + (8 + d * 16) + 'px; border: 0; border-radius: 8px; background: ' + g.join(', ') + '; cursor: pointer; font: inherit; font-size: 13px; text-align: left; color: ' + (ign ? '#85858F' : '#EDEDEF')
+      };
+    });
+  }
+  renderVals() {
+    return {
+      tree: this.rows([
+        [0, 'CLAUDE.md', 'MD', '', 't'],
+        [0, 'docs', 'dir'], [1, 'adr', 'dirc'], [1, 'architecture.md', 'MD'], [1, '03-data-model.md', 'MD', 'M', 't'], [1, 'prd.md', 'MD'],
+        [0, '_project', 'dir'], [1, 'STATUS.md', 'MD'], [1, 'project.json', 'JSON'],
+        [0, 'app', 'dirc'], [0, 'lib', 'dirc'], [0, 'drizzle', 'dirc'], [0, 'node_modules', 'ign'], [0, 'package.json', 'JSON'], [0, 'README.md', 'MD']
+      ], 'architecture.md')
+    };
+  }
+}
+</script>
+</body>
+</html>
