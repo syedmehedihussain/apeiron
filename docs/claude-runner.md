@@ -43,7 +43,7 @@ type RunnerEvent =
 | chat | project | Read, Glob, Grep, LS | Edit, Write, Bash, everything else | resumes `project.json → claude.sessionId` |
 | agent | worktree | Read, Glob, Grep, LS | Edit/Write auto-allowed **inside the worktree only**; Bash needs approval | runs headless; approvals go to the agent card |
 | calibration (scan) | project | Read, Glob, Grep, LS, `git log`, `git status` | nothing else is allowed — deny all writes | output is the proposal, not file edits |
-| survey | draft folder | none | none | only produces decision cards and doc drafts as text |
+| survey | draft folder | none (all built-ins disallowed) | none | one short turn per step; returns a card via `draft_card`, or the docs via `propose_docs` (ADR-0009) |
 | magnet | `~/.apeiron/magnet` | Read of magnet folder + any project's `_project/STATUS.md`, `project.json`, `docs/` | every action becomes a proposed-action card | `--add-dir` for each project root, read-only |
 
 "Allow for this session" adds a rule (tool + exact command, or tool + file path) to the
@@ -92,7 +92,7 @@ tool("ask_decision", "Ask the user to choose between 2–4 options. Use for any 
 - When Claude calls `ask_decision`, the runner emits `{ t: "decision" }` and **holds the tool
   call open** until the user answers. The answer is returned as the tool result:
   `"User chose: Compute from activity at read time"` (or their custom text).
-- The survey uses the same tool, with a system prompt that says one card per step.
+- The survey does not use this tool: each step is its own turn with `draft_card` (ADR-0009).
 - The card is validated with zod. If invalid (e.g. no recommended option), the runner returns an
   error to Claude so it fixes the card. The user never sees a broken card.
 - Every confirmed card in a **Ready** project also gets offered as an ADR ("Save as ADR-0005?")

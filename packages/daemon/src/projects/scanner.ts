@@ -38,6 +38,23 @@ export function readProjectFiles(dir: string): ProjectFiles {
   };
 }
 
+/** A survey that has not created the project yet: returns its idea, or null. */
+function surveyDraftIdea(dir: string): string | null {
+  const file = path.join(dir, '_project', 'survey.json');
+  if (!existsSync(file)) return null;
+  try {
+    const data = readJsonFile(file) as {
+      status?: unknown;
+      answers?: { kind?: string; value?: { idea?: unknown } }[];
+    } | null;
+    if (data?.status !== 'in_progress' && data?.status !== 'review') return null;
+    const idea = data.answers?.find((a) => a.kind === 'typed')?.value?.idea;
+    return typeof idea === 'string' ? idea : '';
+  } catch {
+    return null;
+  }
+}
+
 /** Latest `updated` time in cctop's `_project/sessions.json`, if any. */
 function lastSessionTime(dir: string): number | null {
   const file = path.join(dir, '_project', 'sessions.json');
@@ -63,6 +80,7 @@ export async function buildCard(dir: string): Promise<ProjectCard> {
   const files = readProjectFiles(dir);
   const { projectJson, status } = files;
   const state = projectJson ? 'ready' : status ? 'cctop' : 'uncalibrated';
+  const draftIdea = state === 'uncalibrated' ? surveyDraftIdea(dir) : null;
   const git = await gitStatus(dir);
   const lastWorked =
     lastSessionTime(dir) ?? (git ? await lastCommitTime(dir) : null) ?? statSync(dir).mtimeMs;
@@ -72,8 +90,8 @@ export async function buildCard(dir: string): Promise<ProjectCard> {
     name: projectJson?.name ?? id,
     path: dir,
     state,
-    phase: projectJson?.phase ?? null,
-    summary: projectJson?.summary || status?.summary || '',
+    phase: projectJson?.phase ?? (draftIdea !== null ? 'plan' : null),
+    summary: projectJson?.summary || status?.summary || (draftIdea ?? '').slice(0, 120),
     stack: projectJson?.stack ?? [],
     nextStep: status ? firstOpenStep(status) : null,
     leftOff: status?.leftOff ?? null,
@@ -86,6 +104,7 @@ export async function buildCard(dir: string): Promise<ProjectCard> {
     },
     lastWorked,
     projectJsonError: files.projectJsonError,
+    draft: draftIdea !== null,
   };
 }
 

@@ -64,10 +64,10 @@ you ticked.
 
 ## M5 — New project survey
 
-- [ ] Seven steps, `survey.json` saved per answer, resume, change + stale marking.
-- [ ] Doc generation: `CLAUDE.md`, PRD, ADRs from decisions, architecture, data model, STATUS,
+- [x] Seven steps, `survey.json` saved per answer, resume, change + stale marking.
+- [x] Doc generation: `CLAUDE.md`, PRD, ADRs from decisions, architecture, data model, STATUS,
       `project.json`, `tasks.json` (Core preset).
-- [ ] Create folder, `git init`, exclude `_project/`, optional `gh repo create --private`.
+- [x] Create folder, `git init`, exclude `_project/`, optional `gh repo create --private`.
 
 **Done when:** a new project created from Home has all docs, a first commit, and opens in the
 workspace at phase Design.

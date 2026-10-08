@@ -72,13 +72,15 @@ the projects folder (see `security.md`).
 
 | Method | Path | Does |
 | --- | --- | --- |
-| POST | `/api/survey` | `{ name, idea }` → creates the draft folder `_project/survey.json`, returns survey id = project id |
+| POST | `/api/survey` | `{ name, idea, quick }` → creates the draft folder with only `_project/survey.json`, returns the survey state (id = folder name) |
 | GET | `/api/survey/:id` | survey state |
-| POST | `/api/survey/:id/next` | asks Claude to draft the next card (events: `survey.drafting`, `survey.card`) |
-| POST | `/api/survey/:id/answer` | `{ step, optionId? , custom? }` |
+| POST | `/api/survey/:id/next` | `{ fresh? }` asks Claude to draft the current card (or the files at review); `fresh` drops the kept draft |
+| POST | `/api/survey/:id/answer` | `{ step, optionId? , custom? }`, or `{ step: 1, idea, quick }` |
 | POST | `/api/survey/:id/change` | `{ step }` reopen a step |
-| GET | `/api/survey/:id/proposal` | files to be created with content |
-| POST | `/api/survey/:id/create` | `{ files: string[], createRepo: boolean }` write and finish |
+| POST | `/api/survey/:id/create` | `{ createRepo }` writes every proposed file, `git init`, first commit, optional `gh repo create --private` |
+
+The survey state (`GET /api/survey/:id`) carries the current card, the drafting flag, the
+proposal and the create progress, and is pushed as `survey.updated` on every change.
 
 ## Calibration
 
@@ -132,7 +134,7 @@ One socket at `/ws`. Every event: `{ type, at, ...payload }`. The client subscri
 | `tree.changed` | `{ paths: string[] }` | project:id |
 | `agent.updated` | agent object (status, activity tail) | project:id |
 | `agent.activity` | `{ agentId, row }` | project:id |
-| `survey.drafting` / `survey.card` / `survey.updated` | survey payloads | project:id |
+| `survey.updated` | `{ projectId, state }` (full survey state) | project:id |
 | `calibrate.progress` | `{ step, rows, found }` | project:id |
 | `calibrate.proposal` | proposal | project:id |
 | `magnet.text.delta` / `magnet.action` | Magnet payloads | magnet |

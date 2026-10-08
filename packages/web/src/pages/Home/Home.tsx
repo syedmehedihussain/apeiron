@@ -72,7 +72,7 @@ export function Home() {
           </div>
           <PromptBox
             disabled={claudeMissing}
-            calibratable={cards.filter((c) => c.state !== 'ready')}
+            calibratable={cards.filter((c) => c.state !== 'ready' && !c.draft)}
             onNewProject={(idea) => void navigate(`/new?idea=${encodeURIComponent(idea)}`)}
             onAskMagnet={(text) => openMagnet(text)}
             onCalibrate={(id) => void navigate(`/p/${encodeURIComponent(id)}/calibrate`)}

@@ -14,6 +14,8 @@ import { workspaceRoutes } from './routes/workspace.ts';
 import { chatRoutes } from './routes/chat.ts';
 import { calibrateRoutes } from './routes/calibrate.ts';
 import { CalibrationService } from './calibrate/service.ts';
+import { surveyRoutes } from './routes/survey.ts';
+import { SurveyService, ghCli, type SurveyGitHub } from './survey/service.ts';
 import { ChatService } from './chat/service.ts';
 import { ApprovalBroker } from './claude/approvals.ts';
 import { DecisionBroker } from './claude/decisions.ts';
@@ -32,6 +34,7 @@ export interface Daemon {
   approvals: ApprovalBroker;
   decisions: DecisionBroker;
   calibration: CalibrationService;
+  survey: SurveyService;
   projects: ProjectService;
   health: HealthService;
   cliSecret: string;
@@ -52,6 +55,8 @@ export interface DaemonOptions {
   healthCheck?: () => Promise<Health>;
   /** Replace the Claude runner (tests use the fake Claude). */
   runner?: Runner;
+  /** Replace gh for the survey's "Create a private GitHub repository" (tests). */
+  github?: SurveyGitHub;
 }
 
 const WEB_DIST = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../web/dist');
@@ -87,6 +92,14 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     opts.home,
   );
 
+  const survey = new SurveyService(
+    config,
+    hub,
+    opts.runner ?? sdkRunner,
+    projects,
+    opts.github ?? ghCli,
+  );
+
   const app = buildServer({
     version: pkg.version,
     config,
@@ -101,6 +114,7 @@ export function createDaemon(opts: DaemonOptions): Daemon {
       workspaceRoutes(config, gitInfo),
       chatRoutes(chat, approvals, decisions),
       calibrateRoutes(calibration),
+      surveyRoutes(survey),
     ],
   });
 
@@ -126,8 +140,10 @@ export function createDaemon(opts: DaemonOptions): Daemon {
     approvals,
     decisions,
     calibration,
+    survey,
     async close() {
       await chat.stopAll();
+      await survey.stopAll();
       approvals.cancel(undefined, 'Apeiron restarted');
       await watcher?.close();
       await app.close();

@@ -3,6 +3,7 @@ import path from 'node:path';
 import { DEFAULT_PORT, LOOPBACK_HOST } from '@apeiron/shared';
 import { fakeRunnerFromFile } from './claude/fake-runner.ts';
 import { createDaemon } from './daemon.ts';
+import { noGitHub } from './survey/service.ts';
 import { writeFileAtomic } from './fsutil.ts';
 import { apeironHome } from './paths.ts';
 
@@ -13,7 +14,8 @@ const webUrl = process.env.APEIRON_WEB_URL || `http://${LOOPBACK_HOST}:${port}`;
 
 const fakeClaude = process.env.APEIRON_FAKE_CLAUDE;
 const daemon = createDaemon({
-  ...(fakeClaude ? { runner: fakeRunnerFromFile(fakeClaude) } : {}),
+  // The fake Claude (e2e) also turns GitHub off, so tests never create a real repo.
+  ...(fakeClaude ? { runner: fakeRunnerFromFile(fakeClaude), github: noGitHub } : {}),
   home,
   port,
   extraOrigins: webUrl.endsWith(`:${port}`) ? [] : [webUrl],

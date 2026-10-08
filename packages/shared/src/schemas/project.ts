@@ -64,6 +64,8 @@ export const ProjectCardSchema = z.object({
   git: GitSummarySchema.nullable(),
   lastWorked: z.number().nullable(),
   projectJsonError: z.boolean(),
+  /** A new-project survey is in progress in this folder (it opens the survey, not calibration). */
+  draft: z.boolean().default(false),
 });
 export type ProjectCard = z.infer<typeof ProjectCardSchema>;
 

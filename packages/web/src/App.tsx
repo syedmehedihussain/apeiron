@@ -5,6 +5,7 @@ import { Calibrate } from './pages/Calibrate/Calibrate.tsx';
 import { Home } from './pages/Home/Home.tsx';
 import { Placeholder } from './pages/Placeholder/Placeholder.tsx';
 import { Shell } from './pages/Shell/Shell.tsx';
+import { Survey } from './pages/Survey/Survey.tsx';
 import { Workspace } from './pages/Workspace/Workspace.tsx';
 
 const router = createBrowserRouter([
@@ -12,7 +13,7 @@ const router = createBrowserRouter([
     element: <Shell />,
     children: [
       { path: '/', element: <Home /> },
-      { path: '/new/:id?', element: <Placeholder title="New project" milestone="M5" /> },
+      { path: '/new/:id?', element: <Survey /> },
       { path: '/p/:id/calibrate', element: <Calibrate /> },
       { path: '/p/:id/*', element: <Workspace /> },
       { path: '/settings/:section?', element: <Placeholder title="Settings" milestone="M8" /> },

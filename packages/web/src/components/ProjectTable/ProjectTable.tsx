@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import { relativeTime, type ProjectCard } from '@apeiron/shared';
 import { PhaseBarCompact } from '../PhaseBar/PhaseBar.tsx';
-import { GitChip, StatePill } from '../Pill/Pill.tsx';
+import { GitChip, Pill, StatePill } from '../Pill/Pill.tsx';
 import { projectHref } from '../ProjectCard/ProjectCard.tsx';
 import styles from './ProjectTable.module.css';
 
@@ -49,9 +49,7 @@ export function ProjectTable({
                   <span className={styles.summary}>{c.summary}</span>
                 </div>
               </td>
-              <td>
-                <StatePill state={c.state} />
-              </td>
+              <td>{c.draft ? <Pill tone="neutral">Draft</Pill> : <StatePill state={c.state} />}</td>
               <td>
                 <PhaseBarCompact phase={c.phase} width={110} />
               </td>
@@ -75,10 +73,16 @@ export function ProjectTable({
                 <GitChip git={c.git} />
               </td>
               <td className={styles.action}>
-                {c.state === 'uncalibrated' && (
+                {c.draft ? (
                   <Link to={projectHref(c)} className="btn btn-secondary btn-sm">
-                    Calibrate
+                    Continue
                   </Link>
+                ) : (
+                  c.state === 'uncalibrated' && (
+                    <Link to={projectHref(c)} className="btn btn-secondary btn-sm">
+                      Calibrate
+                    </Link>
+                  )
                 )}
               </td>
             </tr>

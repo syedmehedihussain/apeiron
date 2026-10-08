@@ -50,7 +50,10 @@ export interface TestDaemon extends Daemon {
 }
 
 export async function testDaemon(
-  opts: { runner?: import('../src/claude/runner.ts').Runner } = {},
+  opts: {
+    runner?: import('../src/claude/runner.ts').Runner;
+    github?: import('../src/survey/service.ts').SurveyGitHub;
+  } = {},
 ): Promise<TestDaemon> {
   const home = tempDir('apeiron-home-');
   const projectsDir = tempDir('apeiron-projects-');
@@ -62,6 +65,11 @@ export async function testDaemon(
     healthCheck: async () => fakeHealth,
     // Never fall back to the real Claude in tests.
     runner: opts.runner ?? fakeRunner([{ text: 'No script given.' }]),
+    // Never fall back to the real gh either.
+    github: opts.github ?? {
+      owner: async () => null,
+      createRepo: async () => ({ ok: false, error: 'no gh in tests' }),
+    },
   });
   await daemon.app.ready();
   return {

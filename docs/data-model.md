@@ -58,7 +58,7 @@ Written after **every** confirmed answer so a survey can pause and resume.
       "step": 1,
       "topic": "name_idea",
       "kind": "typed",
-      "value": { "name": "review-qr", "idea": "A printable QR code that opens a business's Google review page." }
+      "value": { "name": "review-qr", "idea": "A printable QR code that opens a business's Google review page.", "quick": false }
     },
     {
       "step": 3,
@@ -78,6 +78,7 @@ Written after **every** confirmed answer so a survey can pause and resume.
 - `status`: `in_progress | review | created | abandoned`.
 - `stale`: steps that must be re-checked because an earlier answer changed (S-5).
 - `card` is a full copy of the decision card shown, so the record still makes sense later.
+- `quick` on the step-1 answer skips steps 5 and 6 (ADR-0009).
 
 ## 3. Decision card (shared shape)
 

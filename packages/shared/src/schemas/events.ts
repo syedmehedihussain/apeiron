@@ -3,6 +3,7 @@ import { ProjectCardSchema } from './project.ts';
 import { HealthSchema } from './system.ts';
 import type { Approval, ChatItem } from './chat.ts';
 import type { CalibrationState } from './calibration.ts';
+import type { SurveyState } from './survey.ts';
 
 /** Client → server over /ws. */
 export const ClientMessageSchema = z.object({
@@ -39,6 +40,7 @@ export interface EventMap {
     touched: string[];
   };
   'calibrate.updated': { projectId: string; state: CalibrationState };
+  'survey.updated': { projectId: string; state: SurveyState };
   'approval.requested': { approval: Approval };
   'approval.resolved': { approval: Approval };
 }

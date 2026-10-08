@@ -1,5 +1,196 @@
 [
   {
+    "match": "this is step 2 of a short survey",
+    "steps": [
+      {
+        "call": {
+          "name": "draft_card",
+          "input": {
+            "topic": "Who is review-qr for?",
+            "question": "Who is review-qr for?",
+            "context": "You said: printable QR codes for reviews.",
+            "options": [
+              {
+                "id": "opt_a",
+                "title": "Small shop owners in the UK",
+                "detail": "Fits what you said.",
+                "tradeoff": "Less flexible later.",
+                "recommended": true
+              },
+              {
+                "id": "opt_b",
+                "title": "Marketing agencies",
+                "detail": "Another way.",
+                "tradeoff": "More work up front."
+              }
+            ],
+            "why": "It matches the idea and keeps v1 small."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "match": "this is step 3 of a short survey",
+    "steps": [
+      {
+        "call": {
+          "name": "draft_card",
+          "input": {
+            "topic": "What must v1 do?",
+            "question": "What must v1 do?",
+            "context": "You said: printable QR codes for reviews.",
+            "options": [
+              {
+                "id": "opt_a",
+                "title": "QR generator, per-business link, scan counter",
+                "detail": "Fits what you said.",
+                "tradeoff": "Less flexible later.",
+                "recommended": true
+              },
+              {
+                "id": "opt_b",
+                "title": "Full review dashboard",
+                "detail": "Another way.",
+                "tradeoff": "More work up front."
+              }
+            ],
+            "why": "It matches the idea and keeps v1 small."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "match": "this is step 4 of a short survey",
+    "steps": [
+      {
+        "call": {
+          "name": "draft_card",
+          "input": {
+            "topic": "Where should review-qr run?",
+            "question": "Where should review-qr run?",
+            "context": "You said: printable QR codes for reviews.",
+            "options": [
+              {
+                "id": "opt_a",
+                "title": "Static site + small API on your home server",
+                "detail": "Fits what you said.",
+                "tradeoff": "Less flexible later.",
+                "recommended": true
+              },
+              {
+                "id": "opt_b",
+                "title": "Serverless on a free tier",
+                "detail": "Another way.",
+                "tradeoff": "More work up front."
+              }
+            ],
+            "why": "It matches the idea and keeps v1 small."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "match": "this is step 5 of a short survey",
+    "steps": [
+      {
+        "call": {
+          "name": "draft_card",
+          "input": {
+            "topic": "What does review-qr store?",
+            "question": "What does review-qr store?",
+            "context": "You said: printable QR codes for reviews.",
+            "options": [
+              {
+                "id": "opt_a",
+                "title": "Business, ReviewLink, Scan",
+                "detail": "Fits what you said.",
+                "tradeoff": "Less flexible later.",
+                "recommended": true
+              },
+              {
+                "id": "opt_b",
+                "title": "Only links, no scans",
+                "detail": "Another way.",
+                "tradeoff": "More work up front."
+              }
+            ],
+            "why": "It matches the idea and keeps v1 small."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "match": "this is step 6 of a short survey",
+    "steps": [
+      {
+        "call": {
+          "name": "draft_card",
+          "input": {
+            "topic": "What is the quality bar for v1?",
+            "question": "What is the quality bar for v1?",
+            "context": "You said: printable QR codes for reviews.",
+            "options": [
+              {
+                "id": "opt_a",
+                "title": "Tests for links and the counter",
+                "detail": "Fits what you said.",
+                "tradeoff": "Less flexible later.",
+                "recommended": true
+              },
+              {
+                "id": "opt_b",
+                "title": "Manual checks only",
+                "detail": "Another way.",
+                "tradeoff": "More work up front."
+              }
+            ],
+            "why": "It matches the idea and keeps v1 small."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "match": "Write the planning documents",
+    "steps": [
+      {
+        "call": {
+          "name": "propose_docs",
+          "input": {
+            "summary": "Printable QR codes that open a business review page",
+            "stack": ["Node 22", "SQLite"],
+            "files": [
+              {
+                "path": "CLAUDE.md",
+                "content": "# CLAUDE.md — review-qr\n\nPrintable QR codes that open a review page.\n\n## Rules\n- No payments. They are out of scope.\n"
+              },
+              {
+                "path": "README.md",
+                "content": "# review-qr\n\nPrintable QR codes. The plan lives in docs/.\n"
+              },
+              {
+                "path": "docs/prd.md",
+                "content": "# PRD — review-qr\n\n## Problem\n\nShops want more reviews.\n"
+              },
+              {
+                "path": "docs/architecture.md",
+                "content": "# Architecture\n\nStatic pages + one API.\n"
+              },
+              {
+                "path": "docs/adr/0001-host-on-home-server.md",
+                "content": "# 0001 — Host on the home server\n\n- **Status:** Accepted\n"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
     "match": "Calibrate the project",
     "steps": [
       {
@@ -56,7 +247,7 @@
               {
                 "path": "CLAUDE.md",
                 "action": "create",
-                "content": "# CLAUDE.md \u2014 torongo\n\nTranslation app.\n"
+                "content": "# CLAUDE.md — torongo\n\nTranslation app.\n"
               },
               {
                 "path": "docs/architecture.md",

@@ -1,4 +1,4 @@
-import { Check, Compass } from 'lucide-react';
+import { ArrowLeft, Check, Compass } from 'lucide-react';
 import { useId, useRef, useState, type KeyboardEvent } from 'react';
 import type { DecisionCard as Card } from '@apeiron/shared';
 import { Pill } from '../Pill/Pill.tsx';
@@ -13,6 +13,10 @@ interface DecisionCardProps {
   onConfirm?: (answer: { optionId: string } | { custom: string }) => Promise<void> | void;
   onChange?: () => void;
   onAnswerInChat?: () => void;
+  /** Survey: a Back button on the left of the footer. */
+  onBack?: () => void;
+  /** Preselects an earlier answer (survey Change). */
+  initial?: { optionId: string | null; custom: string | null };
 }
 
 export function DecisionCard({
@@ -22,9 +26,11 @@ export function DecisionCard({
   onConfirm,
   onChange,
   onAnswerInChat,
+  onBack,
+  initial,
 }: DecisionCardProps) {
-  const [picked, setPicked] = useState<string | null>(null);
-  const [custom, setCustom] = useState('');
+  const [picked, setPicked] = useState<string | null>(initial?.optionId ?? null);
+  const [custom, setCustom] = useState(initial?.custom ?? '');
   const [why, setWhy] = useState(false);
   const [busy, setBusy] = useState(false);
   const titleId = useId();
@@ -173,6 +179,12 @@ export function DecisionCard({
       {why && card.why && <div className={styles.why}>{card.why}</div>}
       <div className={styles.foot}>
         <div className={styles.footLeft}>
+          {onBack && (
+            <button type="button" className="btn btn-secondary btn-md" onClick={onBack}>
+              <ArrowLeft size={14} aria-hidden="true" />
+              Back
+            </button>
+          )}
           {card.why && (
             <button
               type="button"

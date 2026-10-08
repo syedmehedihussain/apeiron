@@ -1,10 +1,11 @@
 import { Link } from 'react-router';
 import { relativeTime, type ProjectCard as Card } from '@apeiron/shared';
 import { PhaseBarCompact } from '../PhaseBar/PhaseBar.tsx';
-import { GitChip, StatePill } from '../Pill/Pill.tsx';
+import { GitChip, Pill, StatePill } from '../Pill/Pill.tsx';
 import styles from './ProjectCard.module.css';
 
 export function projectHref(card: Card): string {
+  if (card.draft) return `/new/${encodeURIComponent(card.id)}`;
   return card.state === 'uncalibrated'
     ? `/p/${encodeURIComponent(card.id)}/calibrate`
     : `/p/${encodeURIComponent(card.id)}`;
@@ -15,7 +16,7 @@ export function ProjectCard({ card, now }: { card: Card; now: number }) {
     <Link to={projectHref(card)} className={styles.card}>
       <div className={styles.head}>
         <span className={styles.name}>{card.name}</span>
-        <StatePill state={card.state} />
+        {card.draft ? <Pill tone="neutral">Draft</Pill> : <StatePill state={card.state} />}
       </div>
       <span className={styles.summary}>
         {card.summary || <span className={styles.muted}>No summary yet</span>}
@@ -24,7 +25,9 @@ export function ProjectCard({ card, now }: { card: Card; now: number }) {
       <div className={styles.next}>
         Next:{' '}
         <span className={styles.nextText}>
-          {card.nextStep ?? (card.state === 'uncalibrated' ? 'Calibrate this folder' : '—')}
+          {card.draft
+            ? 'Finish the survey'
+            : (card.nextStep ?? (card.state === 'uncalibrated' ? 'Calibrate this folder' : '—'))}
         </span>
       </div>
       <div className={styles.foot}>
