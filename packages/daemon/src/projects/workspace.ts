@@ -174,6 +174,8 @@ async function ignoredByGit(dir: string, paths: string[]): Promise<Set<string>> 
         resolve(new Set(String(stdout).split('\0').filter(Boolean)));
       },
     );
+    // git exits before reading stdin when the folder is not a repo; that EPIPE must not crash.
+    child.stdin?.on('error', () => undefined);
     child.stdin?.end(paths.join('\0') + '\0');
   });
 }
