@@ -28,6 +28,10 @@ test('Home lists one project in each state', async ({ page }) => {
 });
 
 test('search filters the table', async ({ page }) => {
+  // Search the loaded list, not the empty one shown while projects load.
+  await expect(
+    page.getByRole('table').getByRole('link', { name: 'cctop', exact: true }),
+  ).toBeVisible();
   await page.getByPlaceholder('Search projects').fill('terminal');
   await expect(page.getByRole('table').getByRole('row')).toHaveCount(2);
 });

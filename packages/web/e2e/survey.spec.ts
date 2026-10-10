@@ -28,7 +28,8 @@ test('a new project from Home gets its docs, a first commit and opens at Design'
     JSON.parse(
       readFileSync(path.join(E2E_PROJECTS, 'review-qr', '_project', 'survey.json'), 'utf8'),
     );
-  expect(survey().answers).toHaveLength(2);
+  // The daemon saves after the click returns; wait for the file rather than racing it.
+  await expect.poll(() => survey().answers.length).toBe(2);
   await expect(page.getByRole('complementary', { name: 'What we know so far' })).toContainText(
     'Small shop owners in the UK',
   );
@@ -39,7 +40,7 @@ test('a new project from Home gets its docs, a first commit and opens at Design'
   await page.getByRole('button', { name: 'Change' }).first().click();
   await confirm('Who is review-qr for?', /Marketing agencies/);
   await expect(page.getByText('An earlier answer changed. Check this again.')).toBeVisible();
-  expect(survey().stale).toEqual([3, 4]);
+  await expect.poll(() => survey().stale).toEqual([3, 4]);
   await confirm('What must v1 do?', /QR generator/);
   await confirm('Where should review-qr run?', /Static site/);
   await confirm('What does review-qr store?', /Business, ReviewLink/);
