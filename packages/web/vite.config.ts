@@ -6,6 +6,8 @@ const daemon = `http://${LOOPBACK_HOST}:${process.env.APEIRON_PORT ?? DEFAULT_PO
 
 export default defineConfig({
   plugins: [react()],
+  // Served from the user's own machine, so a big chunk costs nothing; keep `apeiron` quiet.
+  build: { chunkSizeWarningLimit: 4000 },
   server: {
     host: LOOPBACK_HOST,
     port: Number(process.env.APEIRON_WEB_PORT ?? DEV_WEB_PORT),

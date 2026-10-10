@@ -58,9 +58,13 @@ function ensureWebBuild(): void {
   const index = path.join(WEB_DIR, 'dist', 'index.html');
   const sources = [path.join(WEB_DIR, 'src'), path.join(REPO_ROOT, 'docs', 'design')];
   if (existsSync(index) && statSync(index).mtimeMs >= Math.max(...sources.map(newestMtime))) return;
-  console.error('Building the web UI…');
+  console.error('Building the web UI (first run or after an update, about a minute)…');
   const vite = path.join(WEB_DIR, 'node_modules', 'vite', 'bin', 'vite.js');
-  const res = spawnSync(process.execPath, [vite, 'build'], { cwd: WEB_DIR, stdio: 'inherit' });
+  // Only warnings and errors: the full asset list is hundreds of lines.
+  const res = spawnSync(process.execPath, [vite, 'build', '--logLevel', 'warn'], {
+    cwd: WEB_DIR,
+    stdio: 'inherit',
+  });
   if (res.status !== 0) throw new Error('Building the web UI failed.');
 }
 

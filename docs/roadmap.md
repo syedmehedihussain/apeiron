@@ -111,7 +111,8 @@ and Report opens the result in its own centre tab with the history of earlier ru
 - [x] README rewritten for users: what it is, requirements, install, first run, features, skill.
 - [x] `CHANGELOG.md` (1.0.0 unreleased).
 - [ ] Version 1.0.0 in every package and `apeiron --version` (in the release commit).
-- [ ] Fresh install check: clone into a temp folder, empty `APEIRON_HOME`, install, first run.
+- [x] Fresh install check: clone into a temp folder, empty `APEIRON_HOME`, install, first run
+      (2026-10-11: works; the first-run UI build is now quiet).
 - [ ] Tag `v1.0.0` and publish the GitHub release (ask first).
 
 **Done when:** someone on Linux follows the README from a fresh clone, opens Apeiron, and every
