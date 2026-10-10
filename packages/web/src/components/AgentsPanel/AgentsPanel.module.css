@@ -1,61 +1,16 @@
-.tabs {
-  flex: none;
+.panel {
+  flex: 1;
+  min-height: 0;
   display: flex;
-  gap: 4px;
-  padding: 0 16px;
-  border-bottom: 1px solid var(--b);
+  flex-direction: column;
 }
-.tab {
-  padding: 10px;
-  font: inherit;
-  font-weight: 500;
-  color: var(--t2);
-  background: none;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-}
-.tab[aria-selected='true'] {
-  color: var(--t1);
-  border-bottom-color: var(--t1);
-}
-.count {
-  font-size: var(--fs-2xs);
-  color: var(--t2);
-  background: var(--s3);
-  border-radius: var(--r-pill);
-  padding: 1px 6px;
-}
-.body {
+.feed {
   flex: 1;
   min-height: 0;
   overflow: auto;
-  padding: 14px 16px 16px;
+  padding: 8px 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-.newAgent {
-  height: 36px;
-  flex: none;
-  border-radius: var(--r-pill);
-  border: 1px dashed var(--bs);
-  background: transparent;
-  color: var(--t1);
-  font: inherit;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.newAgent:hover {
-  background: var(--s2);
 }
 .empty,
 .hint {
@@ -64,54 +19,76 @@
   color: var(--t3);
   line-height: 1.5;
 }
-.form {
+.box {
+  flex: none;
+  margin: 8px 16px 16px;
   background: var(--s1);
   border: 1px solid var(--bs);
-  border-radius: var(--r-xl);
-  padding: 12px;
+  border-radius: var(--r-2xl);
+  padding: 10px 10px 8px 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  flex: none;
+  gap: 8px;
 }
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: var(--fs-sm);
-  color: var(--t2);
+.box:focus-within {
+  border-color: rgba(255, 255, 255, 0.22);
 }
-.field textarea {
-  background: var(--s2);
-  border: 1px solid var(--b);
-  border-radius: var(--r-lg);
+.text {
+  resize: none;
+  background: transparent;
+  border: 0;
   color: var(--t1);
   font: inherit;
   font-size: var(--fs-md);
-  padding: 8px 10px;
-  resize: vertical;
+  line-height: 1.5;
+  padding: 2px 0;
+  field-sizing: content;
+  min-height: 42px;
+  max-height: 160px;
 }
-.field textarea:focus {
+.text:focus-visible {
   outline: none;
-  border-color: var(--accent-border);
 }
-.formRow {
+.text::placeholder {
+  color: var(--t3);
+}
+.row {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 .model select {
-  height: 30px;
+  height: 28px;
   background: var(--s2);
-  color: var(--t1);
+  color: var(--t2);
   border: 1px solid var(--b);
   border-radius: var(--r-pill);
   padding: 0 10px;
   font: inherit;
   font-size: var(--fs-sm);
+  cursor: pointer;
 }
 .spacer {
   flex: 1;
+}
+.send {
+  height: 28px;
+  padding: 0 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--bs);
+  background: var(--s2);
+  color: var(--t1);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  cursor: pointer;
+}
+.send:hover:not(:disabled) {
+  background: var(--s3);
+}
+.send:disabled {
+  color: var(--t3);
+  cursor: default;
 }
 .error {
   margin: 0;

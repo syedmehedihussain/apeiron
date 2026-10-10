@@ -1,23 +1,74 @@
 .card {
-  background: var(--s1);
-  border: 1px solid var(--b);
-  border-radius: var(--r-xl);
-  padding: 14px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   flex: none;
 }
-.card[data-status='waiting'] {
-  border-color: rgba(210, 153, 34, 0.35);
+.rail {
+  flex: none;
+  width: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.node {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--accent-text);
+  background: var(--accent-fill);
+}
+.node[data-status='waiting'] {
+  color: var(--warning);
+  background: var(--warning-fill);
+}
+.node[data-status='done'],
+.node[data-status='accepted'] {
+  color: var(--success);
+  background: var(--success-fill);
+}
+.node[data-status='failed'],
+.node[data-status='discarded'] {
+  color: var(--danger);
+  background: var(--danger-fill);
+}
+.node[data-status='queued'] {
+  color: var(--t2);
+  background: var(--neutral-fill);
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: ap-pulse 1.4s ease-in-out infinite;
+}
+.line {
+  flex: 1;
+  width: 1px;
+  margin: 4px 0;
+  background: var(--b);
+}
+.content {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 .head {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: baseline;
   gap: 8px;
+  min-height: 22px;
+  padding-top: 2px;
 }
 .head h4 {
+  flex: 1;
+  min-width: 0;
   margin: 0;
   font-size: 13.5px;
   font-weight: 500;
@@ -27,44 +78,27 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.pill {
+.time {
   flex: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  height: 22px;
-  padding: 0 9px;
-  border-radius: var(--r-pill);
-  font-size: 11.5px;
-  font-weight: 500;
+  font-size: var(--fs-sm);
+  color: var(--t3);
+}
+.status {
   color: var(--accent-text);
-  background: var(--accent-fill);
 }
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-}
-.pill[data-status='running'] .dot {
-  animation: ap-pulse 1.4s ease-in-out infinite;
-}
-.pill[data-status='waiting'] {
+.status[data-status='waiting'] {
   color: var(--warning);
-  background: var(--warning-fill);
 }
-.pill[data-status='done'],
-.pill[data-status='accepted'] {
+.status[data-status='done'],
+.status[data-status='accepted'] {
   color: var(--success);
-  background: var(--success-fill);
 }
-.pill[data-status='failed'] {
-  color: var(--danger);
-  background: var(--danger-fill);
+.status[data-status='failed'],
+.status[data-status='discarded'] {
+  color: var(--danger-text);
 }
-.pill[data-status='queued'] {
+.status[data-status='queued'] {
   color: var(--t2);
-  background: var(--neutral-fill);
 }
 .meta {
   display: flex;
@@ -74,8 +108,12 @@
   font-size: var(--fs-sm);
   color: var(--t3);
 }
-.meta .mono {
+.branch {
+  font-size: var(--fs-sm);
   color: var(--t2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .rows {
   display: flex;

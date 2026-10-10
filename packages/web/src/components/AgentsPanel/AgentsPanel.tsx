@@ -1,5 +1,5 @@
-import { Plus, X } from 'lucide-react';
-import { useEffect, useState, type ReactNode } from 'react';
+import { X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import type { Agent } from '@apeiron/shared';
 import { ApiFailure } from '../../api/client.ts';
@@ -10,24 +10,20 @@ import styles from './AgentsPanel.module.css';
 
 type Model = 'sonnet' | 'opus' | 'haiku';
 
-/** Right column tabs: Agents (M7) and Magnet. */
+/** Right column under the GitHub box: a timeline of agents and a task box to start one. */
 export function AgentsPanel({
   projectId,
   branch,
   now,
-  magnet,
 }: {
   projectId: string;
   branch: string | null;
   now: number;
-  magnet: ReactNode;
 }) {
-  const [tab, setTab] = useState<'agents' | 'magnet'>('agents');
   const agents = useAgents(projectId);
   useLiveAgents(projectId);
   const [params] = useSearchParams();
   const focus = params.get('agent');
-  const [adding, setAdding] = useState(false);
   const [diffOf, setDiffOf] = useState<Agent | null>(null);
   const list = agents.data?.agents ?? [];
   const running = list.filter((a) => a.status === 'running' || a.status === 'waiting').length;
@@ -38,88 +34,57 @@ export function AgentsPanel({
   }, [focus, list.length]);
 
   return (
-    <>
-      <nav className={styles.tabs} role="tablist" aria-label="Agents and Magnet">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={tab === 'agents'}
-          className={styles.tab}
-          onClick={() => setTab('agents')}
-        >
-          Agents <span className={styles.count}>{list.length}</span>
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={tab === 'magnet'}
-          className={styles.tab}
-          onClick={() => setTab('magnet')}
-        >
-          Magnet
-        </button>
-      </nav>
-      {tab === 'magnet' ? (
-        magnet
-      ) : (
-        <div className={styles.body} role="tabpanel" aria-label="Agents">
-          {adding ? (
-            <NewAgentForm
-              projectId={projectId}
-              branch={branch}
-              full={!!agents.data && running >= agents.data.maxRunning}
-              onDone={() => setAdding(false)}
-            />
-          ) : (
-            <button type="button" className={styles.newAgent} onClick={() => setAdding(true)}>
-              <Plus size={14} aria-hidden="true" />
-              New agent
-            </button>
-          )}
-          {list.length === 0 && !adding && (
-            <p className={styles.empty}>
-              Agents work on a task on their own branch while you keep chatting. You review the diff
-              before anything lands.
-            </p>
-          )}
-          {list.map((a) => (
+    <section className={styles.panel} aria-label="Agents">
+      <div className={styles.feed}>
+        {list.length === 0 ? (
+          <p className={styles.empty}>
+            Give an agent a task below. It works on its own branch while you keep chatting, and you
+            review the diff before anything lands.
+          </p>
+        ) : (
+          list.map((a, i) => (
             <AgentCard
               key={a.id}
               agent={a}
               now={now}
+              last={i === list.length - 1}
               focus={a.id === focus}
               onReviewDiff={setDiffOf}
             />
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
+      <TaskBox
+        projectId={projectId}
+        branch={branch}
+        full={!!agents.data && running >= agents.data.maxRunning}
+      />
       {diffOf && <DiffDialog agent={diffOf} onClose={() => setDiffOf(null)} />}
-    </>
+    </section>
   );
 }
 
-function NewAgentForm({
+function TaskBox({
   projectId,
   branch,
   full,
-  onDone,
 }: {
   projectId: string;
   branch: string | null;
   full: boolean;
-  onDone(): void;
 }) {
   const [task, setTask] = useState('');
   const [model, setModel] = useState<Model>('sonnet');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const ready = task.trim().length >= 3 && !busy;
   const start = async () => {
-    if (task.trim().length < 3) return;
+    if (!ready) return;
     setBusy(true);
     setError(null);
     try {
       await startAgent(projectId, { task: task.trim(), model });
-      onDone();
+      setTask('');
     } catch (e) {
       setError(e instanceof ApiFailure ? e.message : 'Could not start the agent.');
     } finally {
@@ -128,28 +93,33 @@ function NewAgentForm({
   };
   return (
     <form
-      className={styles.form}
+      className={styles.box}
       aria-label="New agent"
       onSubmit={(e) => {
         e.preventDefault();
         void start();
       }}
     >
-      <label className={styles.field}>
-        <span>Task</span>
-        <textarea
-          rows={3}
-          autoFocus
-          value={task}
-          placeholder="Write tests for the streak service"
-          onChange={(e) => setTask(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) void start();
-            if (e.key === 'Escape') onDone();
-          }}
-        />
-      </label>
-      <div className={styles.formRow}>
+      <textarea
+        className={styles.text}
+        rows={2}
+        value={task}
+        aria-label="Task"
+        placeholder="Give an agent a task…"
+        title={`Starts from your last commit${branch ? ` on ${branch}` : ''}, in its own worktree. Edits there need no approval; commands do.`}
+        onChange={(e) => setTask(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
+            e.preventDefault();
+            void start();
+          }
+        }}
+      />
+      {full && (
+        <p className={styles.hint}>All agent slots are busy, so it will wait in the queue.</p>
+      )}
+      {error && <p className={styles.error}>{error}</p>}
+      <div className={styles.row}>
         <label className={styles.model}>
           <span className="sr-only">Model</span>
           <select value={model} onChange={(e) => setModel(e.target.value as Model)}>
@@ -159,23 +129,10 @@ function NewAgentForm({
           </select>
         </label>
         <span className={styles.spacer} />
-        <button type="button" className="btn btn-ghost btn-sm" onClick={onDone}>
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="btn btn-primary btn-sm"
-          disabled={busy || task.trim().length < 3}
-        >
+        <button type="submit" className={styles.send} disabled={!ready}>
           {busy ? 'Starting…' : 'Start'}
         </button>
       </div>
-      <p className={styles.hint}>
-        Starts from your last commit{branch ? ` on ${branch}` : ''}, in its own worktree. Edits
-        there need no approval; commands do.
-        {full && ' All agent slots are busy, so it will wait in the queue.'}
-      </p>
-      {error && <p className={styles.error}>{error}</p>}
     </form>
   );
 }

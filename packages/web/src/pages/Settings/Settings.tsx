@@ -337,11 +337,10 @@ function GitHubSection() {
 
 function ShortcutsSection() {
   const list: [string, string][] = [
-    ['Enter', 'Send a message, confirm a decision card'],
+    ['Enter', 'Send a message, start an agent, confirm a decision card'],
     ['Shift + Enter', 'New line in the composer'],
     ['↑ / ↓', 'Move between options on a decision card'],
-    ['Ctrl/⌘ + Enter', 'Start an agent from the New agent form'],
-    ['Esc', 'Close Magnet, a dialog or the agent form'],
+    ['Esc', 'Close Magnet or a dialog'],
   ];
   return (
     <section className={styles.section}>

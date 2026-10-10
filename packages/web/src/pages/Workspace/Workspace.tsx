@@ -8,7 +8,6 @@ import { FileTree } from '../../components/FileTree/FileTree.tsx';
 import { FileViewer } from '../../components/FileViewer/FileViewer.tsx';
 import { GitPanel } from '../../components/GitHubBox/GitPanel.tsx';
 import { AgentsPanel } from '../../components/AgentsPanel/AgentsPanel.tsx';
-import { MagnetChat } from '../../components/MagnetChat/MagnetChat.tsx';
 import { StatusNotch } from '../../components/StatusNotch/StatusNotch.tsx';
 import { TopBar } from '../../components/TopBar/TopBar.tsx';
 import { tildify } from '../../lib/paths.ts';
@@ -201,12 +200,7 @@ export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
           {right ? (
             right(id)
           ) : (
-            <AgentsPanel
-              projectId={id}
-              branch={detail.data?.card.git?.branch ?? null}
-              now={now}
-              magnet={<MagnetChat projectId={id} />}
-            />
+            <AgentsPanel projectId={id} branch={detail.data?.card.git?.branch ?? null} now={now} />
           )}
         </aside>
       </div>
