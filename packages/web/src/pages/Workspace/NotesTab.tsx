@@ -5,9 +5,9 @@ import { saveNotes, setTaskStatus, useNotes, useTasks, wk } from '../../api/work
 import styles from './Workspace.module.css';
 
 /** Notes & Tasks (not designed; built from the component sheet, screens.md §4). */
-export function NotesTab({ projectId }: { projectId: string }) {
+export function NotesTab({ projectId, stacked }: { projectId: string; stacked?: boolean }) {
   return (
-    <div className={styles.notes}>
+    <div className={styles.notes} data-stacked={stacked || undefined}>
       <NotesEditor projectId={projectId} />
       <TaskList projectId={projectId} />
     </div>

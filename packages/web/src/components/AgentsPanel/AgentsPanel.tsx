@@ -15,10 +15,15 @@ export function AgentsPanel({
   projectId,
   branch,
   now,
+  limit,
+  onSeeAll,
 }: {
   projectId: string;
   branch: string | null;
   now: number;
+  /** Show only the newest few (the Overview); the rest are one click away. */
+  limit?: number;
+  onSeeAll?(): void;
 }) {
   const agents = useAgents(projectId);
   useLiveAgents(projectId);
@@ -26,6 +31,7 @@ export function AgentsPanel({
   const focus = params.get('agent');
   const [diffOf, setDiffOf] = useState<Agent | null>(null);
   const list = agents.data?.agents ?? [];
+  const shown = limit ? list.slice(0, limit) : list;
   const running = list.filter((a) => a.status === 'running' || a.status === 'waiting').length;
 
   useEffect(() => {
@@ -42,16 +48,21 @@ export function AgentsPanel({
             review the diff before anything lands.
           </p>
         ) : (
-          list.map((a, i) => (
+          shown.map((a, i) => (
             <AgentCard
               key={a.id}
               agent={a}
               now={now}
-              last={i === list.length - 1}
+              last={i === shown.length - 1}
               focus={a.id === focus}
               onReviewDiff={setDiffOf}
             />
           ))
+        )}
+        {shown.length < list.length && onSeeAll && (
+          <button type="button" className={styles.seeAll} onClick={onSeeAll}>
+            All {list.length} agents →
+          </button>
         )}
       </div>
       <TaskBox

@@ -251,6 +251,21 @@
 .notesCol + .notesCol {
   border-left: 1px solid var(--b);
 }
+/* The Notes view in the right column: one column, notes above tasks. */
+.notes[data-stacked] {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.notes[data-stacked] .notesCol {
+  padding: 16px;
+  overflow: visible;
+  flex: none;
+}
+.notes[data-stacked] .notesCol + .notesCol {
+  border-left: 0;
+  border-top: 1px solid var(--b);
+}
 .colHead {
   display: flex;
   align-items: baseline;

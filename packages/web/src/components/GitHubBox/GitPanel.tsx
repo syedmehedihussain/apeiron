@@ -12,16 +12,19 @@ export function GitPanel({
   projectId,
   now,
   compact,
+  full,
 }: {
   projectId: string;
   now: number;
   compact?: boolean;
+  /** The GitHub view: commits and pull requests open from the start. */
+  full?: boolean;
 }) {
   const git = useGitInfo(projectId);
   const approvals = usePendingApprovals();
   const [pulling, setPulling] = useState(false);
   const [result, setResult] = useState<GitResult | null>(null);
-  const [prsOpen, setPrsOpen] = useState(false);
+  const [prsOpen, setPrsOpen] = useState(!!full);
   const prs = usePullRequests(projectId, prsOpen);
   const push = (approvals.data ?? []).find(
     (a) => a.projectId === projectId && a.kind === 'push' && a.status === 'pending',
@@ -46,6 +49,7 @@ export function GitPanel({
       git={git.data}
       now={now}
       compact={compact}
+      commitsOpen={full}
       busy={pulling ? 'pull' : push ? 'push' : null}
       result={result}
       prs={prs.data ?? null}

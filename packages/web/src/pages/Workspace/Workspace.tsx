@@ -7,7 +7,6 @@ import { useLiveProject, useProjectDetail } from '../../api/workspace.ts';
 import { FileTree } from '../../components/FileTree/FileTree.tsx';
 import { FileViewer } from '../../components/FileViewer/FileViewer.tsx';
 import { GitPanel } from '../../components/GitHubBox/GitPanel.tsx';
-import { AgentsPanel } from '../../components/AgentsPanel/AgentsPanel.tsx';
 import { StatusNotch } from '../../components/StatusNotch/StatusNotch.tsx';
 import { TopBar } from '../../components/TopBar/TopBar.tsx';
 import { tildify } from '../../lib/paths.ts';
@@ -17,6 +16,7 @@ import { Pill } from '../../components/Pill/Pill.tsx';
 import { ChatTab, NewChatButton, useSessionMeta } from './ChatTab.tsx';
 import { DocsTab } from './DocsTab.tsx';
 import { NotesTab } from './NotesTab.tsx';
+import { SidePanel } from './SidePanel.tsx';
 import styles from './Workspace.module.css';
 
 type Tab = 'chat' | 'docs' | 'notes' | 'file';
@@ -194,13 +194,15 @@ export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
         </section>
 
         <aside aria-label="Repository and agents" className={styles.right}>
-          <div className={styles.rightTop}>
-            <GitPanel key={id} projectId={id} now={now} />
-          </div>
           {right ? (
-            right(id)
+            <>
+              <div className={styles.rightTop}>
+                <GitPanel key={id} projectId={id} now={now} />
+              </div>
+              {right(id)}
+            </>
           ) : (
-            <AgentsPanel projectId={id} branch={detail.data?.card.git?.branch ?? null} now={now} />
+            <SidePanel projectId={id} branch={detail.data?.card.git?.branch ?? null} now={now} />
           )}
         </aside>
       </div>

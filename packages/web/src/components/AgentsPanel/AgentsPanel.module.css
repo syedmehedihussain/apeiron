@@ -12,6 +12,20 @@
   display: flex;
   flex-direction: column;
 }
+.seeAll {
+  align-self: flex-start;
+  margin-left: 34px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--t2);
+  font: inherit;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+.seeAll:hover {
+  color: var(--t1);
+}
 .empty,
 .hint {
   margin: 0;

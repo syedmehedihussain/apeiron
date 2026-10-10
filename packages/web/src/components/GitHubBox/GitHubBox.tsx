@@ -7,6 +7,8 @@ interface GitHubBoxProps {
   git: GitInfo | undefined;
   now: number;
   compact?: boolean;
+  /** Start with the last three commits shown (the GitHub view). */
+  commitsOpen?: boolean;
   onPull?: () => void;
   onPush?: () => void;
   busy?: 'pull' | 'push' | null;
@@ -24,6 +26,7 @@ export function GitHubBox({
   git,
   now,
   compact,
+  commitsOpen,
   onPull,
   onPush,
   busy,
@@ -86,7 +89,7 @@ export function GitHubBox({
           <span className={styles.clean}>clean</span>
         )}
       </div>
-      {!compact && <Commits commits={git.commits} now={now} />}
+      {!compact && <Commits commits={git.commits} now={now} initialOpen={!!commitsOpen} />}
       <div className={styles.foot}>
         {git.openPRs !== null && onTogglePrs ? (
           <button
@@ -162,8 +165,16 @@ export function GitHubBox({
 }
 
 /** The latest commit on one line; the chevron shows the last three. */
-function Commits({ commits, now }: { commits: GitInfo['commits']; now: number }) {
-  const [open, setOpen] = useState(false);
+function Commits({
+  commits,
+  now,
+  initialOpen,
+}: {
+  commits: GitInfo['commits'];
+  now: number;
+  initialOpen: boolean;
+}) {
+  const [open, setOpen] = useState(initialOpen);
   if (commits.length === 0) return <p className={styles.muted}>No commits yet.</p>;
   const shown = open ? commits : commits.slice(0, 1);
   return (
