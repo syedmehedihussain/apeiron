@@ -41,13 +41,16 @@ export function safeName(name: string): string {
   return `${stem || 'file'}${ext.length > 1 ? ext : ''}`;
 }
 
-/** Adds `apeiron/` to the project's .gitignore once, so uploads never get committed. */
+/**
+ * Adds `/apeiron/` to the project's .gitignore once, so uploads and reports never get committed.
+ * Anchored to the root: a bare `apeiron/` would also hide folders like .claude/skills/apeiron.
+ */
 export function ensureIgnored(dir: string): void {
   const file = path.join(dir, '.gitignore');
   const text = existsSync(file) ? readFileSync(file, 'utf8') : '';
   if (text.split('\n').some((l) => /^\/?apeiron\/?\s*$/.test(l.trim()))) return;
   const sep = text && !text.endsWith('\n') ? '\n' : '';
-  appendFileSync(file, `${sep}${text ? '\n' : ''}# Apeiron chat attachments\napeiron/\n`);
+  appendFileSync(file, `${sep}${text ? '\n' : ''}# Apeiron uploads and reports\n/apeiron/\n`);
 }
 
 export function saveUpload(dir: string, name: string, data: Buffer): UploadedFile {

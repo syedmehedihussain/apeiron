@@ -39,6 +39,17 @@ pnpm dev            # daemon on 127.0.0.1:4317 + web UI with hot reload
 pnpm apeiron        # the real CLI: start the daemon, print the link, open the browser
 ```
 
+## Claude Code skill
+
+The repo ships a skill, [`.claude/skills/apeiron`](.claude/skills/apeiron/SKILL.md), that teaches
+Claude Code how to install, run, use and troubleshoot Apeiron, and how to drive a running copy
+(start scans and agents, read reports) through `scripts/api.sh`. Claude Code picks it up
+automatically inside this repo. To have it in every project:
+
+```bash
+mkdir -p ~/.claude/skills && cp -r .claude/skills/apeiron ~/.claude/skills/
+```
+
 ## Install the `apeiron` command
 
 ```bash

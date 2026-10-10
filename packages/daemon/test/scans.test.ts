@@ -95,7 +95,7 @@ describe('scan agents', () => {
       counts: report.counts,
     });
     const dir = path.join(d.projectsDir, 'core');
-    expect(readFileSync(path.join(dir, '.gitignore'), 'utf8')).toContain('apeiron/');
+    expect(readFileSync(path.join(dir, '.gitignore'), 'utf8')).toContain('/apeiron/');
     expect(readdirSync(path.join(dir, 'apeiron', 'reports', 'security'))).toHaveLength(1);
 
     const hist = await api('GET', '/api/projects/core/reports/security');

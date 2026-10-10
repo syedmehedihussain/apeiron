@@ -50,7 +50,7 @@ describe('chat attachments', () => {
     expect(f.id).toMatch(/^\d{4}-\d{2}-\d{2}-[0-9a-f]{6}-screen-shot\.png$/);
     expect(readFileSync(path.join(dir, 'apeiron', 'uploads', f.id))).toEqual(png);
     expect(readFileSync(path.join(dir, '.gitignore'), 'utf8')).toBe(
-      'node_modules/\n\n# Apeiron chat attachments\napeiron/\n',
+      'node_modules/\n\n# Apeiron uploads and reports\n/apeiron/\n',
     );
     await upload('b.txt', Buffer.from('x'));
     expect(readFileSync(path.join(dir, '.gitignore'), 'utf8').match(/apeiron\//g)).toHaveLength(1);
