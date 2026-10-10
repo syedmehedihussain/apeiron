@@ -8,7 +8,7 @@ import {
 } from '../../api/client.ts';
 import { queryClient, useLiveProjects } from '../../api/queries.ts';
 import { socket } from '../../api/socket.ts';
-import appMark from '../../assets/app-mark.svg';
+import appMark from '../../assets/cherry-mark.png';
 import { ApprovalToasts } from '../../components/ApprovalToast/ApprovalToast.tsx';
 import { MagnetPanel } from '../../components/MagnetPanel/MagnetPanel.tsx';
 import { useLiveMagnet } from '../../api/magnet.ts';

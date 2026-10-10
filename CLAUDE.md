@@ -60,7 +60,7 @@ Workspace packages import each other's TypeScript source directly (`exports` poi
 5. **No code editing in the UI.** Code is shown read-only. Edits come from Claude, after approval.
 6. **Match the design.** Screens are in `docs/design/screens/`. Use tokens, not raw hex.
 7. **The designs say "Harness"** (the first name; it was later Apeiron, ADR-0014). Build it as **Cherry**, `~/.cherry/` and the
-   `cherry` command. Replace the "H" app mark with the placeholder from `docs/design-system.md`.
+   `cherry` command. Replace the "H" app mark with the Cherry badge (`docs/design-system.md` → Brand).
 8. **Every real choice becomes an ADR** in `docs/adr/`. Use `docs/adr/template.md`.
 9. **Work milestone by milestone.** Finish and test one roadmap task before the next. Tick the
    box in `docs/roadmap.md` and update `_project/STATUS.md` when a task is done.

@@ -2,7 +2,7 @@ import { Fragment, type ReactNode } from 'react';
 import { Link } from 'react-router';
 import { SlidersHorizontal } from 'lucide-react';
 import type { Phase } from '@cherry/shared';
-import appMark from '../../assets/app-mark.svg';
+import appMark from '../../assets/cherry-mark.png';
 import { useHealth } from '../../api/queries.ts';
 import { useSocketStatus } from '../../api/socket.ts';
 import { useUi } from '../../state/ui.ts';

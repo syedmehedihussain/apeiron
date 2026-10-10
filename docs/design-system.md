@@ -108,6 +108,7 @@ SVG source is in `design/screens/Components.dc.html` — extract it into
 
 ## Brand
 
-App mark: a rounded white square. The artboards show an "H" (for Harness) — replace it with an
-Cherry mark. Until one exists, use a simple placeholder: white rounded square with a thin
-open circle. Wordmark "Cherry", Geist 600, 14 px.
+App mark: the Cherry badge, a burgundy cherry with the word "Cherry" in cream lettering
+(`docs/design/brand/cherry-badge.png`, the original). The UI uses a trimmed 128 px copy
+(`packages/web/src/assets/cherry-mark.png`) and a 64 px favicon (`packages/web/public/favicon.png`).
+The artboards show an "H" (for Harness) in its place. Wordmark "Cherry", Geist 600, 14 px.

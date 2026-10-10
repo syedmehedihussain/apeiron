@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/images/cherry-logo.png" width="160" alt="Cherry" /></p>
+
 # Cherry
 
 Cherry is a local workspace where Claude Code plans, documents and builds software the way a
