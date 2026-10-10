@@ -60,7 +60,34 @@
 .row[data-ignored] {
   opacity: 0.5;
 }
-.row[data-deleted] /* Colour each file type tag by language. Unknown types stay --t3. */
+.row[data-deleted] .name {
+  text-decoration: line-through;
+  color: var(--t3);
+}
+.guide {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--b-faint);
+}
+.chev {
+  width: 14px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: var(--t3);
+}
+.type {
+  width: 30px;
+  flex: none;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--t3);
+  display: flex;
+  align-items: center;
+}
+/* Colour each file type tag by language. Unknown types stay --t3. */
 .type[data-tag='TS'],
 .type[data-tag='TSX'] {
   color: var(--ft-ts);
@@ -123,33 +150,6 @@
 .type[data-tag='WEBP'],
 .type[data-tag='ICO'] {
   color: var(--ft-img);
-}
-.name {
-  text-decoration: line-through;
-  color: var(--t3);
-}
-.guide {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--b-faint);
-}
-.chev {
-  width: 14px;
-  flex: none;
-  display: grid;
-  place-items: center;
-  color: var(--t3);
-}
-.type {
-  width: 30px;
-  flex: none;
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--t3);
-  display: flex;
-  align-items: center;
 }
 .name {
   flex: 1;
