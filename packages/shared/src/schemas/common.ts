@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const APP_NAME = 'apeiron';
+export const APP_NAME = 'cherry';
 export const DEFAULT_PORT = 4317;
 export const DEV_WEB_PORT = 5173;
 export const LOOPBACK_HOST = '127.0.0.1';

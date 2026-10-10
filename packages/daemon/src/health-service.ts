@@ -1,4 +1,4 @@
-import type { Health } from '@apeiron/shared';
+import type { Health } from '@cherry/shared';
 import type { ConfigStore } from './config.ts';
 import type { EventHub } from './events.ts';
 import { checkHealth } from './health.ts';

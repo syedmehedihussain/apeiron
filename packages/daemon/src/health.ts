@@ -1,4 +1,4 @@
-import type { Health } from '@apeiron/shared';
+import type { Health } from '@cherry/shared';
 import { run } from './exec.ts';
 
 export async function checkHealth(version: string, claudeBin: string): Promise<Health> {
@@ -21,7 +21,7 @@ export async function checkHealth(version: string, claudeBin: string): Promise<H
 
   return {
     ok: true,
-    name: 'apeiron',
+    name: 'cherry',
     version,
     claude: {
       found: claudeVersion.ok,

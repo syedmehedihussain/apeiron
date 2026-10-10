@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
-import { MagnetFileNameSchema, MagnetFileSaveSchema, MagnetSendSchema } from '@apeiron/shared';
+import { MagnetFileNameSchema, MagnetFileSaveSchema, MagnetSendSchema } from '@cherry/shared';
 import type { MagnetService } from '../magnet/service.ts';
 
 const ActionParams = z.object({ actionId: z.string().min(1).max(60) });

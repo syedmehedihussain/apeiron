@@ -10,7 +10,7 @@ import {
   ConfigPatchSchema,
   LoginBodySchema,
   type ApiError,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { AuthStore, SESSION_COOKIE, SESSION_TTL_MS, secretsMatch } from './auth.ts';
 import type { ConfigStore } from './config.ts';
 import type { EventHub } from './events.ts';
@@ -26,7 +26,7 @@ export interface ServerDeps {
   hub: EventHub;
   health: HealthService;
   projects: ProjectService;
-  /** Secret the CLI sends in `x-apeiron-cli` (from run/daemon.json). */
+  /** Secret the CLI sends in `x-cherry-cli` (from run/daemon.json). */
   cliSecret: string;
   /** Origins the UI is served from, e.g. http://127.0.0.1:4317 (and the Vite dev server). */
   origins: string[];
@@ -69,7 +69,7 @@ export function buildServer(deps: ServerDeps): FastifyInstance {
     }
     const url = req.url.split('?')[0] ?? '';
     if (url.startsWith('/api/cli/')) {
-      const secret = req.headers['x-apeiron-cli'];
+      const secret = req.headers['x-cherry-cli'];
       if (typeof secret !== 'string' || !secretsMatch(secret, deps.cliSecret)) {
         return reply.code(401).send({ error: { code: 'unauthorized', message: 'CLI only' } });
       }
@@ -81,7 +81,7 @@ export function buildServer(deps: ServerDeps): FastifyInstance {
       return reply.code(401).send({
         error: {
           code: 'unauthorized',
-          message: 'Run `apeiron` in a terminal and open the link it prints.',
+          message: 'Run `cherry` in a terminal and open the link it prints.',
         },
       });
     }
@@ -126,7 +126,7 @@ export function buildServer(deps: ServerDeps): FastifyInstance {
       return reply.code(401).send({
         error: {
           code: 'bad_code',
-          message: 'This login link is used or expired. Run `apeiron` again.',
+          message: 'This login link is used or expired. Run `cherry` again.',
         },
       });
     }

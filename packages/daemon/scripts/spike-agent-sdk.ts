@@ -1,5 +1,5 @@
-// ADR-0004 spike: checks the Claude Agent SDK features Apeiron depends on, against the real
-// `claude` login. Re-run after every SDK upgrade: `pnpm --filter @apeiron/daemon spike`.
+// ADR-0004 spike: checks the Claude Agent SDK features Cherry depends on, against the real
+// `claude` login. Re-run after every SDK upgrade: `pnpm --filter @cherry/daemon spike`.
 // Uses Haiku in a throwaway folder; costs a few cents of usage.
 import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -7,14 +7,14 @@ import path from 'node:path';
 import { createSdkMcpServer, query, tool, type SDKMessage } from '@anthropic-ai/claude-agent-sdk';
 import { z } from 'zod';
 
-const cwd = mkdtempSync(path.join(tmpdir(), 'apeiron-spike-'));
+const cwd = mkdtempSync(path.join(tmpdir(), 'cherry-spike-'));
 writeFileSync(path.join(cwd, 'notes.txt'), 'hello\n');
 const results: Record<string, boolean | string> = {};
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const model = 'haiku';
 
 const decisions = createSdkMcpServer({
-  name: 'apeiron',
+  name: 'cherry',
   tools: [
     tool(
       'ask_decision',
@@ -45,9 +45,9 @@ async function run(prompt: string, extra: Record<string, unknown> = {}) {
       model,
       permissionMode: 'default',
       includePartialMessages: true,
-      allowedTools: ['Read', 'Glob', 'Grep', 'mcp__apeiron__ask_decision'],
+      allowedTools: ['Read', 'Glob', 'Grep', 'mcp__cherry__ask_decision'],
       stderr: () => undefined,
-      mcpServers: { apeiron: decisions },
+      mcpServers: { cherry: decisions },
       settingSources: [],
       canUseTool: async (name, input) => {
         results[`asked:${name}`] = true;
@@ -71,14 +71,14 @@ const sessionOf = (ev: SDKMessage[]) =>
 
 // 1. login, streaming, approvals that wait, file write after allow
 const first = await run(
-  'Create a file called out.txt containing exactly the word APEIRON. Use the Write tool.',
+  'Create a file called out.txt containing exactly the word CHERRY. Use the Write tool.',
 );
 const init = first.find((e) => e.type === 'system' && e.subtype === 'init');
 results.usesClaudeLogin = !!init && (init as { apiKeySource?: string }).apiKeySource === 'none';
 results.streamDeltas = first.some((e) => e.type === 'stream_event');
 results.approvalWaited = !!results['asked:Write'];
 try {
-  results.fileWritten = readFileSync(path.join(cwd, 'out.txt'), 'utf8').includes('APEIRON');
+  results.fileWritten = readFileSync(path.join(cwd, 'out.txt'), 'utf8').includes('CHERRY');
 } catch {
   results.fileWritten = false;
 }
@@ -94,7 +94,7 @@ const text = second
   .flatMap((e) => (e.type === 'assistant' ? e.message.content : []))
   .map((b) => (b.type === 'text' ? b.text : ''))
   .join('');
-results.resumeKeepsContext = /APEIRON/i.test(text);
+results.resumeKeepsContext = /CHERRY/i.test(text);
 
 // 3. custom tool held open until "the user" answers
 await run(

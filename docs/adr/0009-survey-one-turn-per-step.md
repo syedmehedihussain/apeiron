@@ -24,14 +24,14 @@ rewinding a conversation.
 
 We chose **one short turn per step**. `survey.json` is the only state, so resume and Change are
 plain file updates. The final step is one more turn that returns every document through
-`propose_docs`; Apeiron adds `STATUS.md`, `project.json`, `tasks.json` and the ADR template.
+`propose_docs`; Cherry adds `STATUS.md`, `project.json`, `tasks.json` and the ADR template.
 Survey turns get no file tools at all (all built-in tools disallowed, plus a PreToolUse guard).
 
 ## Consequences
 
 - Good: a survey survives restarts; Change re-shows the saved card; later answers are marked
   stale and re-shown with "Check again".
-- Good: Claude cannot touch the disk during the survey; Apeiron writes the files after review.
+- Good: Claude cannot touch the disk during the survey; Cherry writes the files after review.
 - Cost: a card takes a fresh Claude start. The UI shows "Drafting options…" meanwhile.
 - File format: the step-1 answer's `value` gains `quick: boolean` (needed for the Quick toggle,
   ADR-0007 item 5). Everything else in `survey.json` is as in data-model.md.

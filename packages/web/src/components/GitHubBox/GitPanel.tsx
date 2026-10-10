@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { GitResult } from '@apeiron/shared';
+import type { GitResult } from '@cherry/shared';
 import { ApiFailure } from '../../api/client.ts';
 import { answerApproval, usePendingApprovals } from '../../api/chat.ts';
 import { socket } from '../../api/socket.ts';

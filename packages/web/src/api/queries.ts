@@ -1,6 +1,6 @@
 import { QueryClient, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { HealthSchema, ProjectListSchema, type Health, type ProjectList } from '@apeiron/shared';
+import { HealthSchema, ProjectListSchema, type Health, type ProjectList } from '@cherry/shared';
 import { api } from './client.ts';
 import { socket } from './socket.ts';
 

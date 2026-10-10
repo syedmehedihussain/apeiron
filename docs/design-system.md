@@ -109,5 +109,5 @@ SVG source is in `design/screens/Components.dc.html` — extract it into
 ## Brand
 
 App mark: a rounded white square. The artboards show an "H" (for Harness) — replace it with an
-Apeiron mark. Until one exists, use a simple placeholder: white rounded square with a thin
-open circle (the boundless). Wordmark "Apeiron", Geist 600, 14 px.
+Cherry mark. Until one exists, use a simple placeholder: white rounded square with a thin
+open circle. Wordmark "Cherry", Geist 600, 14 px.

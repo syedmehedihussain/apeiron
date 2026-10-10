@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { SurveyStateSchema, type SurveyAnswerInput, type SurveyState } from '@apeiron/shared';
+import { SurveyStateSchema, type SurveyAnswerInput, type SurveyState } from '@cherry/shared';
 import { api } from './client.ts';
 import { queryClient } from './queries.ts';
 import { socket } from './socket.ts';

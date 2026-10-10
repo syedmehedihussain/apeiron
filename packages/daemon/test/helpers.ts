@@ -2,7 +2,7 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import type { Health } from '@apeiron/shared';
+import type { Health } from '@cherry/shared';
 import { SESSION_COOKIE } from '../src/auth.ts';
 import { createDaemon, type Daemon } from '../src/daemon.ts';
 import { fakeRunner } from '../src/claude/fake-runner.ts';
@@ -13,14 +13,14 @@ export const HOST = `127.0.0.1:${PORT}`;
 
 export const fakeHealth: Health = {
   ok: true,
-  name: 'apeiron',
+  name: 'cherry',
   version: '0.0.0',
   claude: { found: true, loggedIn: true, version: '2.1.288' },
   git: { found: true, version: '2.55.0' },
   gh: { found: true, loggedIn: true },
 };
 
-export function tempDir(prefix = 'apeiron-test-'): string {
+export function tempDir(prefix = 'cherry-test-'): string {
   return mkdtempSync(path.join(tmpdir(), prefix));
 }
 
@@ -56,8 +56,8 @@ export async function testDaemon(
     prList?: import('../src/projects/git-actions.ts').PrLister;
   } = {},
 ): Promise<TestDaemon> {
-  const home = tempDir('apeiron-home-');
-  const projectsDir = tempDir('apeiron-projects-');
+  const home = tempDir('cherry-home-');
+  const projectsDir = tempDir('cherry-projects-');
   write(path.join(home, 'config.json'), JSON.stringify({ schema: 1, projectsDir }));
   const daemon = createDaemon({
     home,

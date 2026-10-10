@@ -1,6 +1,6 @@
 import { ChevronRight, Folder } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import type { GitLetter, TreeEntry } from '@apeiron/shared';
+import type { GitLetter, TreeEntry } from '@cherry/shared';
 import { useChanges, useTree } from '../../api/workspace.ts';
 import styles from './FileTree.module.css';
 

@@ -1,7 +1,7 @@
 import { X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
-import type { Agent } from '@apeiron/shared';
+import type { Agent } from '@cherry/shared';
 import { ApiFailure } from '../../api/client.ts';
 import { startAgent, useAgentDiff, useAgents, useLiveAgents } from '../../api/agents.ts';
 import { AgentCard } from '../AgentCard/AgentCard.tsx';

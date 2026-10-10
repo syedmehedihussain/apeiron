@@ -1,6 +1,6 @@
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useId, useRef, useState } from 'react';
-import { relativeTime, type StatusDoc } from '@apeiron/shared';
+import { relativeTime, type StatusDoc } from '@cherry/shared';
 import { useNow } from '../../lib/useNow.ts';
 import styles from './StatusNotch.module.css';
 

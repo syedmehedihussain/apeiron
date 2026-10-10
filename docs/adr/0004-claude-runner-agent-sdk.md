@@ -30,14 +30,14 @@ CLI path can be swapped in if the spike finds a blocker.
 - [x] Per-session allow rules and working directory (worktree) work.
 - [x] Uses the user's existing `claude` login (no API key required).
 
-Re-run with `pnpm --filter @apeiron/daemon spike` (`packages/daemon/scripts/spike-agent-sdk.ts`).
+Re-run with `pnpm --filter @cherry/daemon spike` (`packages/daemon/scripts/spike-agent-sdk.ts`).
 
 ## Findings
 
 - Bare `allowedTools` entries skip `canUseTool` entirely, so only read-only tools go there.
   Everything that writes or runs goes through `canUseTool`.
 - `settingSources: []` so user or project settings files cannot add allow rules that bypass
-  Apeiron's approvals. The `claude_code` system-prompt preset plus our append still tells Claude
+  Cherry's approvals. The `claude_code` system-prompt preset plus our append still tells Claude
   to read `CLAUDE.md` and `STATUS.md` first.
 - An interrupted turn ends with `result.subtype = error_during_execution`, and the iterator may
   throw afterwards; the runner treats both as "stopped".

@@ -1,10 +1,10 @@
 import { chmodSync, existsSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
-import { ConfigSchema, type Config, type ConfigPatch } from '@apeiron/shared';
+import { ConfigSchema, type Config, type ConfigPatch } from '@cherry/shared';
 import { readJsonFile, writeFileAtomic } from './fsutil.ts';
 import { expandHome } from './paths.ts';
 
-const DEFAULT_WORKTREE_DIR = '~/Projects/.apeiron-worktrees';
+const DEFAULT_WORKTREE_DIR = '~/Projects/.cherry-worktrees';
 
 export class ConfigStore {
   readonly file: string;
@@ -34,16 +34,16 @@ export class ConfigStore {
     return this.current;
   }
 
-  /** Absolute projects folder. `$APEIRON_PROJECTS_DIR` wins (used by tests and e2e). */
+  /** Absolute projects folder. `$CHERRY_PROJECTS_DIR` wins (used by tests and e2e). */
   projectsDir(): string {
-    return path.resolve(expandHome(process.env.APEIRON_PROJECTS_DIR ?? this.current.projectsDir));
+    return path.resolve(expandHome(process.env.CHERRY_PROJECTS_DIR ?? this.current.projectsDir));
   }
 
-  /** Agent worktrees: `<projectsDir>/.apeiron-worktrees` unless set to somewhere else. */
+  /** Agent worktrees: `<projectsDir>/.cherry-worktrees` unless set to somewhere else. */
   worktreeDir(): string {
     const set = this.current.agents.worktreeDir;
     return set === DEFAULT_WORKTREE_DIR
-      ? path.join(this.projectsDir(), '.apeiron-worktrees')
+      ? path.join(this.projectsDir(), '.cherry-worktrees')
       : path.resolve(expandHome(set));
   }
 

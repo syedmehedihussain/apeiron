@@ -80,7 +80,7 @@ describe('request security', () => {
     const res = await d.app.inject({
       method: 'POST',
       url: '/api/cli/logout',
-      headers: { host: HOST, 'x-apeiron-cli': d.cliSecret },
+      headers: { host: HOST, 'x-cherry-cli': d.cliSecret },
     });
     expect(res.statusCode).toBe(200);
     expect((await get({ host: HOST, cookie: other })).statusCode).toBe(401);

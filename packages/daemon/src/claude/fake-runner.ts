@@ -54,7 +54,7 @@ export function fakeRunner(
           req.onEvent({
             t: 'tool_start',
             id,
-            name: `mcp__apeiron__${step.call.name}`,
+            name: `mcp__cherry__${step.call.name}`,
             input: step.call.input as Record<string, unknown>,
           });
           const r = custom
@@ -67,7 +67,7 @@ export function fakeRunner(
           req.onEvent({
             t: 'tool_start',
             id,
-            name: 'mcp__apeiron__ask_decision',
+            name: 'mcp__cherry__ask_decision',
             input: step.decision as Record<string, unknown>,
           });
           const reply = await req.onDecision(step.decision);
@@ -141,7 +141,7 @@ export function fakeRunner(
 }
 
 /**
- * `APEIRON_FAKE_CLAUDE=<file.json>` makes the daemon use this fake (e2e tests). The file holds
+ * `CHERRY_FAKE_CLAUDE=<file.json>` makes the daemon use this fake (e2e tests). The file holds
  * `[{ "match": "regex", "steps": [...] }]`; the first entry whose regex matches the prompt runs.
  */
 export function fakeRunnerFromFile(file: string): Runner {

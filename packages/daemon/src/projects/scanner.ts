@@ -5,7 +5,7 @@ import {
   type ProjectCard,
   type ProjectJson,
   type StatusDoc,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { readJsonFile, readTextOrNull } from '../fsutil.ts';
 import { gitStatus, lastCommitTime } from '../git.ts';
 import { firstOpenStep, parseStatusMd } from './status.ts';

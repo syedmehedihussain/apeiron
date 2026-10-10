@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { STATE_LABEL, gitChip, type GitSummary, type ProjectState } from '@apeiron/shared';
+import { STATE_LABEL, gitChip, type GitSummary, type ProjectState } from '@cherry/shared';
 import styles from './Pill.module.css';
 
 export type PillTone = 'success' | 'accent' | 'warning' | 'danger' | 'neutral' | 'edited';

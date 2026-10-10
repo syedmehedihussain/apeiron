@@ -12,5 +12,5 @@ coverage/
 playwright-report/
 test-results/
 
-# Apeiron uploads and reports (root only, so .claude/skills/apeiron stays tracked)
-/apeiron/
+# Cherry uploads and reports (root only, so .claude/skills/cherry stays tracked)
+/cherry/

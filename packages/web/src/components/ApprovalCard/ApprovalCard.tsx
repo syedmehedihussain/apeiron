@@ -1,6 +1,6 @@
 import { Check, ChevronRight, ShieldAlert, X } from 'lucide-react';
 import { useEffect, useId, useRef, useState } from 'react';
-import { relativeTime, type Approval, type ApprovalFile } from '@apeiron/shared';
+import { relativeTime, type Approval, type ApprovalFile } from '@cherry/shared';
 import { tildify } from '../../lib/paths.ts';
 import { Pill } from '../Pill/Pill.tsx';
 import styles from './ApprovalCard.module.css';

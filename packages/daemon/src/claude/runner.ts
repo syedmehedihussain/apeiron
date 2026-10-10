@@ -19,7 +19,7 @@ export type RunnerEvent =
       costUsd: number | null;
     };
 
-/** An extra in-process tool (served as mcp__apeiron__<name>). */
+/** An extra in-process tool (served as mcp__cherry__<name>). */
 export interface CustomTool {
   name: string;
   description: string;
@@ -27,7 +27,7 @@ export interface CustomTool {
   handler(args: unknown): Promise<{ ok: boolean; text: string }>;
 }
 
-export const customToolName = (name: string) => `mcp__apeiron__${name}`;
+export const customToolName = (name: string) => `mcp__cherry__${name}`;
 
 export type PermissionAnswer =
   { allow: true; input?: Record<string, unknown> } | { allow: false; message: string };
@@ -74,7 +74,7 @@ export interface RunHandle {
 
 export type Runner = (req: RunRequest) => RunHandle;
 
-export const DECISION_TOOL = 'mcp__apeiron__ask_decision';
+export const DECISION_TOOL = 'mcp__cherry__ask_decision';
 
 /** Refuses tools that would read a secret file (docs/security.md → Files never read). */
 export function secretGuard(
@@ -88,14 +88,14 @@ export function secretGuard(
   for (const p of candidates) {
     const rel = path.relative(cwd, path.resolve(cwd, p));
     if (isSecretFile(rel))
-      return `Apeiron never lets Claude read secret files like ${path.basename(p)}.`;
+      return `Cherry never lets Claude read secret files like ${path.basename(p)}.`;
   }
   if (
     tool === 'Grep' &&
     typeof input.glob === 'string' &&
     /\.env|\.pem|\.key|id_rsa|id_ed25519/.test(input.glob)
   ) {
-    return 'Apeiron never lets Claude search secret files.';
+    return 'Cherry never lets Claude search secret files.';
   }
   return null;
 }
@@ -148,7 +148,7 @@ export const sdkRunner: Runner = (req) => {
   const server =
     req.decisions || extra.length
       ? createSdkMcpServer({
-          name: 'apeiron',
+          name: 'cherry',
           tools: [
             ...extra,
             ...(req.decisions
@@ -186,8 +186,8 @@ export const sdkRunner: Runner = (req) => {
       ],
       ...(req.disallowedTools ? { disallowedTools: req.disallowedTools } : {}),
       ...(req.additionalDirectories ? { additionalDirectories: req.additionalDirectories } : {}),
-      ...(server ? { mcpServers: { apeiron: server } } : {}),
-      // No settings files: their allow rules would bypass Apeiron's approvals (ADR-0004).
+      ...(server ? { mcpServers: { cherry: server } } : {}),
+      // No settings files: their allow rules would bypass Cherry's approvals (ADR-0004).
       settingSources: [],
       systemPrompt: { type: 'preset', preset: 'claude_code', append: req.appendSystemPrompt },
       hooks: {

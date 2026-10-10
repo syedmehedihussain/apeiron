@@ -1,4 +1,4 @@
-// Manual check: asks the real Magnet about the real ~/Projects with a throwaway Apeiron home.
+// Manual check: asks the real Magnet about the real ~/Projects with a throwaway Cherry home.
 // Magnet is read-only, so nothing in the projects changes.
 import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs';
 import { homedir, tmpdir } from 'node:os';
@@ -6,7 +6,7 @@ import path from 'node:path';
 import { createDaemon } from '../src/daemon.ts';
 import { noGitHub } from '../src/survey/service.ts';
 
-const home = mkdtempSync(path.join(tmpdir(), 'apeiron-try-home-'));
+const home = mkdtempSync(path.join(tmpdir(), 'cherry-try-home-'));
 const projects = process.argv[2] ?? path.join(homedir(), 'Projects');
 writeFileSync(path.join(home, 'config.json'), JSON.stringify({ schema: 1, projectsDir: projects }));
 const d = createDaemon({ home, port: 4397, memoryDb: true, github: noGitHub });

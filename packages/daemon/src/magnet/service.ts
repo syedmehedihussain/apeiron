@@ -10,7 +10,7 @@ import {
   type MagnetSend,
   type MagnetState,
   type Usage,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { z } from 'zod';
 import type { ConfigStore } from '../config.ts';
 import type { Db } from '../db.ts';
@@ -70,7 +70,7 @@ function magnetSystemPrompt(o: {
   now: Date;
 }): string {
   return [
-    "You are Magnet, an assistant inside Apeiron who knows all of the user's projects.",
+    "You are Magnet, an assistant inside Cherry who knows all of the user's projects.",
     `Today is ${o.now.toDateString()}, ${o.now.toTimeString().slice(0, 5)}.`,
     '',
     '## Who you are (MAGNET.md)',
@@ -169,7 +169,7 @@ export class MagnetService {
       .get() as { id: string; claude_session_id: string | null } | undefined;
     if (!row) return null;
     const live = this.open(row.id, row.claude_session_id);
-    live.conversation.closeInterrupted('Apeiron restarted while Magnet was answering. Ask again.');
+    live.conversation.closeInterrupted('Cherry restarted while Magnet was answering. Ask again.');
     return live;
   }
 
@@ -254,7 +254,7 @@ export class MagnetService {
       additionalDirectories: [projectsDir],
       decisions: false,
       guard: (tool, input) => {
-        if (tool.startsWith('mcp__apeiron__')) return null;
+        if (tool.startsWith('mcp__cherry__')) return null;
         if (READ_TOOLS.includes(tool) || EDIT_TOOLS.has(tool)) {
           const p = ['file_path', 'path'].map((k) => input[k]).find((v) => typeof v === 'string');
           if (typeof p !== 'string') return null;

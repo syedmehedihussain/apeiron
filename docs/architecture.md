@@ -2,7 +2,7 @@
 
 ## Overview
 
-Apeiron is a **CLI that starts a local daemon**, plus a **web UI** served by that daemon. This is
+Cherry is a **CLI that starts a local daemon**, plus a **web UI** served by that daemon. This is
 the same pattern as sysdash (and Jupyter). The daemon is the only part that touches the disk,
 git, `gh` or `claude`.
 
@@ -11,7 +11,7 @@ git, `gh` or `claude`.
  │  React UI  ── HTTP (REST) ──┐    ┌── WebSocket (events) ── │
  └─────────────────────────────┼────┼───────────────────────┘
                                ▼    ▼
- ┌──────────────────────── apeiron daemon ─────────────────────────┐
+ ┌──────────────────────── cherry daemon ─────────────────────────┐
  │ http + ws (Fastify)   token check   path guard                   │
  │                                                                  │
  │ ProjectScanner ─ watches ~/Projects, classifies, builds cards    │
@@ -28,15 +28,15 @@ git, `gh` or `claude`.
  │ Cache (SQLite) ─ app-only cache, rebuildable from disk           │
  └───────┬──────────────┬─────────────┬────────────────┬────────────┘
          ▼              ▼             ▼                ▼
-   ~/Projects/*     git / gh      claude CLI     ~/.apeiron/
+   ~/Projects/*     git / gh      claude CLI     ~/.cherry/
 ```
 
 ## Packages
 
 ```
-apeiron/
+cherry/
 ├── packages/
-│   ├── cli/        `apeiron` command: (bare = up), down, status, open, logout, doctor, install-service
+│   ├── cli/        `cherry` command: (bare = up), down, status, open, logout, doctor, install-service
 │   ├── daemon/     Fastify server, services above, SQLite cache
 │   ├── web/        React 19 + Vite UI
 │   └── shared/     zod schemas + TS types for API, events, files
@@ -53,15 +53,15 @@ apeiron/
 
 | Command | Does |
 | --- | --- |
-| `apeiron` (or `apeiron up`) | Start the daemon in the background if not running, print the login link `http://127.0.0.1:4317/#login=<code>`, open it in the browser, and return to the prompt. |
-| `apeiron down` | Stop the daemon. |
-| `apeiron status` | Is it running, which port, how many projects, is `claude` found. |
-| `apeiron open <project>` | Open the browser straight to a project's workspace. |
-| `apeiron logout` | End every browser session. |
-| `apeiron doctor` | Check Node, git, gh, claude, folder permissions; print fixes. |
-| `apeiron install-service` | Install a systemd **user** service (Linux) or launchd agent (macOS). |
+| `cherry` (or `cherry up`) | Start the daemon in the background if not running, print the login link `http://127.0.0.1:4317/#login=<code>`, open it in the browser, and return to the prompt. |
+| `cherry down` | Stop the daemon. |
+| `cherry status` | Is it running, which port, how many projects, is `claude` found. |
+| `cherry open <project>` | Open the browser straight to a project's workspace. |
+| `cherry logout` | End every browser session. |
+| `cherry doctor` | Check Node, git, gh, claude, folder permissions; print fixes. |
+| `cherry install-service` | Install a systemd **user** service (Linux) or launchd agent (macOS). |
 
-The daemon writes `~/.apeiron/run/daemon.json` with `{ pid, port, startedAt }`
+The daemon writes `~/.cherry/run/daemon.json` with `{ pid, port, startedAt }`
 (file mode `0600`). The CLI reads it to talk to a running daemon.
 
 ## Key flows
@@ -81,13 +81,13 @@ The daemon writes `~/.apeiron/run/daemon.json` with `{ pid, port, startedAt }`
 
 ### 3. Background agent
 1. `POST /api/projects/:id/agents` with `{ task, model }`.
-2. AgentManager: `git worktree add ../.apeiron-worktrees/<project>/<slug> -b agent/<slug>`.
+2. AgentManager: `git worktree add ../.cherry-worktrees/<project>/<slug> -b agent/<slug>`.
 3. Runs a headless ClaudeRunner session with `cwd` = worktree. Approvals go through the same broker.
 4. On finish: computes the diff vs base branch, sets status Done.
 5. **Accept** = merge `agent/<slug>` into the current branch (fast-forward or merge commit,
    never force). **Discard** = remove worktree and delete branch.
 
-Worktrees live **outside** the project folder (`~/Projects/.apeiron-worktrees/`) so they never
+Worktrees live **outside** the project folder (`~/Projects/.cherry-worktrees/`) so they never
 show in the file tree and the scanner skips dot-folders.
 
 ## Data ownership
@@ -97,11 +97,11 @@ show in the file tree and the scanner skips dot-folders.
 | Engineering docs | `<project>/docs/` (committed) | the project |
 | Status, tasks, survey, notes | `<project>/_project/` (git-excluded) | the user |
 | Session log | `<project>/_project/sessions.json`, `log.md` | the cctop hook |
-| Magnet knowledge | `~/.apeiron/magnet/` | the user (+ generated `projects.md`) |
-| App settings | `~/.apeiron/config.json` | the app |
-| Cache, transcripts index, usage stats | `~/.apeiron/cache.db` (SQLite) | the app, rebuildable |
+| Magnet knowledge | `~/.cherry/magnet/` | the user (+ generated `projects.md`) |
+| App settings | `~/.cherry/config.json` | the app |
+| Cache, transcripts index, usage stats | `~/.cherry/cache.db` (SQLite) | the app, rebuildable |
 
-**Rule:** if `cache.db` is deleted, Apeiron loses nothing important. Everything that matters is
+**Rule:** if `cache.db` is deleted, Cherry loses nothing important. Everything that matters is
 in plain files. (Usage stats are the one exception; losing them is acceptable.)
 
 ## Concurrency
@@ -114,7 +114,7 @@ in plain files. (Usage stats are the one exception; losing them is acceptable.)
 ## Errors and recovery
 
 - Daemon restart: sessions are resumed by id on next message. Pending approvals at shutdown are
-  cancelled; Claude sees a deny with reason "Apeiron restarted".
+  cancelled; Claude sees a deny with reason "Cherry restarted".
 - `claude` crashes: the turn ends with an error row and a **Retry** button.
 - Disk folder deleted while open: workspace shows "This folder is gone" and links Home.
 

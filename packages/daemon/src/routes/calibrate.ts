@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
-import { CalibrateWriteSchema } from '@apeiron/shared';
+import { CalibrateWriteSchema } from '@cherry/shared';
 import type { CalibrationService } from '../calibrate/service.ts';
 
 const IdParams = z.object({ id: z.string().min(1).max(200) });

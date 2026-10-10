@@ -15,7 +15,7 @@ export const HealthSchema = z.object({
 });
 export type Health = z.infer<typeof HealthSchema>;
 
-/** `~/.apeiron/config.json` (docs/data-model.md §5). */
+/** `~/.cherry/config.json` (docs/data-model.md §5). */
 export const ConfigSchema = z.object({
   schema: z.literal(1).default(1),
   projectsDir: z.string().default('~/Projects'),
@@ -27,9 +27,9 @@ export const ConfigSchema = z.object({
   agents: z
     .object({
       maxRunning: z.number().int().min(1).max(10).default(3),
-      worktreeDir: z.string().default('~/Projects/.apeiron-worktrees'),
+      worktreeDir: z.string().default('~/Projects/.cherry-worktrees'),
     })
-    .default({ maxRunning: 3, worktreeDir: '~/Projects/.apeiron-worktrees' }),
+    .default({ maxRunning: 3, worktreeDir: '~/Projects/.cherry-worktrees' }),
   magnet: z.object({ readOnly: z.boolean().default(true) }).default({ readOnly: true }),
 });
 export type Config = z.infer<typeof ConfigSchema>;

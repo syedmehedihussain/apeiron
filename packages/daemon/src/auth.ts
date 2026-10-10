@@ -4,7 +4,7 @@ import path from 'node:path';
 import { z } from 'zod';
 import { readJsonFile, writeFileAtomic } from './fsutil.ts';
 
-export const SESSION_COOKIE = 'apeiron_session';
+export const SESSION_COOKIE = 'cherry_session';
 export const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 export const LOGIN_CODE_TTL_MS = 10 * 60 * 1000;
 

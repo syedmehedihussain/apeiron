@@ -16,7 +16,7 @@ export const ScanCountsSchema = z.object({
 });
 export type ScanCounts = z.infer<typeof ScanCountsSchema>;
 
-/** One saved report: `apeiron/reports/<agent>/<id>.md` in the project (ADR-0012). */
+/** One saved report: `cherry/reports/<agent>/<id>.md` in the project (ADR-0012). */
 export const ReportMetaSchema = z.object({
   id: z.string(),
   agentId: z.string(),
@@ -52,7 +52,7 @@ export const ScanAgentSchema = z.object({
   name: z.string(),
   description: z.string(),
   icon: z.enum(SCAN_ICONS),
-  /** Built into Apeiron, or a file in ~/.apeiron/agents/. */
+  /** Built into Cherry, or a file in ~/.cherry/agents/. */
   source: z.enum(['builtin', 'custom']),
   model: z.string(),
   /** Commands it may run without asking (exact command or that command plus arguments). */

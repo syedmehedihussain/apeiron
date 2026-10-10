@@ -1,10 +1,10 @@
 {
-  "name": "apeiron-cli",
+  "name": "cherry-cli",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "bin": {
-    "apeiron": "./src/index.ts"
+    "cherry": "./src/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

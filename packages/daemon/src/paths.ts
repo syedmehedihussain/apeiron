@@ -2,9 +2,9 @@ import { realpathSync } from 'node:fs';
 import { homedir } from 'node:os';
 import path from 'node:path';
 
-/** `~/.apeiron`, or `$APEIRON_HOME` (tests point this at a temp dir). */
-export function apeironHome(): string {
-  return process.env.APEIRON_HOME ?? path.join(homedir(), '.apeiron');
+/** `~/.cherry`, or `$CHERRY_HOME` (tests point this at a temp dir). */
+export function cherryHome(): string {
+  return process.env.CHERRY_HOME ?? path.join(homedir(), '.cherry');
 }
 
 export function expandHome(p: string): string {

@@ -1,7 +1,7 @@
 import { Fragment, type ReactNode } from 'react';
 import { Link } from 'react-router';
 import { SlidersHorizontal } from 'lucide-react';
-import type { Phase } from '@apeiron/shared';
+import type { Phase } from '@cherry/shared';
 import appMark from '../../assets/app-mark.svg';
 import { useHealth } from '../../api/queries.ts';
 import { useSocketStatus } from '../../api/socket.ts';
@@ -43,9 +43,9 @@ export function TopBar({ crumbs, phase, status, right, claude }: TopBarProps) {
   return (
     <header className={styles.bar}>
       <div className={styles.left}>
-        <Link to="/" className={styles.home} aria-label="Apeiron home">
+        <Link to="/" className={styles.home} aria-label="Cherry home">
           <img src={appMark} width={22} height={22} alt="" />
-          <span className={styles.wordmark}>Apeiron</span>
+          <span className={styles.wordmark}>Cherry</span>
         </Link>
         {crumbs.length > 0 && (
           <nav aria-label="Breadcrumb" className={styles.crumbs}>

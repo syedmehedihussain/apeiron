@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { existsSync, mkdirSync, rmSync } from 'node:fs';
 import path from 'node:path';
-import type { Agent, AgentStart, AgentStatus, ApprovalFile, ChatItem } from '@apeiron/shared';
+import type { Agent, AgentStart, AgentStatus, ApprovalFile, ChatItem } from '@cherry/shared';
 import type { ConfigStore } from '../config.ts';
 import type { Db } from '../db.ts';
 import type { EventHub } from '../events.ts';
@@ -60,7 +60,7 @@ function agentPrompt(task: string, branch: string): string {
     `You are a background agent working in your own git worktree on branch ${branch}. The user is not watching; work on your own until the task is done.`,
     '- Read CLAUDE.md and the relevant code first.',
     "- You may edit files in this folder. Running commands needs the user's approval, so run only what you need (for example the tests).",
-    '- Do not commit, push or switch branches. Apeiron commits your work when you finish and the user reviews the diff.',
+    '- Do not commit, push or switch branches. Cherry commits your work when you finish and the user reviews the diff.',
     '- End with one short sentence that says what you changed.',
   ].join('\n');
 }
@@ -84,7 +84,7 @@ export class AgentManager {
   ) {
     // Nothing survives a restart; keep the worktree so Try again and Discard still work.
     db.prepare(
-      `UPDATE agents SET status = 'failed', error = 'Apeiron restarted while this agent ran.', ended_at = ? WHERE status IN ('queued','running','waiting')`,
+      `UPDATE agents SET status = 'failed', error = 'Cherry restarted while this agent ran.', ended_at = ? WHERE status IN ('queued','running','waiting')`,
     ).run(Date.now());
   }
 
@@ -260,7 +260,7 @@ export class AgentManager {
       model: r.model,
       planMode: false,
       appendSystemPrompt:
-        'You are a background agent inside Apeiron, working in a git worktree. Edits inside this folder are allowed; commands need approval.',
+        'You are a background agent inside Cherry, working in a git worktree. Edits inside this folder are allowed; commands need approval.',
       allowedTools: READ_TOOLS,
       decisions: false,
       guard: (tool, input) => {
@@ -319,9 +319,7 @@ export class AgentManager {
       const staged = await git(r.worktree, ['diff', '--cached', '--quiet']);
       if (!staged.ok) {
         const email = (await git(r.worktree, ['config', 'user.email'])).stdout.trim();
-        const ident = email
-          ? []
-          : ['-c', 'user.name=Apeiron', '-c', 'user.email=apeiron@localhost'];
+        const ident = email ? [] : ['-c', 'user.name=Cherry', '-c', 'user.email=cherry@localhost'];
         await git(r.worktree, [
           ...ident,
           'commit',

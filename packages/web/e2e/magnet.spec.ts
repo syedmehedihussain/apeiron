@@ -16,7 +16,7 @@ test('Magnet answers, shows project cards, and an approved action opens the surv
   const panel = page.getByRole('complementary', { name: 'Magnet' });
   await expect(panel).toContainText(/Read-only · knows \d+ projects/);
   await panel.getByRole('button', { name: "What's stuck this week?" }).click();
-  await expect(panel).toContainText('has notes but no Apeiron setup yet');
+  await expect(panel).toContainText('has notes but no Cherry setup yet');
   await expect(panel.getByRole('link', { name: /cctop/ })).toBeVisible();
   const action = panel.getByRole('region', { name: 'Magnet wants to start a new project' });
   await expect(action).toContainText('A habit tracker for the family');

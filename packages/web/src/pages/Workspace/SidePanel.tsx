@@ -17,7 +17,7 @@ const VIEWS = [
 
 type View = (typeof VIEWS)[number][0];
 
-const KEY = 'apeiron.sideView';
+const KEY = 'cherry.sideView';
 
 function readView(): View {
   try {

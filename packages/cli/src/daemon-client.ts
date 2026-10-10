@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { existsSync, mkdirSync, openSync, readFileSync } from 'node:fs';
+import { existsSync, mkdirSync, openSync, readFileSync, renameSync } from 'node:fs';
 import { homedir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -18,12 +18,12 @@ export const DAEMON_MAIN = path.join(DAEMON_DIR, 'src', 'main.ts');
 export const WEB_DIR = path.join(REPO_ROOT, 'packages', 'web');
 export const TSX_LOADER = path.join(REPO_ROOT, 'node_modules', 'tsx', 'dist', 'loader.mjs');
 
-export function apeironHome(): string {
-  return process.env.APEIRON_HOME ?? path.join(homedir(), '.apeiron');
+export function cherryHome(): string {
+  return process.env.CHERRY_HOME ?? path.join(homedir(), '.cherry');
 }
 
 export function runFile(): string {
-  return path.join(apeironHome(), 'run', 'daemon.json');
+  return path.join(cherryHome(), 'run', 'daemon.json');
 }
 
 export function pidAlive(pid: number): boolean {
@@ -50,7 +50,7 @@ export function readRunInfo(): RunInfo | null {
 export async function cliRequest<T>(info: RunInfo, method: string, route: string): Promise<T> {
   const res = await fetch(`http://127.0.0.1:${info.port}${route}`, {
     method,
-    headers: { 'x-apeiron-cli': info.cliSecret },
+    headers: { 'x-cherry-cli': info.cliSecret },
   });
   if (!res.ok) throw new Error(`${method} ${route} → ${res.status}`);
   return (await res.json()) as T;
@@ -58,16 +58,24 @@ export async function cliRequest<T>(info: RunInfo, method: string, route: string
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+/** Cherry was Apeiron until 2026-10-11 (ADR-0014): move ~/.apeiron once, before anything writes ~/.cherry. */
+export function migrateOldHome(): void {
+  if (process.env.CHERRY_HOME) return;
+  const old = path.join(homedir(), '.apeiron');
+  if (!existsSync(cherryHome()) && existsSync(old)) renameSync(old, cherryHome());
+}
+
 /** Starts the daemon in the background and waits until it answers. */
 export async function startDaemon(): Promise<RunInfo> {
-  const logDir = path.join(apeironHome(), 'run');
+  migrateOldHome();
+  const logDir = path.join(cherryHome(), 'run');
   mkdirSync(logDir, { recursive: true, mode: 0o700 });
   const log = openSync(path.join(logDir, 'daemon.log'), 'a');
   const child = spawn(process.execPath, ['--import', TSX_LOADER, DAEMON_MAIN], {
     cwd: DAEMON_DIR,
     detached: true,
     stdio: ['ignore', log, log],
-    env: { ...process.env, APEIRON_WEB_URL: '', APEIRON_PRINT_LOGIN: '' },
+    env: { ...process.env, CHERRY_WEB_URL: '', CHERRY_PRINT_LOGIN: '' },
   });
   child.unref();
   for (let i = 0; i < 100; i++) {

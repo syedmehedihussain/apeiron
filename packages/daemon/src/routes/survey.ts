@@ -5,7 +5,7 @@ import {
   SurveyAnswerInputSchema,
   SurveyCreateSchema,
   SurveyStartSchema,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import type { SurveyService } from '../survey/service.ts';
 
 const IdParams = z.object({ id: ProjectNameSchema });

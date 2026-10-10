@@ -8,7 +8,7 @@ import {
   relativeTime,
   type SurveyFileEntry,
   type SurveyState,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { ApiFailure } from '../../api/client.ts';
 import { queryClient, useHealth } from '../../api/queries.ts';
 import {
@@ -487,7 +487,7 @@ function Review({ state }: { state: SurveyState }) {
             </div>
             <h1>Ready to create {state.name}</h1>
             <p className={styles.lead}>
-              Check the answers. Apeiron writes these files into{' '}
+              Check the answers. Cherry writes these files into{' '}
               <span className="mono">{tildify(state.path)}</span> and the project moves to Design.
             </p>
           </div>

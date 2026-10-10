@@ -1,4 +1,4 @@
-import type { ProjectCard } from '@apeiron/shared';
+import type { ProjectCard } from '@cherry/shared';
 import type { ConfigStore } from '../config.ts';
 import type { Db } from '../db.ts';
 import type { EventHub } from '../events.ts';

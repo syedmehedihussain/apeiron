@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { DecisionAnswer, DecisionCard } from '@apeiron/shared';
+import type { DecisionAnswer, DecisionCard } from '@cherry/shared';
 import { badRequest, conflict, notFound } from '../http.ts';
 
 interface Waiting {

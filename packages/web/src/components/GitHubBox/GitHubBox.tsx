@@ -1,6 +1,6 @@
 import { ArrowUpRight, ChevronRight, GitBranch, GitPullRequest } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
-import { relativeTime, type GitInfo, type GitResult, type PullRequestList } from '@apeiron/shared';
+import { relativeTime, type GitInfo, type GitResult, type PullRequestList } from '@cherry/shared';
 import styles from './GitHubBox.module.css';
 
 interface GitHubBoxProps {

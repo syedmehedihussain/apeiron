@@ -23,7 +23,7 @@ import {
   type SurveyFileEntry,
   type SurveyProposal,
   type SurveyState,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { z } from 'zod';
 import type { ConfigStore } from '../config.ts';
 import type { EventHub } from '../events.ts';
@@ -496,13 +496,13 @@ export class SurveyService {
       model: this.config.get().claude.defaultModel,
       planMode: false,
       appendSystemPrompt:
-        'You are inside Apeiron, planning a new project with the user. You only draft text through the tools you are given.',
+        'You are inside Cherry, planning a new project with the user. You only draft text through the tools you are given.',
       allowedTools: [],
       disallowedTools: NO_TOOLS,
       decisions: false,
       extraTools: opts.tools,
       guard: (tool) =>
-        tool.startsWith('mcp__apeiron__') || tool === 'ToolSearch'
+        tool.startsWith('mcp__cherry__') || tool === 'ToolSearch'
           ? null
           : 'The survey only drafts text. No other tools.',
       onPermission: async () => ({ allow: false, message: 'The survey only drafts text.' }),
@@ -595,7 +595,7 @@ export class SurveyService {
       '',
       '## Where we left off',
       '',
-      `Finished the new project survey in Apeiron and drafted ${drafted.join(', ')} in docs/. No code yet; the project is in the Design phase.`,
+      `Finished the new project survey in Cherry and drafted ${drafted.join(', ')} in docs/. No code yet; the project is in the Design phase.`,
       '',
       '## Next steps',
       '',
@@ -723,13 +723,13 @@ export class SurveyService {
     const other = readdirSync(dir).filter((n) => n !== '_project');
     if (other.length)
       throw conflict(
-        `The folder is not empty (${other.slice(0, 3).join(', ')}). Apeiron never overwrites.`,
+        `The folder is not empty (${other.slice(0, 3).join(', ')}). Cherry never overwrites.`,
       );
     const blocked = l.proposal.files.find((f) => f.warning);
     if (blocked) throw conflict(`${blocked.path}: ${blocked.warning}`);
     for (const f of l.proposal.files) {
       if (existsSync(resolveInside(dir, f.path)))
-        throw conflict(`${f.path} already exists. Apeiron never overwrites.`);
+        throw conflict(`${f.path} already exists. Cherry never overwrites.`);
     }
 
     type Create = NonNullable<SurveyState['create']>;
@@ -821,6 +821,6 @@ export async function gitFirstCommit(dir: string): Promise<void> {
   await git(dir, ['add', '-A']);
   // Use the user's git identity; fall back to a local one only if none is set.
   const email = (await run('git', ['config', 'user.email'], { cwd: dir })).stdout.trim();
-  const ident = email ? [] : ['-c', 'user.name=Apeiron', '-c', 'user.email=apeiron@localhost'];
-  await git(dir, [...ident, 'commit', '-q', '-m', 'docs: project plan from the Apeiron survey']);
+  const ident = email ? [] : ['-c', 'user.name=Cherry', '-c', 'user.email=cherry@localhost'];
+  await git(dir, [...ident, 'commit', '-q', '-m', 'docs: project plan from the Cherry survey']);
 }

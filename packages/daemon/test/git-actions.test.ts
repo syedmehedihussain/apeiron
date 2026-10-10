@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import type { GitResult } from '@apeiron/shared';
+import type { GitResult } from '@cherry/shared';
 import { HOST, tempDir, testDaemon, write, type TestDaemon } from './helpers.ts';
 
 const env = {
@@ -68,16 +68,16 @@ describe('Pull and Push', () => {
     d.hub.listen((_t, e) => {
       if (e.type === 'git.result') results.push(e);
     });
-    remote = path.join(tempDir('apeiron-remote-'), 'r.git');
+    remote = path.join(tempDir('cherry-remote-'), 'r.git');
     execFileSync('git', ['init', '-q', '--bare', '-b', 'main', remote], { env });
-    const seed = tempDir('apeiron-seed-');
+    const seed = tempDir('cherry-seed-');
     git(seed, 'init', '-q', '-b', 'main');
     commit(seed, 'a.txt', 'one\n');
     git(seed, 'remote', 'add', 'origin', remote);
     git(seed, 'push', '-q', '-u', 'origin', 'main');
     dir = path.join(d.projectsDir, 'proj');
     execFileSync('git', ['clone', '-q', remote, dir], { env });
-    other = path.join(tempDir('apeiron-other-'), 'o');
+    other = path.join(tempDir('cherry-other-'), 'o');
     execFileSync('git', ['clone', '-q', remote, other], { env });
   });
   afterEach(() => d.cleanup());

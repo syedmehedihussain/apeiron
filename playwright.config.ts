@@ -5,7 +5,7 @@ import { E2E_DAEMON_PORT, E2E_WEB_PORT } from './packages/web/e2e/fixture.ts';
 // Locally we use the system Chromium; CI installs Playwright's own build.
 const systemChromium = '/usr/bin/chromium';
 const executablePath =
-  process.env.APEIRON_CHROMIUM ??
+  process.env.CHERRY_CHROMIUM ??
   (!process.env.CI && existsSync(systemChromium) ? systemChromium : undefined);
 
 export default defineConfig({
@@ -34,10 +34,10 @@ export default defineConfig({
       reuseExistingServer: false,
     },
     {
-      command: 'pnpm --filter @apeiron/web dev',
+      command: 'pnpm --filter @cherry/web dev',
       url: `http://127.0.0.1:${E2E_WEB_PORT}`,
       reuseExistingServer: false,
-      env: { APEIRON_PORT: String(E2E_DAEMON_PORT), APEIRON_WEB_PORT: String(E2E_WEB_PORT) },
+      env: { CHERRY_PORT: String(E2E_DAEMON_PORT), CHERRY_WEB_PORT: String(E2E_WEB_PORT) },
     },
   ],
   workers: 1,

@@ -15,9 +15,9 @@ spread across many small ADRs. The login question has its own ADR (0008).
 | # | Question | Answer |
 | --- | --- | --- |
 | 1 | Docs in git | Commit `docs/`; keep `_project/` out of git via `.git/info/exclude` (as in `project-standard.md`). |
-| 2 | Which `~/Projects` | The one on the machine where `apeiron` runs. The folder can be changed in Settings → General. |
+| 2 | Which `~/Projects` | The one on the machine where `cherry` runs. The folder can be changed in Settings → General. |
 | 3 | Relation to cctop | Live beside it. Both read and write the same `_project/` files; cctop keeps its Projects tab. |
-| 4 | Relation to Core | Magnet lives in Apeiron (`~/.apeiron/magnet/`). Core may read those files later. |
+| 4 | Relation to Core | Magnet lives in Cherry (`~/.cherry/magnet/`). Core may read those files later. |
 | 5 | Survey depth | Step 1 gets a **Quick** toggle that skips step 5 (Data) and step 6 (Quality bar). |
 | 6 | Magnet's permissions | Magnet never starts agents on its own; every action is a proposed-action card you approve. |
 | 7 | Runner | Still decided by the M3 spike (ADR-0004). |
@@ -29,4 +29,4 @@ spread across many small ADRs. The login question has its own ADR (0008).
 ## Consequences
 
 - Good: M0 and M1 are unblocked; no undecided items remain except the M3 spike.
-- Cost: cctop and Apeiron must stay compatible on the `STATUS.md` format (ADR-0002).
+- Cost: cctop and Cherry must stay compatible on the `STATUS.md` format (ADR-0002).

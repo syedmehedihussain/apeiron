@@ -7,7 +7,7 @@ import {
   TasksFileSchema,
   type ProjectDetail,
   type TasksFile,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { existsSync, readFileSync } from 'node:fs';
 import { writeFileAtomic } from '../fsutil.ts';
 import { gitStatus } from '../git.ts';

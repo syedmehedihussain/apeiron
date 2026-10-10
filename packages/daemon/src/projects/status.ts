@@ -1,4 +1,4 @@
-import type { StatusDoc } from '@apeiron/shared';
+import type { StatusDoc } from '@cherry/shared';
 
 /** Splits `---` front matter (simple `key: value` lines) from the Markdown body. */
 export function frontMatter(md: string): { fields: Record<string, string>; body: string } {

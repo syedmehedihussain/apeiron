@@ -3,7 +3,7 @@ import path from 'node:path';
 import { expect, test } from '@playwright/test';
 import { E2E_PROJECTS, loginCode } from './fixture.ts';
 
-// The scan adds apeiron/ to core's .gitignore and writes a report; undo both for later specs.
+// The scan adds cherry/ to core's .gitignore and writes a report; undo both for later specs.
 const core = path.join(E2E_PROJECTS, 'core');
 const ignore = path.join(core, '.gitignore');
 let ignoreBefore: string | null = null;
@@ -11,7 +11,7 @@ test.beforeAll(() => {
   ignoreBefore = existsSync(ignore) ? readFileSync(ignore, 'utf8') : null;
 });
 test.afterAll(() => {
-  rmSync(path.join(core, 'apeiron', 'reports'), { recursive: true, force: true });
+  rmSync(path.join(core, 'cherry', 'reports'), { recursive: true, force: true });
   if (ignoreBefore === null) rmSync(ignore, { force: true });
   else writeFileSync(ignore, ignoreBefore);
 });

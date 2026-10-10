@@ -1,6 +1,6 @@
 import { Check, Clock, ShieldAlert, X } from 'lucide-react';
 import { useState } from 'react';
-import type { Agent } from '@apeiron/shared';
+import type { Agent } from '@cherry/shared';
 import { ApiFailure } from '../../api/client.ts';
 import { answerApproval } from '../../api/chat.ts';
 import { acceptAgent, discardAgent, retryAgent, stopAgent } from '../../api/agents.ts';

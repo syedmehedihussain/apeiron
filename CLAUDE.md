@@ -1,6 +1,6 @@
-# CLAUDE.md — Apeiron
+# CLAUDE.md — Cherry
 
-Apeiron is a local web workspace that drives the `claude` CLI to plan, document and build
+Cherry is a local web workspace that drives the `claude` CLI to plan, document and build
 projects in `~/Projects`. A CLI starts a daemon on `127.0.0.1`; a React UI talks to it.
 
 ## Read first
@@ -24,7 +24,7 @@ _project/             personal state, git-excluded, never committed
 ## Stack
 
 - Node 22, TypeScript (strict), pnpm workspaces
-- `packages/cli` — the `apeiron` command
+- `packages/cli` — the `cherry` command
 - `packages/daemon` — Fastify + WebSockets, SQLite cache (better-sqlite3)
 - `packages/web` — React 19 + Vite, plain CSS with tokens from `docs/design/tokens.css`
 - `packages/shared` — types and zod schemas shared by daemon and web
@@ -42,7 +42,7 @@ pnpm test         # vitest, all packages
 pnpm test:e2e     # playwright, uses /usr/bin/chromium locally
 pnpm lint         # eslint + prettier check
 pnpm typecheck    # tsc --noEmit, root + all packages
-pnpm apeiron      # run the CLI from source
+pnpm cherry      # run the CLI from source
 ```
 
 Workspace packages import each other's TypeScript source directly (`exports` points at
@@ -59,8 +59,8 @@ Workspace packages import each other's TypeScript source directly (`exports` poi
 4. **`_project/` is personal state, `docs/` is committed.** Do not move things between them.
 5. **No code editing in the UI.** Code is shown read-only. Edits come from Claude, after approval.
 6. **Match the design.** Screens are in `docs/design/screens/`. Use tokens, not raw hex.
-7. **The designs say "Harness"** (the old name). Build it as **Apeiron**, `~/.apeiron/` and the
-   `apeiron` command. Replace the "H" app mark with the placeholder from `docs/design-system.md`.
+7. **The designs say "Harness"** (the first name; it was later Apeiron, ADR-0014). Build it as **Cherry**, `~/.cherry/` and the
+   `cherry` command. Replace the "H" app mark with the placeholder from `docs/design-system.md`.
 8. **Every real choice becomes an ADR** in `docs/adr/`. Use `docs/adr/template.md`.
 9. **Work milestone by milestone.** Finish and test one roadmap task before the next. Tick the
    box in `docs/roadmap.md` and update `_project/STATUS.md` when a task is done.

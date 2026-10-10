@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { FastifyInstance } from 'fastify';
-import type { Health } from '@apeiron/shared';
+import type { Health } from '@cherry/shared';
 import { AuthStore, newCliSecret } from './auth.ts';
 import { ConfigStore } from './config.ts';
 import { openDb, type Db } from './db.ts';
@@ -18,6 +18,7 @@ import { surveyRoutes } from './routes/survey.ts';
 import { gitRoutes } from './routes/git.ts';
 import { agentRoutes } from './routes/agents.ts';
 import { scanRoutes } from './routes/scans.ts';
+import { migrateProjects } from './migrate.ts';
 import { ScanService } from './scans/service.ts';
 import { AgentManager } from './agents/manager.ts';
 import { MagnetService } from './magnet/service.ts';
@@ -76,6 +77,7 @@ const WEB_DIST = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../
 
 export function createDaemon(opts: DaemonOptions): Daemon {
   const config = new ConfigStore(opts.home);
+  migrateProjects(config.projectsDir());
   ensureMagnetFiles(opts.home);
   const db = openDb(opts.memoryDb ? ':memory:' : path.join(opts.home, 'cache.db'));
   const hub = new EventHub();
@@ -198,7 +200,7 @@ export function createDaemon(opts: DaemonOptions): Daemon {
       await scans.stopAll();
       await magnet.stopAll();
       await calibration.stopAll();
-      approvals.cancel(undefined, 'Apeiron restarted');
+      approvals.cancel(undefined, 'Cherry restarted');
       await watcher?.close();
       await app.close();
       db.close();

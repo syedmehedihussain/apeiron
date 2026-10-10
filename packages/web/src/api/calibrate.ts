@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { CalibrationStateSchema } from '@apeiron/shared';
+import { CalibrationStateSchema } from '@cherry/shared';
 import { z } from 'zod';
 import { api } from './client.ts';
 import { queryClient } from './queries.ts';

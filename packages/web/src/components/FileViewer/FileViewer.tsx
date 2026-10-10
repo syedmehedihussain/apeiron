@@ -2,7 +2,7 @@ import { ArrowUpRight, Lock } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { Fragment, useState } from 'react';
 import type { ThemedToken } from 'shiki';
-import type { DiffLine } from '@apeiron/shared';
+import type { DiffLine } from '@cherry/shared';
 import { openInEditor, useDiff, useFile } from '../../api/workspace.ts';
 import { highlightLines } from '../../lib/highlight.ts';
 import { Switch } from '../Switch/Switch.tsx';
@@ -104,7 +104,7 @@ export function FileViewer({ projectId, path }: { projectId: string; path: strin
       </div>
       {file.data.hidden ? (
         <p className={styles.message}>
-          Hidden for safety. Apeiron never reads secret files like {parts[parts.length - 1]}.
+          Hidden for safety. Cherry never reads secret files like {parts[parts.length - 1]}.
         </p>
       ) : file.data.binary ? (
         <p className={styles.message}>This is a binary file.</p>

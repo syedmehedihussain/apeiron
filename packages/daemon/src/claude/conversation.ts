@@ -4,7 +4,7 @@ import {
   type Approval,
   type ChatItem,
   type ToolVerb,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { resolveInside } from '../paths.ts';
 import type { ApprovalBroker, ApprovalDraft } from './approvals.ts';
 import { classifyCommand } from './commands.ts';
@@ -78,11 +78,11 @@ export class Conversation {
     this.turnId = turnId;
     for (const i of tail) {
       if (i.kind === 'tool' && (i.status === 'running' || i.status === 'waiting'))
-        this.put({ ...i, status: 'failed', meta: 'Apeiron restarted' });
+        this.put({ ...i, status: 'failed', meta: 'Cherry restarted' });
       if (i.kind === 'approval' && i.approval.status === 'pending')
         this.put({
           ...i,
-          approval: { ...i.approval, status: 'cancelled', reason: 'Apeiron restarted' },
+          approval: { ...i.approval, status: 'cancelled', reason: 'Cherry restarted' },
         });
     }
     this.put({
@@ -178,7 +178,7 @@ export class Conversation {
       }
       case 'tool_start': {
         this.flushText();
-        if (ev.name === DECISION_TOOL || ev.name.startsWith('mcp__apeiron__')) break;
+        if (ev.name === DECISION_TOOL || ev.name.startsWith('mcp__cherry__')) break;
         if (this.items.has(ev.id)) break;
         this.put({
           kind: 'tool',
@@ -263,7 +263,7 @@ export class Conversation {
             ? input.notebook_path
             : '';
       if (!this.inside(target)) {
-        const reason = `Apeiron only allows edits inside the project. ${target} is outside it.`;
+        const reason = `Cherry only allows edits inside the project. ${target} is outside it.`;
         this.setTool(toolUseId, { status: 'denied', meta: 'outside the project' });
         return { allow: false, message: reason };
       }

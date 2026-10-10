@@ -1,4 +1,4 @@
-import type { GitInfo } from '@apeiron/shared';
+import type { GitInfo } from '@cherry/shared';
 import { run } from '../exec.ts';
 import { git, gitStatus } from '../git.ts';
 

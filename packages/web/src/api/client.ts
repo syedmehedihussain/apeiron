@@ -1,5 +1,5 @@
 import type { ZodType } from 'zod';
-import { ApiErrorSchema } from '@apeiron/shared';
+import { ApiErrorSchema } from '@cherry/shared';
 
 /** The daemon answered with an error. */
 export class ApiFailure extends Error {
@@ -39,13 +39,13 @@ export async function api<T>(
       body: body === undefined ? undefined : JSON.stringify(body),
     });
   } catch {
-    const err = new DaemonUnreachable('Apeiron is not running.');
+    const err = new DaemonUnreachable('Cherry is not running.');
     listeners.forEach((fn) => fn(err));
     throw err;
   }
   if (res.status === 502 || res.status === 503 || res.status === 504) {
     // The Vite dev proxy answers 5xx when the daemon is down.
-    const err = new DaemonUnreachable('Apeiron is not running.');
+    const err = new DaemonUnreachable('Cherry is not running.');
     listeners.forEach((fn) => fn(err));
     throw err;
   }

@@ -1,4 +1,4 @@
-# PRD — Apeiron MVP
+# PRD — Cherry MVP
 
 | | |
 | --- | --- |
@@ -25,9 +25,9 @@ Claude Code every day. Today:
 One user: the owner of the machine. A developer who uses Claude Code daily, works across many
 repos, and wants engineering discipline without the paperwork.
 
-Because Apeiron is open source, other developers with the same setup (a `~/Projects` folder and
+Because Cherry is open source, other developers with the same setup (a `~/Projects` folder and
 a logged-in `claude` CLI) are the secondary audience. Nothing in the MVP may assume Meddy's
-personal data; personal content lives only in `~/.apeiron/magnet/`.
+personal data; personal content lives only in `~/.cherry/magnet/`.
 
 ## 3. Goals
 
@@ -42,7 +42,7 @@ personal data; personal content lives only in `~/.apeiron/magnet/`.
 
 ## 4. Non-goals (MVP)
 
-- Editing code by hand inside Apeiron (read-only viewer only).
+- Editing code by hand inside Cherry (read-only viewer only).
 - A built-in terminal tab.
 - Multiple users, login, or access from outside `127.0.0.1` (Tailscale later).
 - Cloud storage or sync.
@@ -128,7 +128,7 @@ Priority: **P0** = MVP cannot ship without it. **P1** = MVP should have it. **P2
 | ID | Requirement | Pri |
 | --- | --- | --- |
 | M-1 | Panel available on Home (slide-in) and in the workspace (right tab). | P0 |
-| M-2 | Knowledge in `~/.apeiron/magnet/`: `MAGNET.md`, `me.md`, `work.md` (written by the user), `projects.md` (generated on every scan). | P0 |
+| M-2 | Knowledge in `~/.cherry/magnet/`: `MAGNET.md`, `me.md`, `work.md` (written by the user), `projects.md` (generated on every scan). | P0 |
 | M-3 | Read-only by default. Any write, agent start or push is a **proposed action** card with **Approve / Cancel**. | P0 |
 | M-4 | Suggestion chips: "What's stuck this week?", "Start a project", "Summarise today". | P1 |
 | M-5 | Settings page: Magnet profile, read-only switch, editable knowledge files, stats. | P1 |
@@ -142,10 +142,10 @@ Priority: **P0** = MVP cannot ship without it. **P1** = MVP should have it. **P2
 
 ## 6. Success measures
 
-- Meddy opens Apeiron instead of a bare terminal for **5 of 7 days** in the first month.
+- Meddy opens Cherry instead of a bare terminal for **5 of 7 days** in the first month.
 - Every project in `~/Projects` is Ready or cctop within two weeks of milestone 4.
 - No file is ever written without an approval (verified by tests, see `testing.md`).
-- Cold start (`apeiron` → Home rendered) under **2 seconds** with 30 projects.
+- Cold start (`cherry` → Home rendered) under **2 seconds** with 30 projects.
 
 ## 7. Dependencies
 

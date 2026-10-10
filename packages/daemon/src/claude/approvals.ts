@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { Approval, ApprovalAnswer } from '@apeiron/shared';
+import type { Approval, ApprovalAnswer } from '@cherry/shared';
 import type { Db } from '../db.ts';
 import type { EventHub } from '../events.ts';
 import { notFound, conflict } from '../http.ts';

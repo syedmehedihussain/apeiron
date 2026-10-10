@@ -6,7 +6,7 @@ import {
   type CalibrationState,
   type ChatItem,
   type ProposedFile,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { ApiFailure } from '../../api/client.ts';
 import {
   cancelCalibration,
@@ -150,8 +150,8 @@ function Prompt({ id, name, light }: { id: string; name: string; light: boolean 
       <div>
         <h1>
           {light
-            ? `${name} has notes but no Apeiron setup yet.`
-            : `${name} isn't set up for Apeiron yet.`}
+            ? `${name} has notes but no Cherry setup yet.`
+            : `${name} isn't set up for Cherry yet.`}
         </h1>
         <p className={styles.lead}>
           {light

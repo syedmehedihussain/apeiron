@@ -8,7 +8,7 @@ test('calibrates torongo and writes only the ticked files', async ({ page }) => 
   await page.goto(`/#login=${await loginCode()}`);
   await page.getByRole('table').getByRole('link', { name: 'Calibrate' }).click();
   await expect(
-    page.getByRole('heading', { name: "torongo isn't set up for Apeiron yet." }),
+    page.getByRole('heading', { name: "torongo isn't set up for Cherry yet." }),
   ).toBeVisible();
   await page.getByRole('button', { name: 'Calibrate' }).click();
   const card = page.getByRole('region', { name: 'Which phase is torongo in?' });

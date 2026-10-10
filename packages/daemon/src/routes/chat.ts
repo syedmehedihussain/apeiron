@@ -6,7 +6,7 @@ import {
   ChatSendSchema,
   DecisionAnswerSchema,
   MAX_UPLOAD_BYTES,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { contentTypeFor } from '../chat/uploads.ts';
 import type { ChatService } from '../chat/service.ts';
 import type { ApprovalBroker } from '../claude/approvals.ts';

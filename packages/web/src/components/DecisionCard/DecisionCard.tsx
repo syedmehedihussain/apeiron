@@ -1,6 +1,6 @@
 import { ArrowLeft, Check, Compass } from 'lucide-react';
 import { useId, useRef, useState, type KeyboardEvent } from 'react';
-import type { DecisionCard as Card } from '@apeiron/shared';
+import type { DecisionCard as Card } from '@cherry/shared';
 import { Pill } from '../Pill/Pill.tsx';
 import styles from './DecisionCard.module.css';
 

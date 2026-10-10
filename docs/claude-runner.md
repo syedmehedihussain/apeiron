@@ -1,6 +1,6 @@
 # Claude runner
 
-The ClaudeRunner is the heart of Apeiron. It starts Claude Code, streams what it does to the UI,
+The ClaudeRunner is the heart of Cherry. It starts Claude Code, streams what it does to the UI,
 and stops Claude at every edit or command until the user answers.
 
 > **Spike first.** Claude Code's flags and SDK change often. Milestone 3 starts with a one-day
@@ -20,7 +20,7 @@ and stops Claude at every edit or command until the user answers.
 
 **Plan:** use **B** for chat, agents, calibration and Magnet, because live approve/deny is the
 main feature and `canUseTool` gives it to us directly. Keep the sysdash raw-CLI parser as a
-fallback and for `apeiron doctor`. Decision recorded in ADR-0004 (Proposed until the spike).
+fallback and for `cherry doctor`. Decision recorded in ADR-0004 (Proposed until the spike).
 
 Both paths produce the **same internal event stream**, so the rest of the daemon does not care
 which one is used:
@@ -44,7 +44,7 @@ type RunnerEvent =
 | agent | worktree | Read, Glob, Grep, LS | Edit/Write auto-allowed **inside the worktree only**; Bash needs approval | runs headless; approvals go to the agent card |
 | calibration (scan) | project | Read, Glob, Grep, LS, `git log`, `git status` | nothing else is allowed — deny all writes | output is the proposal, not file edits |
 | survey | draft folder | none (all built-ins disallowed) | none | one short turn per step; returns a card via `draft_card`, or the docs via `propose_docs` (ADR-0009) |
-| magnet | `~/.apeiron/magnet` | Read of the magnet folder and the projects folder (`additionalDirectories`) | no commands; every action becomes a proposed-action card (ADR-0011) | read-only switch off: may edit its own notes after approval |
+| magnet | `~/.cherry/magnet` | Read of the magnet folder and the projects folder (`additionalDirectories`) | no commands; every action becomes a proposed-action card (ADR-0011) | read-only switch off: may edit its own notes after approval |
 
 "Allow for this session" adds a rule (tool + exact command, or tool + file path) to the
 session's allow list in memory. It is never saved to disk.
@@ -103,7 +103,7 @@ tool("ask_decision", "Ask the user to choose between 2–4 options. Use for any 
 Appended to Claude Code's own system prompt for project chats:
 
 ```
-You are working inside Apeiron, a workspace that follows a strict engineering process.
+You are working inside Cherry, a workspace that follows a strict engineering process.
 - Read CLAUDE.md and _project/STATUS.md before anything else.
 - When there is a real choice to make, call ask_decision. Do not pick for the user.
 - Keep answers short and plain. Name the file, then the change.
@@ -114,7 +114,7 @@ You are working inside Apeiron, a workspace that follows a strict engineering pr
 
 - **Stop** interrupts the current turn. Partial edits already approved stay; nothing else runs.
 - The Claude session id is saved in the app cache (`sessions.claude_session_id`) after the first
-  `session` event, so a reload or daemon restart resumes the same conversation. Apeiron does not
+  `session` event, so a reload or daemon restart resumes the same conversation. Cherry does not
   write it into the project's files.
 - If `claude` is not found or not logged in: health check flips to red, the composer is
   disabled with "Claude Code isn't available — How to fix".

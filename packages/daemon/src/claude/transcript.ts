@@ -1,6 +1,6 @@
 import { appendFileSync, existsSync, mkdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
-import { ChatItemSchema, type ChatItem } from '@apeiron/shared';
+import { ChatItemSchema, type ChatItem } from '@cherry/shared';
 
 /** JSONL transcript: one item snapshot per line; the last snapshot of an id wins. */
 export class Transcript {

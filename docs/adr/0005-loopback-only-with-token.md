@@ -18,4 +18,4 @@ memory, required on every HTTP request and as the WebSocket's first message. Rej
 ## Consequences
 
 - Good: other sites and other machines cannot drive the daemon.
-- Cost: a page reload loses the token; the UI asks you to run `apeiron open` (or the CLI prints a fresh link).
+- Cost: a page reload loses the token; the UI asks you to run `cherry open` (or the CLI prints a fresh link).

@@ -9,7 +9,7 @@ import {
   X,
 } from 'lucide-react';
 import { useState } from 'react';
-import type { ChatItem } from '@apeiron/shared';
+import type { ChatItem } from '@cherry/shared';
 import styles from './Timeline.module.css';
 
 export type ToolItem = Extract<ChatItem, { kind: 'tool' }>;

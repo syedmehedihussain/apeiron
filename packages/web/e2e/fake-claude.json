@@ -1,6 +1,6 @@
 [
   {
-    "match": "read-only scan agent inside Apeiron",
+    "match": "read-only scan agent inside Cherry",
     "steps": [
       {
         "tool": {
@@ -51,7 +51,7 @@
         }
       },
       {
-        "text": "**cctop** has notes but no Apeiron setup yet. Everything else moved this week."
+        "text": "**cctop** has notes but no Cherry setup yet. Everything else moved this week."
       },
       {
         "call": {

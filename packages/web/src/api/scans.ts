@@ -1,11 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import {
-  ReportListSchema,
-  ReportSchema,
-  ScanAgentListSchema,
-  ScanRunSchema,
-} from '@apeiron/shared';
+import { ReportListSchema, ReportSchema, ScanAgentListSchema, ScanRunSchema } from '@cherry/shared';
 import { api } from './client.ts';
 import { queryClient } from './queries.ts';
 import { socket } from './socket.ts';

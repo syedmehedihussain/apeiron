@@ -1,9 +1,6 @@
-# Apeiron
+# Cherry
 
-> Anaximander said everything comes from the *apeiron*, the boundless.
-> Apeiron is where every project of yours begins.
-
-Apeiron is a local workspace where Claude Code plans, documents and builds software the way a
+Cherry is a local workspace where Claude Code plans, documents and builds software the way a
 software engineer would: **survey first, decide, document, then build.** It runs on your own
 computer at `127.0.0.1`, reads your `~/Projects` folder, and drives your local `claude` CLI.
 
@@ -24,7 +21,7 @@ decisions here, and Claude does the typing, only after you approve.
   command waits for your approval.
 - **Scan agents**: one click runs a read-only Security review, Test runner, Code health or
   Dependency audit and saves a report you read in the centre. Add your own in
-  `~/.apeiron/agents/`.
+  `~/.cherry/agents/`.
 - **Background agents**: give a task; it works on its own git worktree and branch while you
   keep chatting, then you review the diff and Accept or Discard.
 - **GitHub**: pull, push (after approval), open pull requests.
@@ -41,37 +38,37 @@ decisions here, and Claude does the typing, only after you approve.
 ## Install
 
 ```bash
-git clone https://github.com/syedmehedihussain/apeiron.git
-cd apeiron
+git clone https://github.com/syedmehedihussain/cherry.git
+cd cherry
 mise install               # Node 22 + pnpm from mise.toml
 pnpm install
-./scripts/install-cli.sh   # puts `apeiron` in ~/.local/bin
-apeiron                    # starts Apeiron and opens it in your browser
+./scripts/install-cli.sh   # puts `cherry` in ~/.local/bin
+cherry                    # starts Cherry and opens it in your browser
 ```
 
-`apeiron` prints a one-time login link and opens it. Your projects are read from `~/Projects`
-(change it in Settings). Apeiron only listens on `127.0.0.1`.
+`cherry` prints a one-time login link and opens it. Your projects are read from `~/Projects`
+(change it in Settings). Cherry only listens on `127.0.0.1`.
 
 | Command | Does |
 | --- | --- |
-| `apeiron` | start and open the browser (`--no-open` only prints the link) |
-| `apeiron down` / `status` | stop / show whether it runs |
-| `apeiron open <project>` | open a project's workspace |
-| `apeiron doctor` | check Node, git, gh and Claude Code |
-| `apeiron logout` | end every browser session |
-| `apeiron install-service` | start at login (systemd user service) |
+| `cherry` | start and open the browser (`--no-open` only prints the link) |
+| `cherry down` / `status` | stop / show whether it runs |
+| `cherry open <project>` | open a project's workspace |
+| `cherry doctor` | check Node, git, gh and Claude Code |
+| `cherry logout` | end every browser session |
+| `cherry install-service` | start at login (systemd user service) |
 
-To update: `git pull && pnpm install`, then `apeiron down && apeiron`.
+To update: `git pull && pnpm install`, then `cherry down && cherry`.
 
 ## Claude Code skill
 
-The repo ships a skill, [`.claude/skills/apeiron`](.claude/skills/apeiron/SKILL.md), that teaches
-Claude Code how to install, run, use and troubleshoot Apeiron, and how to drive a running copy
+The repo ships a skill, [`.claude/skills/cherry`](.claude/skills/cherry/SKILL.md), that teaches
+Claude Code how to install, run, use and troubleshoot Cherry, and how to drive a running copy
 (start scans and agents, read reports) through `scripts/api.sh`. Claude Code picks it up
 automatically inside this repo. To have it in every project:
 
 ```bash
-mkdir -p ~/.claude/skills && cp -r .claude/skills/apeiron ~/.claude/skills/
+mkdir -p ~/.claude/skills && cp -r .claude/skills/cherry ~/.claude/skills/
 ```
 
 ## Safety
@@ -92,7 +89,7 @@ pnpm test:e2e     # browser tests (playwright)
 pnpm lint && pnpm typecheck
 ```
 
-`pnpm dev` and `apeiron` cannot run at the same time. Start with [`CLAUDE.md`](CLAUDE.md), then
+`pnpm dev` and `cherry` cannot run at the same time. Start with [`CLAUDE.md`](CLAUDE.md), then
 [`docs/README.md`](docs/README.md) (a map of every document) and
 [`docs/roadmap.md`](docs/roadmap.md).
 
@@ -100,9 +97,9 @@ pnpm lint && pnpm typecheck
 
 | Thing | Name |
 | --- | --- |
-| App | Apeiron |
-| Command | `apeiron` |
-| Repo | `syedmehedihussain/apeiron` |
+| App | Cherry |
+| Command | `cherry` |
+| Repo | `syedmehedihussain/cherry` |
 | Assistant | Magnet |
-| Config folder | `~/.apeiron/` |
+| Config folder | `~/.cherry/` |
 | License | MIT |

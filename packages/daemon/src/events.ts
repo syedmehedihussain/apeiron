@@ -1,4 +1,4 @@
-import type { EventMap, EventType, ServerEvent } from '@apeiron/shared';
+import type { EventMap, EventType, ServerEvent } from '@cherry/shared';
 
 export interface Subscriber {
   topics: Set<string>;

@@ -22,17 +22,17 @@ export interface RunResult {
   out: string;
 }
 
-export const HELP = `apeiron ${pkg.version}
+export const HELP = `cherry ${pkg.version}
 
-Usage: apeiron [command]
+Usage: cherry [command]
 
-  (none), up         start Apeiron and open it in the browser
-  down               stop Apeiron
-  status             show whether Apeiron is running
+  (none), up         start Cherry and open it in the browser
+  down               stop Cherry
+  status             show whether Cherry is running
   open <project>     open a project's workspace
   logout             end every browser session
   doctor             check Node, git, gh and claude
-  install-service    start Apeiron when you log in (systemd user service)
+  install-service    start Cherry when you log in (systemd user service)
 
   --no-open          print the link without opening the browser
   -v, --version      print the version
@@ -84,7 +84,7 @@ async function up(open: boolean, route = '/'): Promise<RunResult> {
   const { info, started } = await ensureRunning();
   const link = await loginLink(info, route);
   if (open) openBrowser(link);
-  const head = started ? 'Apeiron is running.' : 'Apeiron was already running.';
+  const head = started ? 'Cherry is running.' : 'Cherry was already running.';
   return {
     code: 0,
     out: `${head}\n\n  ${link}\n\nThe link logs you in once and works for 10 minutes. Bookmark ${info.webUrl}${route} for later.`,
@@ -93,7 +93,7 @@ async function up(open: boolean, route = '/'): Promise<RunResult> {
 
 async function status(): Promise<RunResult> {
   const info = readRunInfo();
-  if (!info) return { code: 1, out: 'Apeiron is not running. Start it with `apeiron`.' };
+  if (!info) return { code: 1, out: 'Cherry is not running. Start it with `cherry`.' };
   const s = await cliRequest<Status>(info, 'GET', '/api/cli/status');
   const claude = s.health.claude.found
     ? s.health.claude.loggedIn
@@ -103,7 +103,7 @@ async function status(): Promise<RunResult> {
   return {
     code: 0,
     out: [
-      `Apeiron ${s.version} is running (pid ${info.pid}).`,
+      `Cherry ${s.version} is running (pid ${info.pid}).`,
       `  UI:          ${info.webUrl}`,
       `  Daemon:      http://127.0.0.1:${info.port}`,
       `  Projects:    ${s.projects}`,
@@ -114,17 +114,17 @@ async function status(): Promise<RunResult> {
 
 async function down(): Promise<RunResult> {
   const info = readRunInfo();
-  if (!info) return { code: 0, out: 'Apeiron is not running.' };
+  if (!info) return { code: 0, out: 'Cherry is not running.' };
   return (await stopDaemon(info))
-    ? { code: 0, out: 'Apeiron stopped.' }
-    : { code: 1, out: `Apeiron (pid ${info.pid}) did not stop.` };
+    ? { code: 0, out: 'Cherry stopped.' }
+    : { code: 1, out: `Cherry (pid ${info.pid}) did not stop.` };
 }
 
 async function logout(): Promise<RunResult> {
   const info = readRunInfo();
-  if (!info) return { code: 1, out: 'Apeiron is not running.' };
+  if (!info) return { code: 1, out: 'Cherry is not running.' };
   await cliRequest(info, 'POST', '/api/cli/logout');
-  return { code: 0, out: 'Every browser is logged out. Run `apeiron` for a new link.' };
+  return { code: 0, out: 'Every browser is logged out. Run `cherry` for a new link.' };
 }
 
 function check(cmd: string, args: string[]): { ok: boolean; out: string } {
@@ -192,7 +192,7 @@ function installService(): RunResult {
   const dir = path.join(homedir(), '.config', 'systemd', 'user');
   mkdirSync(dir, { recursive: true });
   const unit = `[Unit]
-Description=Apeiron daemon
+Description=Cherry daemon
 After=default.target
 
 [Service]
@@ -203,16 +203,16 @@ Restart=on-failure
 [Install]
 WantedBy=default.target
 `;
-  writeFileSync(path.join(dir, 'apeiron.service'), unit);
+  writeFileSync(path.join(dir, 'cherry.service'), unit);
   const reload = spawnSync('systemctl', ['--user', 'daemon-reload']);
-  const enable = spawnSync('systemctl', ['--user', 'enable', '--now', 'apeiron.service']);
+  const enable = spawnSync('systemctl', ['--user', 'enable', '--now', 'cherry.service']);
   if (reload.status !== 0 || enable.status !== 0) {
     return {
       code: 1,
-      out: `Wrote ${dir}/apeiron.service, but systemctl failed: ${String(enable.stderr)}`,
+      out: `Wrote ${dir}/cherry.service, but systemctl failed: ${String(enable.stderr)}`,
     };
   }
-  return { code: 0, out: 'Apeiron now starts when you log in. Run `apeiron` to get a login link.' };
+  return { code: 0, out: 'Cherry now starts when you log in. Run `cherry` to get a login link.' };
 }
 
 export async function run(argv: readonly string[]): Promise<RunResult> {
@@ -232,7 +232,7 @@ export async function run(argv: readonly string[]): Promise<RunResult> {
       case 'up':
         return await up(open);
       case 'open':
-        if (!second) return { code: 2, out: 'Usage: apeiron open <project>' };
+        if (!second) return { code: 2, out: 'Usage: cherry open <project>' };
         return await up(open, `/p/${encodeURIComponent(second)}`);
       case 'down':
         return await down();
@@ -248,6 +248,6 @@ export async function run(argv: readonly string[]): Promise<RunResult> {
         return { code: 2, out: `Unknown command "${first}".\n\n${HELP}` };
     }
   } catch (e) {
-    return { code: 1, out: `apeiron ${first}: ${(e as Error).message}` };
+    return { code: 1, out: `cherry ${first}: ${(e as Error).message}` };
   }
 }

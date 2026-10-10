@@ -1,5 +1,5 @@
 {
-  "name": "apeiron",
+  "name": "cherry",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@12.10.1",
@@ -7,8 +7,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev": "pnpm --parallel --filter @apeiron/daemon --filter @apeiron/web dev",
-    "apeiron": "tsx packages/cli/src/index.ts",
+    "dev": "pnpm --parallel --filter @cherry/daemon --filter @cherry/web dev",
+    "cherry": "tsx packages/cli/src/index.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",

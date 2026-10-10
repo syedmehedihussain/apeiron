@@ -1,5 +1,5 @@
 import { Check } from 'lucide-react';
-import { PHASES, PHASE_LABEL, type Phase } from '@apeiron/shared';
+import { PHASES, PHASE_LABEL, type Phase } from '@cherry/shared';
 import styles from './PhaseBar.module.css';
 
 type SegState = 'done' | 'current' | 'future';

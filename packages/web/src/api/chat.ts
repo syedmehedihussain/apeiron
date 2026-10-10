@@ -11,7 +11,7 @@ import {
   type ChatState,
   type DecisionAnswer,
   type UploadedFile,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { z } from 'zod';
 import { api } from './client.ts';
 import { queryClient } from './queries.ts';
@@ -43,7 +43,7 @@ export const sendChat = (
     ...(effort ? { effort } : {}),
   });
 
-/** Sends one file as the raw request body; the daemon stores it under apeiron/uploads/. */
+/** Sends one file as the raw request body; the daemon stores it under cherry/uploads/. */
 export async function uploadAttachment(id: string, file: File): Promise<UploadedFile> {
   const res = await fetch(`${base(id)}/uploads?name=${encodeURIComponent(file.name)}`, {
     method: 'POST',

@@ -1,7 +1,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import type { ScanAgentList } from '@apeiron/shared';
+import type { ScanAgentList } from '@cherry/shared';
 import { fakeRunner, type FakeLog, type Step } from '../src/claude/fake-runner.ts';
 import { commandRefusal } from '../src/scans/service.ts';
 import { HOST, testDaemon, write, type TestDaemon } from './helpers.ts';
@@ -95,8 +95,8 @@ describe('scan agents', () => {
       counts: report.counts,
     });
     const dir = path.join(d.projectsDir, 'core');
-    expect(readFileSync(path.join(dir, '.gitignore'), 'utf8')).toContain('/apeiron/');
-    expect(readdirSync(path.join(dir, 'apeiron', 'reports', 'security'))).toHaveLength(1);
+    expect(readFileSync(path.join(dir, '.gitignore'), 'utf8')).toContain('/cherry/');
+    expect(readdirSync(path.join(dir, 'cherry', 'reports', 'security'))).toHaveLength(1);
 
     const hist = await api('GET', '/api/projects/core/reports/security');
     expect(hist.body.reports).toHaveLength(1);
@@ -145,12 +145,12 @@ describe('scan agents', () => {
     await api('POST', '/api/projects/core/scans/security/run');
     await api('POST', '/api/projects/core/scans/security/stop');
     await idle('security');
-    expect(existsSync(path.join(d.projectsDir, 'core', 'apeiron', 'reports', 'security'))).toBe(
+    expect(existsSync(path.join(d.projectsDir, 'core', 'cherry', 'reports', 'security'))).toBe(
       false,
     );
   });
 
-  it('loads custom agents from ~/.apeiron/agents and reports broken files', async () => {
+  it('loads custom agents from ~/.cherry/agents and reports broken files', async () => {
     write(
       path.join(d.home, 'agents', 'a11y-check.md'),
       '---\nname: Accessibility check\ndescription: Labels and contrast\nicon: heart\nmodel: haiku\ncommands: pnpm lint, npx axe\n---\nCheck every form control has a label and every image has alt text.\n',

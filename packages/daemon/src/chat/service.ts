@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { rmSync } from 'node:fs';
 import path from 'node:path';
-import type { ChatSend, ChatState, Phase } from '@apeiron/shared';
+import type { ChatSend, ChatState, Phase } from '@cherry/shared';
 import type { ConfigStore } from '../config.ts';
 import type { Db } from '../db.ts';
 import type { EventHub } from '../events.ts';
@@ -29,7 +29,7 @@ export function withAttachments(text: string, attachments: string[]): string {
 
 export function chatSystemPrompt(phase: Phase | null): string {
   return [
-    'You are working inside Apeiron, a workspace that follows a strict engineering process.',
+    'You are working inside Cherry, a workspace that follows a strict engineering process.',
     '- Read CLAUDE.md and _project/STATUS.md before anything else, when they exist.',
     '- When there is a real choice to make, call the ask_decision tool. Do not pick for the user.',
     '- Keep answers short and plain. Name the file, then the change.',
@@ -130,7 +130,7 @@ export class ChatService {
       turns,
     );
     live.conversation.closeInterrupted(
-      'Apeiron restarted while Claude was working, so this turn stopped. Send a message (for example "continue") to pick up where it left off.',
+      'Cherry restarted while Claude was working, so this turn stopped. Send a message (for example "continue") to pick up where it left off.',
     );
     return live;
   }

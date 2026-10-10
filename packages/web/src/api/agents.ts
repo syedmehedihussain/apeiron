@@ -6,7 +6,7 @@ import {
   AgentSchema,
   type AgentList,
   type AgentStart,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { api } from './client.ts';
 import { queryClient } from './queries.ts';
 import { socket } from './socket.ts';

@@ -1,4 +1,4 @@
-/* Apeiron design tokens — taken from the design canvas (docs/design/screens/).
+/* Cherry design tokens — taken from the design canvas (docs/design/screens/).
    Dark theme only for the MVP. Import once at the app root; never hard-code hex in components. */
 
 /* Fonts are self-hosted (@fontsource-variable/geist and geist-mono, imported in packages/web/src/main.tsx),

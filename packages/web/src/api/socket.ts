@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { ServerEvent } from '@apeiron/shared';
+import type { ServerEvent } from '@cherry/shared';
 
 export type SocketStatus = 'connecting' | 'open' | 'reconnecting' | 'closed';
 

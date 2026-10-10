@@ -1,7 +1,7 @@
 import { ArrowUpRight, Play } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { relativeTime, type ReportMeta } from '@apeiron/shared';
+import { relativeTime, type ReportMeta } from '@cherry/shared';
 import { ApiFailure } from '../../api/client.ts';
 import { runScan, useLiveScans, useReport, useReports, useScanAgents } from '../../api/scans.ts';
 import { openInEditor } from '../../api/workspace.ts';

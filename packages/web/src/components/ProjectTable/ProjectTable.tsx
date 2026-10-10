@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { relativeTime, type ProjectCard } from '@apeiron/shared';
+import { relativeTime, type ProjectCard } from '@cherry/shared';
 import { PhaseBarCompact } from '../PhaseBar/PhaseBar.tsx';
 import { GitChip, Pill, StatePill } from '../Pill/Pill.tsx';
 import { projectHref } from '../ProjectCard/ProjectCard.tsx';

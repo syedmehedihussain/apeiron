@@ -15,7 +15,7 @@ import {
   type DiffLine,
   type FoundTag,
   type ProposedFile,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { z } from 'zod';
 import type { ConfigStore } from '../config.ts';
 import type { EventHub } from '../events.ts';
@@ -63,7 +63,7 @@ function calibrationPrompt(opts: {
   hasReadme: boolean;
 }): string {
   return [
-    `Calibrate the project "${opts.name}" in the current folder for Apeiron. You are read-only: you cannot write files, and you must not try.`,
+    `Calibrate the project "${opts.name}" in the current folder for Cherry. You are read-only: you cannot write files, and you must not try.`,
     '',
     'Do this in order:',
     '1. Read the project: README, package or build files, CLAUDE.md and _project/STATUS.md if they exist, the main source folders, and the git history (`git log --oneline -30`, `git status`). Do not read .env files or keys.',
@@ -71,7 +71,7 @@ function calibrationPrompt(opts: {
     '3. Call ask_decision for what you cannot work out from the code, one question at a time, at most 3. Always ask for the current phase (plan, design, preparation, development or deployment) unless STATUS.md states it plainly. Ask who the users are only if it is unclear. Options must be concrete and based on what you read; mark one as recommended.',
     '4. Call propose_files exactly once with: summary (one line, at most 120 characters), phase, stack tags, and files:',
     opts.hasClaudeMd
-      ? '   - CLAUDE.md already exists: use action "append" with only a short section to add at the end (e.g. "## Apeiron" with Read first and Rules). Never rewrite it.'
+      ? '   - CLAUDE.md already exists: use action "append" with only a short section to add at the end (e.g. "## Cherry" with Read first and Rules). Never rewrite it.'
       : '   - CLAUDE.md (action "create"), under 80 lines, following this template:\n' +
         CLAUDE_MD_TEMPLATE.split('\n')
           .map((l) => '     ' + l)
@@ -88,7 +88,7 @@ function calibrationPrompt(opts: {
       ? '   - README.md exists: you may append a short section, never rewrite it. Skip it if nothing useful to add.'
       : '',
     '   Use plain, short English. Do not invent features you did not see in the code.',
-    '5. After propose_files, stop. The user reviews the files and Apeiron writes the ones they tick.',
+    '5. After propose_files, stop. The user reviews the files and Cherry writes the ones they tick.',
   ]
     .filter(Boolean)
     .join('\n');
@@ -258,11 +258,11 @@ export class CalibrationService {
       resume: null,
       model: state.model ?? 'sonnet',
       planMode: false,
-      appendSystemPrompt: 'You are calibrating a project for Apeiron. You are read-only.',
+      appendSystemPrompt: 'You are calibrating a project for Cherry. You are read-only.',
       allowedTools: [],
       decisions: true,
       guard: (tool, input) => {
-        if (READ_TOOLS.has(tool) || tool.startsWith('mcp__apeiron__')) return null;
+        if (READ_TOOLS.has(tool) || tool.startsWith('mcp__cherry__')) return null;
         if (
           tool === 'Bash' &&
           typeof input.command === 'string' &&
@@ -348,7 +348,7 @@ export class CalibrationService {
     return run.state;
   }
 
-  /** Validates Claude's proposal and adds the files Apeiron writes itself. */
+  /** Validates Claude's proposal and adds the files Cherry writes itself. */
   buildProposal(
     dir: string,
     projectId: string,
@@ -527,7 +527,7 @@ export class CalibrationService {
         if (existsSync(abs)) {
           skipped.push({
             path: rel,
-            reason: 'The file appeared since the proposal; Apeiron never overwrites.',
+            reason: 'The file appeared since the proposal; Cherry never overwrites.',
           });
           continue;
         }

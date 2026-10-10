@@ -16,7 +16,7 @@ const wrap = (ui: ReactNode) =>
 describe('TopBar', () => {
   it('shows the app name, settings and Magnet', () => {
     wrap(<TopBar crumbs={[]} claude="ok" />);
-    expect(screen.getByRole('link', { name: 'Apeiron home' })).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: 'Cherry home' })).toHaveAttribute('href', '/');
     expect(screen.getByRole('link', { name: 'Settings' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Open Magnet' })).toBeInTheDocument();
   });

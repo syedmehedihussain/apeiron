@@ -1,4 +1,4 @@
-# Apeiron docs — map
+# Cherry docs — map
 
 Read this page, then open only what your task needs.
 
@@ -36,7 +36,7 @@ Read this page, then open only what your task needs.
 ## Note on the design files
 
 The artboards were made in Claude Design while the app was still called **Harness**. Wherever
-they say "Harness" or `~/.harness/`, build it as **Apeiron** and `~/.apeiron/`. The artboards
+they say "Harness" or `~/.harness/`, build it as **Cherry** and `~/.cherry/`. The artboards
 also use a small runtime (`support.js`) that is not included; read them as HTML/CSS reference,
 not as code to ship: loops (`<sc-for>`) and `{{holes}}` will not fill in, so read the markup and
 the `renderVals()` sample data at the bottom of each file.

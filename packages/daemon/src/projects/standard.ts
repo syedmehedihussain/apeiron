@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
-import { PHASES, type Phase, type ProjectJson, type TasksFile } from '@apeiron/shared';
+import { PHASES, type Phase, type ProjectJson, type TasksFile } from '@cherry/shared';
 
 /** The CLAUDE.md template from docs/project-standard.md, given to Claude as guidance. */
 export const CLAUDE_MD_TEMPLATE = `# CLAUDE.md — {{name}}
@@ -111,7 +111,7 @@ const SECRET_PATTERNS: [RegExp, string][] = [
 /** Generated docs are checked for key-like strings before they are written (security.md). */
 export function findSecret(text: string): string | null {
   for (const [re, what] of SECRET_PATTERNS)
-    if (re.test(text)) return `This file seems to contain ${what}, so Apeiron will not write it.`;
+    if (re.test(text)) return `This file seems to contain ${what}, so Cherry will not write it.`;
   return null;
 }
 

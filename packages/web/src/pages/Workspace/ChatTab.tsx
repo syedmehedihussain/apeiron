@@ -1,6 +1,6 @@
 import { FileText, MessageSquarePlus, RotateCcw } from 'lucide-react';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import type { ChatItem, ChatState, Effort } from '@apeiron/shared';
+import type { ChatItem, ChatState, Effort } from '@cherry/shared';
 import { ApiFailure } from '../../api/client.ts';
 import {
   answerApproval,

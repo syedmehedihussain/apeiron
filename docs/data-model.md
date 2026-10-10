@@ -132,7 +132,7 @@ The phase task graph, seeded from Core's preset (`lib/services/project-presets.t
 
 `status`: `todo | doing | done | skipped`. Shown in the Notes & Tasks tab.
 
-## 5. `~/.apeiron/config.json`
+## 5. `~/.cherry/config.json`
 
 ```json
 {
@@ -141,18 +141,18 @@ The phase task graph, seeded from Core's preset (`lib/services/project-presets.t
   "port": 4317,
   "scan": { "ignore": ["archive", "scratch"] },
   "claude": { "bin": "claude", "defaultModel": "sonnet" },
-  "agents": { "maxRunning": 3, "worktreeDir": "~/Projects/.apeiron-worktrees" },
+  "agents": { "maxRunning": 3, "worktreeDir": "~/Projects/.cherry-worktrees" },
   "magnet": { "readOnly": true }
 }
 ```
 
-`agents.worktreeDir` left at its default follows `projectsDir` (`<projectsDir>/.apeiron-worktrees`,
+`agents.worktreeDir` left at its default follows `projectsDir` (`<projectsDir>/.cherry-worktrees`,
 ADR-0010).
 
-## 6. `~/.apeiron/magnet/`
+## 6. `~/.cherry/magnet/`
 
 ```
-~/.apeiron/magnet/
+~/.cherry/magnet/
 ├── MAGNET.md     who Magnet is: tone, rules, what he may and may not do   (user writes)
 ├── me.md         the user: name, studies, roles, how they like to work    (user writes)
 ├── work.md       businesses, clients, websites, GitHub accounts           (user writes)
@@ -167,7 +167,7 @@ ADR-0010).
 
 On first run the app writes starter versions of the three user files with short placeholder text.
 
-## 7. SQLite cache — `~/.apeiron/cache.db`
+## 7. SQLite cache — `~/.cherry/cache.db`
 
 Rebuildable from disk (except `usage_days`). Managed with plain SQL migrations in
 `packages/daemon/migrations/`.
@@ -195,7 +195,7 @@ CREATE TABLE sessions (
   model         TEXT,
   started_at    INTEGER NOT NULL,
   ended_at      INTEGER,
-  transcript    TEXT NOT NULL           -- path to ~/.apeiron/transcripts/<id>.jsonl
+  transcript    TEXT NOT NULL           -- path to ~/.cherry/transcripts/<id>.jsonl
 );
 
 CREATE TABLE agents (
@@ -235,7 +235,7 @@ read and delete.
 
 ## 8. Scan agents and reports (ADR-0012)
 
-Custom scan agent, `~/.apeiron/agents/<id>.md` (the file name is the id):
+Custom scan agent, `~/.cherry/agents/<id>.md` (the file name is the id):
 
 ```markdown
 ---
@@ -245,10 +245,10 @@ icon: shield                         # shield | flask | heart | package | bot (d
 model: sonnet                        # sonnet | opus | haiku (default sonnet)
 commands: pnpm lint, pnpm test       # comma-separated; exact command or it plus arguments
 ---
-What to look for and how to judge it. Apeiron adds the read-only rules and the report format.
+What to look for and how to judge it. Cherry adds the read-only rules and the report format.
 ```
 
-Report, `<project>/apeiron/reports/<agentId>/<YYYY-MM-DD-HHmmss>.md` (git-ignored):
+Report, `<project>/cherry/reports/<agentId>/<YYYY-MM-DD-HHmmss>.md` (git-ignored):
 
 ```markdown
 ---

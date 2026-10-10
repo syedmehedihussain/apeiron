@@ -85,16 +85,16 @@ function GatePage({
 }) {
   const text = {
     'logged-out': {
-      title: 'Open Apeiron from your terminal',
-      body: 'Run `apeiron` in a terminal and open the link it prints. The link logs this browser in for 30 days.',
+      title: 'Open Cherry from your terminal',
+      body: 'Run `cherry` in a terminal and open the link it prints. The link logs this browser in for 30 days.',
     },
     'bad-link': {
       title: 'That login link has expired',
-      body: 'Login links work once and for 10 minutes. Run `apeiron` again for a fresh one.',
+      body: 'Login links work once and for 10 minutes. Run `cherry` again for a fresh one.',
     },
     unreachable: {
-      title: "Apeiron isn't running",
-      body: 'Run `apeiron` in a terminal to start it, then try again.',
+      title: "Cherry isn't running",
+      body: 'Run `cherry` in a terminal to start it, then try again.',
     },
   }[gate];
   return (

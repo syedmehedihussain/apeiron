@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import type { CalibrationState } from '@apeiron/shared';
+import type { CalibrationState } from '@cherry/shared';
 import { isReadOnlyGit } from '../src/calibrate/service.ts';
 import { fakeRunner, type FakeLog, type Step } from '../src/claude/fake-runner.ts';
 import { HOST, gitInit, testDaemon, write, type TestDaemon } from './helpers.ts';

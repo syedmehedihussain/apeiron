@@ -8,12 +8,12 @@ import {
   appendFileSync,
 } from 'node:fs';
 import path from 'node:path';
-import { MAX_UPLOAD_BYTES, type UploadedFile } from '@apeiron/shared';
+import { MAX_UPLOAD_BYTES, type UploadedFile } from '@cherry/shared';
 import { badRequest, notFound } from '../http.ts';
 import { resolveInside } from '../paths.ts';
 
 /** Chat attachments live in the project, kept out of git (the user's choice). */
-export const UPLOADS_DIR = 'apeiron/uploads';
+export const UPLOADS_DIR = 'cherry/uploads';
 
 /** Image types the browser may show inline; everything else downloads. */
 const INLINE_TYPES: Record<string, string> = {
@@ -42,15 +42,15 @@ export function safeName(name: string): string {
 }
 
 /**
- * Adds `/apeiron/` to the project's .gitignore once, so uploads and reports never get committed.
- * Anchored to the root: a bare `apeiron/` would also hide folders like .claude/skills/apeiron.
+ * Adds `/cherry/` to the project's .gitignore once, so uploads and reports never get committed.
+ * Anchored to the root: a bare `cherry/` would also hide folders like .claude/skills/cherry.
  */
 export function ensureIgnored(dir: string): void {
   const file = path.join(dir, '.gitignore');
   const text = existsSync(file) ? readFileSync(file, 'utf8') : '';
-  if (text.split('\n').some((l) => /^\/?apeiron\/?\s*$/.test(l.trim()))) return;
+  if (text.split('\n').some((l) => /^\/?cherry\/?\s*$/.test(l.trim()))) return;
   const sep = text && !text.endsWith('\n') ? '\n' : '';
-  appendFileSync(file, `${sep}${text ? '\n' : ''}# Apeiron uploads and reports\n/apeiron/\n`);
+  appendFileSync(file, `${sep}${text ? '\n' : ''}# Cherry uploads and reports\n/cherry/\n`);
 }
 
 export function saveUpload(dir: string, name: string, data: Buffer): UploadedFile {

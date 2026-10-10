@@ -72,7 +72,7 @@ the workspace with phase = Design.
 
 Uses the workspace shell (280 | centre | 360) so the user sees it is the same project.
 
-**A. Prompt** (`Calibrate-Prompt`): "torongo isn't set up for Apeiron yet." Two boxes: **What
+**A. Prompt** (`Calibrate-Prompt`): "torongo isn't set up for Cherry yet." Two boxes: **What
 calibration does** (3 numbered steps) and **What it will not do** (never overwrites, reads only
 until you approve). **Calibrate** (primary) · **Not now** · "Usually under 2 minutes". Right
 column: GitHub box (works already) and "No agents yet — available after calibration".
@@ -120,7 +120,7 @@ status checkboxes. Use the same card and list styles.
 Grid 260 | content. Nav groups as in `components.md`. Magnet page (designed): 96 px avatar,
 title, one-line description, **Read-only mode** switch; stat row (Projects tracked, Sessions this
 week, Agents run); **What Magnet knows** — three editable Markdown cards (`MAGNET.md`, `me.md`,
-`work.md`) with "Plain Markdown in `~/.apeiron/magnet/`"; **Usage** — four stats and the
+`work.md`) with "Plain Markdown in `~/.cherry/magnet/`"; **Usage** — four stats and the
 Daily/Weekly heatmap.
 
 Other sections (not designed, simple forms): General (projects folder, port), Appearance (dark
@@ -129,6 +129,6 @@ state, default model), GitHub (gh status), About (version, license, links).
 
 ## Global states
 
-- **Daemon unreachable**: full-page message "Apeiron isn't running. Run `apeiron`." with retry.
+- **Daemon unreachable**: full-page message "Cherry isn't running. Run `cherry`." with retry.
 - **WebSocket reconnecting**: small amber pill in the top bar, auto-retry with backoff.
 - **Project folder gone**: workspace placeholder with link Home.

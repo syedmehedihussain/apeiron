@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
-import { AgentStartSchema } from '@apeiron/shared';
+import { AgentStartSchema } from '@cherry/shared';
 import type { AgentManager } from '../agents/manager.ts';
 
 const IdParams = z.object({ id: z.string().min(1).max(200) });

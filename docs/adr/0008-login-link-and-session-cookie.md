@@ -7,7 +7,7 @@
 ## Context
 
 ADR-0005 kept the token in browser memory, so a page reload or a bookmark lost it and you had to
-run `apeiron` again. Apeiron is used all day in a browser tab, so it must survive reloads and
+run `cherry` again. Cherry is used all day in a browser tab, so it must survive reloads and
 bookmarks without becoming open to other sites or other machines.
 
 ## Options
@@ -19,15 +19,15 @@ bookmarks without becoming open to other sites or other machines.
 
 Option 2.
 
-- `apeiron` prints `http://127.0.0.1:4317/#login=<code>`. The code is single-use and expires
+- `cherry` prints `http://127.0.0.1:4317/#login=<code>`. The code is single-use and expires
   after 10 minutes.
 - The UI posts the code to `POST /api/session`. The daemon answers with a cookie:
   `HttpOnly; SameSite=Strict; Path=/`, valid for 30 days, holding a random session id.
-- The daemon stores only a hash of the session id in `~/.apeiron/sessions.json` (mode `0600`),
+- The daemon stores only a hash of the session id in `~/.cherry/sessions.json` (mode `0600`),
   so sessions survive daemon restarts and bookmarks keep working.
 - Every HTTP request and the WebSocket upgrade must carry a valid cookie **and** pass the
   `Host` and `Origin` checks from 0005. Loopback binding stays.
-- `apeiron logout` (and Settings → About) clears all sessions.
+- `cherry logout` (and Settings → About) clears all sessions.
 
 ## Consequences
 

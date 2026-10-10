@@ -12,7 +12,7 @@ import {
   PullRequestListSchema,
   TasksFileSchema,
   TreeSchema,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { z } from 'zod';
 import { api } from './client.ts';
 import { queryClient } from './queries.ts';

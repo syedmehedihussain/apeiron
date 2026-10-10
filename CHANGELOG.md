@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Apeiron. Versions follow [Semantic Versioning](https://semver.org).
+All notable changes to Cherry. Versions follow [Semantic Versioning](https://semver.org).
 
 ## 1.0.0 — unreleased
 
@@ -9,7 +9,7 @@ The first release. Linux only; install from a clone with `./scripts/install-cli.
 
 ### The app
 
-- `apeiron` command: start, stop, status, open a project, doctor, logout, systemd user service.
+- `cherry` command: start, stop, status, open a project, doctor, logout, systemd user service.
   Loopback-only daemon with a one-time login link and session cookie (ADR-0005, ADR-0008).
 - **Home**: every project in your projects folder with state, phase, git and next step; search
   and sort; live updates when files change.
@@ -24,14 +24,14 @@ The first release. Linux only; install from a clone with `./scripts/install-cli.
   attachments, approval cards for every edit and command, decision cards, Stop, resume.
 - **Scan agents**: one-click read-only Security review, Test runner, Code health and
   Dependency audit with reports in the centre and a history per agent; custom agents from
-  `~/.apeiron/agents/` (ADR-0012).
+  `~/.cherry/agents/` (ADR-0012).
 - **Background agents**: tasks in their own git worktree and branch, approvals for commands,
   diff review, Accept (merge) or Discard, retry, a running limit (ADR-0010).
 - **GitHub**: branch, ahead/behind, recent commits, pull, push after approval, open PRs.
 - **Magnet**: a read-only assistant across all projects with proposed actions you approve
   (ADR-0011).
-- **Claude Code skill** in `.claude/skills/apeiron`, with `scripts/api.sh` to drive a running
-  Apeiron.
+- **Claude Code skill** in `.claude/skills/cherry`, with `scripts/api.sh` to drive a running
+  Cherry.
 
 ### Safety
 

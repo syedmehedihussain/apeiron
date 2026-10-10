@@ -121,7 +121,7 @@ export const ChatItemSchema = z.discriminatedUnion('kind', [
     id: z.string(),
     at: z.number(),
     text: z.string(),
-    /** File names under apeiron/uploads/ that came with the message. */
+    /** File names under cherry/uploads/ that came with the message. */
     attachments: z.array(z.string()).optional(),
   }),
   z.object({
@@ -222,7 +222,7 @@ export type ChatSend = z.infer<typeof ChatSendSchema>;
 
 /** What the upload route returns for one stored file. */
 export const UploadedFileSchema = z.object({
-  /** Stored file name under apeiron/uploads/ (send this in `attachments`). */
+  /** Stored file name under cherry/uploads/ (send this in `attachments`). */
   id: z.string(),
   /** Name as the user knows it. */
   name: z.string(),

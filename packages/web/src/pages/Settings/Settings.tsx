@@ -8,7 +8,7 @@ import {
   relativeTime,
   type MagnetFileName,
   type Usage,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { api, ApiFailure } from '../../api/client.ts';
 import { patchConfig, saveMagnetFile, useMagnetInfo } from '../../api/magnet.ts';
 import { keys, recheckHealth, useHealth } from '../../api/queries.ts';
@@ -108,7 +108,7 @@ export function Settings() {
             ) : section === 'appearance' ? (
               <Simple title="Appearance">
                 <p>
-                  Apeiron uses one dark theme, built from the design tokens. A light theme comes
+                  Cherry uses one dark theme, built from the design tokens. A light theme comes
                   after the MVP.
                 </p>
               </Simple>
@@ -288,7 +288,7 @@ function ClaudeSection() {
     <section className={styles.section}>
       <h1>Claude Code</h1>
       <p className={styles.lead}>
-        Apeiron drives the claude command on this machine. It never sees your login.
+        Cherry drives the claude command on this machine. It never sees your login.
       </p>
       {h && (
         <HealthRows
@@ -364,12 +364,12 @@ function AboutSection() {
   return (
     <Simple title="About">
       <p>
-        Apeiron {h?.version ?? ''} — a local workspace that drives Claude Code to plan, document and
+        Cherry {h?.version ?? ''} — a local workspace that drives Claude Code to plan, document and
         build your projects. MIT licence.
       </p>
       <p>
-        Settings live in <span className="mono">~/.apeiron/config.json</span>, Magnet's notes in{' '}
-        <span className="mono">~/.apeiron/magnet/</span>. Each project keeps its own state in{' '}
+        Settings live in <span className="mono">~/.cherry/config.json</span>, Magnet's notes in{' '}
+        <span className="mono">~/.cherry/magnet/</span>. Each project keeps its own state in{' '}
         <span className="mono">_project/</span>, outside git.
       </p>
       <p>The app only listens on 127.0.0.1 and talks to Claude and GitHub, nothing else.</p>
@@ -418,7 +418,7 @@ function MagnetSection() {
           <h2 id="knows">What Magnet knows</h2>
           <span className={styles.muted}>
             Plain Markdown in{' '}
-            <span className="mono">{d ? tildify(d.dir) : '~/.apeiron/magnet'}/</span>
+            <span className="mono">{d ? tildify(d.dir) : '~/.cherry/magnet'}/</span>
           </span>
         </div>
         <div className={styles.files}>

@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import type { ChatItem, ServerEvent } from '@apeiron/shared';
+import type { ChatItem, ServerEvent } from '@cherry/shared';
 import { classifyCommand } from '../src/claude/commands.ts';
 import { fakeRunner, type FakeLog, type Step } from '../src/claude/fake-runner.ts';
 import { HOST, testDaemon, write, type TestDaemon } from './helpers.ts';
@@ -115,10 +115,10 @@ describe('chat', () => {
     expect(after.running).toBe(false);
     const last = after.items.at(-1);
     expect(last).toMatchObject({ kind: 'turn-end', ok: false });
-    expect(last?.kind === 'turn-end' && last.error).toMatch(/Apeiron restarted/);
+    expect(last?.kind === 'turn-end' && last.error).toMatch(/Cherry restarted/);
     expect(after.items.find((i) => i.kind === 'tool')).toMatchObject({
       status: 'failed',
-      meta: 'Apeiron restarted',
+      meta: 'Cherry restarted',
     });
     expect(transcript.length).toBeLessThan(after.items.length);
     // Opening it again adds nothing more.

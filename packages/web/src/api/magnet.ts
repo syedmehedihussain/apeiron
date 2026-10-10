@@ -9,7 +9,7 @@ import {
   type ConfigPatch,
   type MagnetFileName,
   type MagnetState,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { api } from './client.ts';
 import { keys, queryClient } from './queries.ts';
 import { socket } from './socket.ts';

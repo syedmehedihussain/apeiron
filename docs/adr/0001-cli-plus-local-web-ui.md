@@ -17,7 +17,7 @@ Claude Code and git on the user's machine. Options discussed: a TUI, a web dashb
 
 ## Decision
 
-Option 3. `apeiron up` starts a daemon on `127.0.0.1` and opens the browser. Meddy already runs
+Option 3. `cherry up` starts a daemon on `127.0.0.1` and opens the browser. Meddy already runs
 sysdash this way, so the server and runner code can be reused.
 
 ## Consequences

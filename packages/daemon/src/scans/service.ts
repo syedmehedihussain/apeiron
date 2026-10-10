@@ -12,7 +12,7 @@ import {
   type ScanCounts,
   type ScanRun,
   type ScanVerdict,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import type { ConfigStore } from '../config.ts';
 import type { EventHub } from '../events.ts';
 import { badRequest, conflict, notFound } from '../http.ts';
@@ -27,8 +27,8 @@ import { frontMatter } from '../projects/status.ts';
 import { projectDir } from '../projects/workspace.ts';
 import { BUILTIN_PRESETS, COMMON_COMMANDS, type ScanPreset } from './presets.ts';
 
-/** Reports live in the project's git-ignored apeiron/ folder, one folder per agent. */
-export const REPORTS_DIR = 'apeiron/reports';
+/** Reports live in the project's git-ignored cherry/ folder, one folder per agent. */
+export const REPORTS_DIR = 'cherry/reports';
 const ID = /^[a-z0-9][a-z0-9-]{0,59}$/;
 const MODELS = new Set(['sonnet', 'opus', 'haiku']);
 
@@ -56,7 +56,7 @@ function slug(name: string): string {
 }
 
 /**
- * Custom scan agents: `~/.apeiron/agents/<id>.md`, front matter (name, description, icon,
+ * Custom scan agents: `~/.cherry/agents/<id>.md`, front matter (name, description, icon,
  * model, commands as a comma-separated list) and the instructions as the body.
  */
 export function loadCustom(home: string): {
@@ -103,14 +103,14 @@ function scanPrompt(p: ScanPreset, commands: string[]): string {
     p.instructions,
     '',
     '## How you work',
-    '- You are a read-only scan agent inside Apeiron, running in the background. The user is not watching and cannot answer questions.',
+    '- You are a read-only scan agent inside Cherry, running in the background. The user is not watching and cannot answer questions.',
     '- Read CLAUDE.md and README first if they exist, to learn how the project is laid out.',
     '- You cannot edit files. Secret files (.env, keys) are always refused; do not try.',
     `- You may run only these commands, each on its own with no pipes, redirects or &&: ${commands.map((c) => `\`${c}\``).join(', ')}. Anything else is refused.`,
     '- When you are done, call submit_report once with the whole report. Do not print the report as a message as well.',
     '',
     '## Report format (the `markdown` of submit_report)',
-    '- No top-level `#` heading; Apeiron adds the title.',
+    '- No top-level `#` heading; Cherry adds the title.',
     '- `## Summary`: 2 to 4 sentences, the verdict in plain words.',
     '- `## Findings`: one `### <Severity> · <short title>` per finding, most severe first, each with where (`path:line`), why it matters, and the fix. Say "No findings." if there are none.',
     '- `## What to do next`: a short numbered list.',
@@ -383,7 +383,7 @@ export class ScanService {
       model: p.model,
       planMode: false,
       appendSystemPrompt:
-        'You are a read-only scan agent inside Apeiron. You cannot edit files. Finish by calling submit_report.',
+        'You are a read-only scan agent inside Cherry. You cannot edit files. Finish by calling submit_report.',
       allowedTools: READ_TOOLS,
       disallowedTools: ['Edit', 'Write', 'MultiEdit', 'NotebookEdit', 'WebFetch', 'WebSearch'],
       decisions: false,

@@ -3,7 +3,7 @@ import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
-export const E2E_ROOT = path.join(tmpdir(), 'apeiron-e2e');
+export const E2E_ROOT = path.join(tmpdir(), 'cherry-e2e');
 export const E2E_HOME = path.join(E2E_ROOT, 'home');
 export const E2E_PROJECTS = path.join(E2E_ROOT, 'projects');
 export const E2E_DAEMON_PORT = 4318;
@@ -89,7 +89,7 @@ export async function loginCode(): Promise<string> {
   };
   const res = await fetch(`http://127.0.0.1:${E2E_DAEMON_PORT}/api/cli/login-code`, {
     method: 'POST',
-    headers: { 'x-apeiron-cli': info.cliSecret },
+    headers: { 'x-cherry-cli': info.cliSecret },
   });
   return ((await res.json()) as { code: string }).code;
 }

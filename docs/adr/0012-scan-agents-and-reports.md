@@ -18,12 +18,12 @@ same kind. A background run cannot stop for approvals, but tests and audits need
    list is visible on the Run button. Trade-off: `pnpm test` runs the project's own scripts.
 3. **No commands** — read files only. Trade-off: the test runner and audits become guesses.
 
-Where reports live: the project's git-ignored `apeiron/` folder (next to chat uploads),
-`docs/reports/` (committed), or `~/.apeiron` (outside the project).
+Where reports live: the project's git-ignored `cherry/` folder (next to chat uploads),
+`docs/reports/` (committed), or `~/.cherry` (outside the project).
 
 ## Decision
 
-We chose **option 2** and **`apeiron/reports/<agent>/<YYYY-MM-DD-HHmmss>.md`**, the user's
+We chose **option 2** and **`cherry/reports/<agent>/<YYYY-MM-DD-HHmmss>.md`**, the user's
 answers on 2026-10-11.
 
 - Scan agents run in the project folder itself (read-only, so no worktree). Read tools run
@@ -32,11 +32,11 @@ answers on 2026-10-11.
   else is refused without asking. Secret files stay refused as everywhere.
 - Every agent may also run `git status`, `git log`, `git ls-files`, `git diff`.
 - The agent finishes by calling `submit_report` (verdict, one-line summary, counts by
-  severity, Markdown). Apeiron writes the file with front matter; a run that ends without the
+  severity, Markdown). Cherry writes the file with front matter; a run that ends without the
   tool keeps its last message as the report, a crash keeps a short failed report, a Stop keeps
   nothing.
 - Built-ins: Security review (Opus), Test runner, Code health, Dependency audit (Sonnet).
-  Custom agents are `~/.apeiron/agents/<id>.md` (data-model.md §8); one with a built-in id
+  Custom agents are `~/.cherry/agents/<id>.md` (data-model.md §8); one with a built-in id
   replaces it.
 - One run per agent per project at a time; running state is in memory only.
 

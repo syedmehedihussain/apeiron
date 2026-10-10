@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { relativeTime, type DocItem } from '@apeiron/shared';
+import { relativeTime, type DocItem } from '@cherry/shared';
 import { openInEditor, useDocs, useFile } from '../../api/workspace.ts';
 import { Markdown } from '../../components/Markdown/Markdown.tsx';
 import styles from './Workspace.module.css';

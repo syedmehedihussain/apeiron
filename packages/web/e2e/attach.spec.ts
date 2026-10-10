@@ -28,7 +28,7 @@ test('attach a picture and a file to a chat message', async ({ page }) => {
   await chips.getByRole('button', { name: 'Remove notes.txt' }).click();
   await expect(chips.getByRole('listitem')).toHaveCount(1);
   // The removed file is deleted from the project, not left behind.
-  const uploads = path.join(E2E_PROJECTS, 'cctop', 'apeiron', 'uploads');
+  const uploads = path.join(E2E_PROJECTS, 'cctop', 'cherry', 'uploads');
   await expect.poll(() => readdirSync(uploads).some((f) => f.endsWith('-notes.txt'))).toBe(false);
 
   await page.getByLabel('Message Claude').fill('What is in this picture?');
@@ -37,7 +37,7 @@ test('attach a picture and a file to a chat message', async ({ page }) => {
   await expect(chips).toHaveCount(0);
 
   const dir = path.join(E2E_PROJECTS, 'cctop');
-  const stored = readdirSync(path.join(dir, 'apeiron', 'uploads'));
+  const stored = readdirSync(path.join(dir, 'cherry', 'uploads'));
   expect(stored.some((f) => f.endsWith('-screen-shot.png'))).toBe(true);
-  expect(readFileSync(path.join(dir, '.gitignore'), 'utf8')).toContain('apeiron/');
+  expect(readFileSync(path.join(dir, '.gitignore'), 'utf8')).toContain('cherry/');
 });

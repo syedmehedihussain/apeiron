@@ -8,7 +8,7 @@ import { tempDir } from './helpers.ts';
 // That used to be an unhandled error that killed the daemon (it broke CI's e2e run).
 describe('listTree outside a git repo', () => {
   it('lists a big folder without crashing', async () => {
-    const dir = tempDir('apeiron-nogit-');
+    const dir = tempDir('cherry-nogit-');
     mkdirSync(path.join(dir, 'many'));
     for (let i = 0; i < 4000; i++)
       writeFileSync(path.join(dir, 'many', `a-rather-long-file-name-number-${i}.txt`), '');

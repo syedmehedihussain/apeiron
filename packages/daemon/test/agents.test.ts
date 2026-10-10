@@ -2,7 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import type { Agent } from '@apeiron/shared';
+import type { Agent } from '@cherry/shared';
 import { slugify } from '../src/agents/manager.ts';
 import { fakeRunner, type FakeLog, type Step } from '../src/claude/fake-runner.ts';
 import { HOST, gitInit, testDaemon, write, type TestDaemon } from './helpers.ts';
@@ -75,7 +75,7 @@ describe('background agents', () => {
     expect(done.summary).toBe('Added tests for the streak service.');
     expect(done.changes).toEqual({ files: 1, added: 1, removed: 0 });
     // The worktree lives outside the project, under the projects folder's dot-folder.
-    const wt = path.join(d.projectsDir, '.apeiron-worktrees', 'core', 'tests-streak-service');
+    const wt = path.join(d.projectsDir, '.cherry-worktrees', 'core', 'tests-streak-service');
     expect(log.requests[0]!.cwd).toBe(wt);
     expect(log.permissions).toEqual([{ tool: 'Write', allowed: true }]);
     expect(d.approvals.list()).toEqual([]);
@@ -103,7 +103,7 @@ describe('background agents', () => {
     const r = await api('POST', `/api/agents/${a.id}/discard`);
     expect(r.body.status).toBe('discarded');
     expect(
-      existsSync(path.join(d.projectsDir, '.apeiron-worktrees', 'core', 'tests-streak-service')),
+      existsSync(path.join(d.projectsDir, '.cherry-worktrees', 'core', 'tests-streak-service')),
     ).toBe(false);
     expect(git(dir, 'branch', '--list', 'agent/*')).toBe('');
     expect(git(dir, 'rev-parse', 'HEAD')).toBe(head);

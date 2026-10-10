@@ -207,7 +207,7 @@ importers:
       '@anthropic-ai/claude-agent-sdk':
         specifier: ^0.3.292
         version: 0.3.292(@anthropic-ai/sdk@0.131.0(zod@4.6.5))(@modelcontextprotocol/sdk@1.32.1(zod@4.6.5))(zod@4.6.5)
-      '@apeiron/shared':
+      '@cherry/shared':
         specifier: workspace:*
         version: link:../shared
       '@fastify/cookie':
@@ -250,7 +250,7 @@ importers:
 
   packages/web:
     dependencies:
-      '@apeiron/shared':
+      '@cherry/shared':
         specifier: workspace:*
         version: link:../shared
       '@fontsource-variable/geist':

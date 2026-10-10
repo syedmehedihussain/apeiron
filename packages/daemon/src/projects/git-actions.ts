@@ -1,4 +1,4 @@
-import type { GitResult, PullRequestList } from '@apeiron/shared';
+import type { GitResult, PullRequestList } from '@cherry/shared';
 import type { ConfigStore } from '../config.ts';
 import type { EventHub } from '../events.ts';
 import { run } from '../exec.ts';
@@ -59,7 +59,7 @@ export const ghPrList: PrLister = async (dir) => {
       error: null,
     };
   } catch {
-    return { prs: [], error: 'gh returned something Apeiron could not read.' };
+    return { prs: [], error: 'gh returned something Cherry could not read.' };
   }
 };
 
@@ -107,7 +107,7 @@ export class GitActions {
           action: 'pull',
           ok: false,
           message: /Not possible to fast-forward|diverged|non-fast-forward/i.test(r.stderr)
-            ? 'Your branch and the remote have both changed, so Apeiron will not merge them. Ask Claude to help, or merge in a terminal.'
+            ? 'Your branch and the remote have both changed, so Cherry will not merge them. Ask Claude to help, or merge in a terminal.'
             : /would be overwritten/i.test(r.stderr)
               ? 'Uncommitted changes would be overwritten. Commit or stash them first.'
               : firstLine(r.stderr || r.stdout) || 'git pull failed.',

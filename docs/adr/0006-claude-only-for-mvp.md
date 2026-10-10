@@ -17,4 +17,4 @@ Support only Claude Code in the MVP. Keep the daemon talking to a `Runner` inter
 ## Consequences
 
 - Good: one runner to build and test well.
-- Cost: people without Claude Code cannot use Apeiron yet.
+- Cost: people without Claude Code cannot use Cherry yet.

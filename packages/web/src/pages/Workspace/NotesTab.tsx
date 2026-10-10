@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { PHASES, PHASE_LABEL, type Task, type TaskStatus } from '@apeiron/shared';
+import { PHASES, PHASE_LABEL, type Task, type TaskStatus } from '@cherry/shared';
 import { queryClient } from '../../api/queries.ts';
 import { saveNotes, setTaskStatus, useNotes, useTasks, wk } from '../../api/workspace.ts';
 import styles from './Workspace.module.css';

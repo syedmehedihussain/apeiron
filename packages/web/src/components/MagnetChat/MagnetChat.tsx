@@ -8,7 +8,7 @@ import {
   type ChatItem,
   type MagnetAction,
   type ProjectCard,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { ApiFailure } from '../../api/client.ts';
 import { answerApproval } from '../../api/chat.ts';
 import {

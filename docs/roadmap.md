@@ -5,7 +5,7 @@ every box in its **Done when** list is ticked and `pnpm test` passes.
 
 ## M0 — Preparation (repo setup)
 
-- [x] Create `syedmehedihussain/apeiron`, push these docs (MIT, ADR-0007).
+- [x] Create `syedmehedihussain/cherry`, push these docs (MIT, ADR-0007).
 - [x] pnpm workspace with `cli`, `daemon`, `web`, `shared`; TS strict; ESLint + Prettier.
 - [x] Vitest in every package; Playwright set up with the preinstalled Chromium.
 - [x] GitHub Actions: lint, typecheck, test on push and PR.
@@ -17,7 +17,7 @@ every box in its **Done when** list is ticked and `pnpm test` passes.
 
 ## M1 — Daemon and Home
 
-- [x] `apeiron` (= `up`) / `down` / `status` / `logout`, `daemon.json`, login link + session cookie (ADR-0008), Host/Origin checks.
+- [x] `cherry` (= `up`) / `down` / `status` / `logout`, `daemon.json`, login link + session cookie (ADR-0008), Host/Origin checks.
 - [x] `ProjectScanner`: classify folders, parse `project.json` + `STATUS.md`, git summary.
 - [x] SQLite cache + migrations; `projects.md` generator for Magnet.
 - [x] `GET /api/projects`, `/api/health`, WebSocket with `projects.updated`.
@@ -25,7 +25,7 @@ every box in its **Done when** list is ticked and `pnpm test` passes.
 - [x] Claude Code check + first-run banner; empty folder state.
 - [x] File watcher → live updates.
 
-**Done when:** `apeiron` opens Home listing your real `~/Projects` with correct badges, phases
+**Done when:** `cherry` opens Home listing your real `~/Projects` with correct badges, phases
 and git chips, in under 2 s.
 
 ## M2 — Workspace, read-only
@@ -86,7 +86,7 @@ branch.
 
 ## M8 — Magnet
 
-- [x] `~/.apeiron/magnet/` with starter files; Settings → Magnet page.
+- [x] `~/.cherry/magnet/` with starter files; Settings → Magnet page.
 - [x] Magnet session (read-only tools across projects), panel on Home and workspace.
 - [x] Proposed-action cards that call real routes after Approve.
 - [x] Suggestion chips.
@@ -96,7 +96,7 @@ branch.
 ## After the MVP: scan agents
 
 - [x] Ready-made scan agents (Security review, Test runner, Code health, Dependency audit),
-      custom ones from `~/.apeiron/agents/`, reports in `apeiron/reports/` read in the centre
+      custom ones from `~/.cherry/agents/`, reports in `cherry/reports/` read in the centre
       (ADR-0012).
 
 **Done when:** one click on Run in the Agents view scans the project without asking anything,
@@ -109,18 +109,18 @@ and Report opens the result in its own centre tab with the history of earlier ru
 - [x] CI green again (daemon EPIPE crash outside git repos; fake Claude reports Claude ready).
 - [ ] Fix the security review findings: agent/Magnet edit guard through symlinks (high), read
       tools outside the project and narrow secret list (medium), editor fallback (low).
-- [ ] Run Test runner, Code health and Dependency audit on Apeiron; fix anything high.
+- [ ] Run Test runner, Code health and Dependency audit on Cherry; fix anything high.
 - [x] README rewritten for users: what it is, requirements, install, first run, features, skill.
 - [x] `CHANGELOG.md` (1.0.0 unreleased).
-- [ ] Version 1.0.0 in every package and `apeiron --version` (in the release commit).
-- [x] Fresh install check: clone into a temp folder, empty `APEIRON_HOME`, install, first run
+- [ ] Version 1.0.0 in every package and `cherry --version` (in the release commit).
+- [x] Fresh install check: clone into a temp folder, empty `CHERRY_HOME`, install, first run
       (2026-10-11: works; the first-run UI build is now quiet).
 - [ ] Tag `v1.0.0` and publish the GitHub release (ask first).
 
-**Done when:** someone on Linux follows the README from a fresh clone, opens Apeiron, and every
+**Done when:** someone on Linux follows the README from a fresh clone, opens Cherry, and every
 check in CI is green on the tagged commit.
 
 ## After the MVP
 
 Notes & Tasks polish · usage heatmap · terminal tab · Tailscale access · light theme · runner
-adapters for other agent CLIs (ADR-0006) · npm publish as `apeiron-cli`.
+adapters for other agent CLIs (ADR-0006) · npm publish as `cherry-cli`.

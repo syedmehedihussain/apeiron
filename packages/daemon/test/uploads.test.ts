@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { MAX_UPLOAD_BYTES } from '@apeiron/shared';
+import { MAX_UPLOAD_BYTES } from '@cherry/shared';
 import { safeName } from '../src/chat/uploads.ts';
 import { fakeRunner, type FakeLog } from '../src/claude/fake-runner.ts';
 import { HOST, ORIGIN, testDaemon, write, type TestDaemon } from './helpers.ts';
@@ -41,19 +41,19 @@ describe('chat attachments', () => {
     expect(safeName('...')).toBe('file');
   });
 
-  it('saves into apeiron/uploads, ignores apeiron/ in git, and Claude is told the path', async () => {
+  it('saves into cherry/uploads, ignores cherry/ in git, and Claude is told the path', async () => {
     const png = Buffer.from([0x89, 0x50, 0x4e, 0x47, 1, 2, 3]);
     const r = await upload('Screen Shot.png', png);
     expect(r.statusCode).toBe(200);
     const f = r.json() as { id: string; name: string; size: number };
     expect(f).toMatchObject({ name: 'Screen Shot.png', size: 7 });
     expect(f.id).toMatch(/^\d{4}-\d{2}-\d{2}-[0-9a-f]{6}-screen-shot\.png$/);
-    expect(readFileSync(path.join(dir, 'apeiron', 'uploads', f.id))).toEqual(png);
+    expect(readFileSync(path.join(dir, 'cherry', 'uploads', f.id))).toEqual(png);
     expect(readFileSync(path.join(dir, '.gitignore'), 'utf8')).toBe(
-      'node_modules/\n\n# Apeiron uploads and reports\n/apeiron/\n',
+      'node_modules/\n\n# Cherry uploads and reports\n/cherry/\n',
     );
     await upload('b.txt', Buffer.from('x'));
-    expect(readFileSync(path.join(dir, '.gitignore'), 'utf8').match(/apeiron\//g)).toHaveLength(1);
+    expect(readFileSync(path.join(dir, '.gitignore'), 'utf8').match(/cherry\//g)).toHaveLength(1);
 
     const res = await d.app.inject({
       method: 'POST',
@@ -63,7 +63,7 @@ describe('chat attachments', () => {
     });
     expect(res.statusCode).toBe(200);
     await new Promise((r) => setTimeout(r, 50));
-    expect(log.requests[0]!.prompt).toContain(`apeiron/uploads/${f.id}`);
+    expect(log.requests[0]!.prompt).toContain(`cherry/uploads/${f.id}`);
     expect(log.requests[0]!.prompt).toContain('Read tool');
     const user = d.chat.state('core').items.find((i) => i.kind === 'user');
     expect(user).toMatchObject({ text: 'What is in this picture?', attachments: [f.id] });
@@ -88,7 +88,7 @@ describe('chat attachments', () => {
     const a = (await upload('a.png', Buffer.from('a'))).json() as { id: string };
     const b = (await upload('b.png', Buffer.from('b'))).json() as { id: string };
     expect((await del(a.id)).statusCode).toBe(200);
-    expect(existsSync(path.join(dir, 'apeiron', 'uploads', a.id))).toBe(false);
+    expect(existsSync(path.join(dir, 'cherry', 'uploads', a.id))).toBe(false);
     expect((await del(a.id)).statusCode).toBe(404);
 
     await d.app.inject({
@@ -98,7 +98,7 @@ describe('chat attachments', () => {
       payload: { text: 'look', attachments: [b.id] },
     });
     expect((await del(b.id)).statusCode).toBe(409);
-    expect(existsSync(path.join(dir, 'apeiron', 'uploads', b.id))).toBe(true);
+    expect(existsSync(path.join(dir, 'cherry', 'uploads', b.id))).toBe(true);
     expect((await del('..%2F..%2FREADME.md')).statusCode).toBe(404);
     expect(existsSync(path.join(dir, 'README.md'))).toBe(true);
   });
@@ -137,7 +137,7 @@ describe('chat attachments', () => {
       expect(r.statusCode).toBe(404);
     }
     expect(log.requests).toHaveLength(0);
-    const uploads = path.join(dir, 'apeiron', 'uploads');
+    const uploads = path.join(dir, 'cherry', 'uploads');
     expect(existsSync(uploads) ? readdirSync(uploads) : []).toEqual([]);
   });
 });

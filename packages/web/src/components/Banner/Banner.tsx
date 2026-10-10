@@ -14,7 +14,7 @@ export function ClaudeMissingBanner({
       <AlertCircle size={15} strokeWidth={2} className={styles.icon} aria-hidden="true" />
       <span className={styles.title}>Claude Code isn't installed or logged in.</span>
       <span className={styles.why}>
-        Apeiron needs it to plan and build. Your projects are still readable.
+        Cherry needs it to plan and build. Your projects are still readable.
       </span>
       <span className={styles.spacer} />
       <Link to="/settings/claude" className={styles.fix}>

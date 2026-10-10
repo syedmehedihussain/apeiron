@@ -1,6 +1,6 @@
 import { ArrowUp, Folder, Plus } from 'lucide-react';
 import { useId, useState, type KeyboardEvent } from 'react';
-import type { ProjectCard } from '@apeiron/shared';
+import type { ProjectCard } from '@cherry/shared';
 import { MagnetAvatar } from '../MagnetAvatar/MagnetAvatar.tsx';
 import styles from './PromptBox.module.css';
 

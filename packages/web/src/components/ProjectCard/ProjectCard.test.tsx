@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import { describe, expect, it } from 'vitest';
-import type { ProjectCard as Card } from '@apeiron/shared';
+import type { ProjectCard as Card } from '@cherry/shared';
 import { ProjectCard } from './ProjectCard.tsx';
 
 const now = Date.parse('2026-10-08T12:00:00Z');

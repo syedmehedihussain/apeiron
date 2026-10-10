@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { structuredPatch } from 'diff';
-import type { ApprovalFile, DiffLine } from '@apeiron/shared';
+import type { ApprovalFile, DiffLine } from '@cherry/shared';
 
 const MAX_PREVIEW_LINES = 400;
 

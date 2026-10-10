@@ -24,7 +24,7 @@ import {
   MODELS,
   type Effort,
   type UploadedFile,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import styles from './Composer.module.css';
 
 interface ComposerProps {

@@ -18,7 +18,7 @@ import type {
   GitLetter,
   Tree,
   TreeEntry,
-} from '@apeiron/shared';
+} from '@cherry/shared';
 import { git, gitStatus } from '../git.ts';
 import { badRequest, notFound } from '../http.ts';
 import { isSecretFile, resolveInside } from '../paths.ts';

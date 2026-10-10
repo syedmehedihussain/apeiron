@@ -1,4 +1,4 @@
-import type { GitSummary } from '@apeiron/shared';
+import type { GitSummary } from '@cherry/shared';
 import { run } from './exec.ts';
 
 const GIT_ENV = { ...process.env, GIT_OPTIONAL_LOCKS: '0', GIT_TERMINAL_PROMPT: '0' };

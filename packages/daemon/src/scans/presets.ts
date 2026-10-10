@@ -1,4 +1,4 @@
-import type { SCAN_ICONS } from '@apeiron/shared';
+import type { SCAN_ICONS } from '@cherry/shared';
 
 export interface ScanPreset {
   id: string;

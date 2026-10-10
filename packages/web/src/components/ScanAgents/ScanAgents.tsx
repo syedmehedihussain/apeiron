@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { relativeTime, type ReportMeta, type ScanAgent } from '@apeiron/shared';
+import { relativeTime, type ReportMeta, type ScanAgent } from '@cherry/shared';
 import { ApiFailure } from '../../api/client.ts';
 import { runScan, stopScan, useLiveScans, useScanAgents } from '../../api/scans.ts';
 import styles from './ScanAgents.module.css';
@@ -55,7 +55,7 @@ export function ScanAgents({ projectId, now }: { projectId: string; now: number 
         <span
           className={styles.howto}
           title={
-            'Add your own: ~/.apeiron/agents/<name>.md\n\n---\nname: Accessibility check\ndescription: Labels and contrast\nicon: shield | flask | heart | package | bot\nmodel: sonnet\ncommands: pnpm lint, pnpm test\n---\nWhat to look for and how to report it.'
+            'Add your own: ~/.cherry/agents/<name>.md\n\n---\nname: Accessibility check\ndescription: Labels and contrast\nicon: shield | flask | heart | package | bot\nmodel: sonnet\ncommands: pnpm lint, pnpm test\n---\nWhat to look for and how to report it.'
           }
         >
           Add your own
@@ -69,7 +69,7 @@ export function ScanAgents({ projectId, now }: { projectId: string; now: number 
       {error && <p className={styles.error}>{error}</p>}
       {scans.data.problems.map((p) => (
         <p key={p.file} className={styles.error}>
-          <span className="mono">~/.apeiron/agents/{p.file}</span>: {p.error}
+          <span className="mono">~/.cherry/agents/{p.file}</span>: {p.error}
         </p>
       ))}
     </section>

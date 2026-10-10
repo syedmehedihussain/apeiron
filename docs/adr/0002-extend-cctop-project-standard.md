@@ -12,7 +12,7 @@ keeps the status updated.
 
 ## Options
 
-1. **New `.apeiron/` folder per project** — clean. Trade-off: cctop would not see it; two standards.
+1. **New `.cherry/` folder per project** — clean. Trade-off: cctop would not see it; two standards.
 2. **Extend `_project/`** — add `project.json`, `tasks.json`, `survey.json`, `notes.md`. Trade-off: tied to cctop's format.
 
 ## Decision
@@ -22,5 +22,5 @@ Option 2. Engineering docs go in committed `docs/`; personal state in `_project/
 
 ## Consequences
 
-- Good: cctop and Apeiron read the same files; existing cctop projects become "cctop" state for free.
+- Good: cctop and Cherry read the same files; existing cctop projects become "cctop" state for free.
 - Cost: changes to `STATUS.md` format must stay compatible with cctop.

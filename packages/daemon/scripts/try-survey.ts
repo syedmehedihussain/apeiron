@@ -5,8 +5,8 @@ import path from 'node:path';
 import { createDaemon } from '../src/daemon.ts';
 import { noGitHub } from '../src/survey/service.ts';
 
-const home = mkdtempSync(path.join(tmpdir(), 'apeiron-try-home-'));
-const projects = mkdtempSync(path.join(tmpdir(), 'apeiron-try-projects-'));
+const home = mkdtempSync(path.join(tmpdir(), 'cherry-try-home-'));
+const projects = mkdtempSync(path.join(tmpdir(), 'cherry-try-projects-'));
 writeFileSync(path.join(home, 'config.json'), JSON.stringify({ schema: 1, projectsDir: projects }));
 const d = createDaemon({ home, port: 4399, memoryDb: true, github: noGitHub });
 const wait = async (pred: () => Promise<boolean>) => {

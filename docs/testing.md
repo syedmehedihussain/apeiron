@@ -25,7 +25,7 @@ scripts:
 - result: { ok: true }
 ```
 
-Scripts can also be **recorded** from a real session (`APEIRON_RECORD=1`) and replayed.
+Scripts can also be **recorded** from a real session (`CHERRY_RECORD=1`) and replayed.
 
 ## Must-pass safety tests
 
