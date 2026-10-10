@@ -205,6 +205,7 @@ export class ChatService {
       prompt: withAttachments(body.text, body.attachments),
       resume: current.claudeSessionId,
       model,
+      ...(body.effort && model !== 'haiku' ? { effort: body.effort } : {}),
       planMode: body.planMode,
       appendSystemPrompt: chatSystemPrompt(phase),
       allowedTools: READ_TOOLS,

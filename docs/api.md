@@ -57,7 +57,7 @@ the projects folder (see `security.md`).
 | Method | Path | Does |
 | --- | --- | --- |
 | GET | `/api/projects/:id/chat` | current session meta + last 200 transcript events |
-| POST | `/api/projects/:id/chat` | `{ text, planMode?, model?, attachments? }` → starts a turn; attachments are upload ids, listed for Claude to Read |
+| POST | `/api/projects/:id/chat` | `{ text, planMode?, model?, effort?, attachments? }` → starts a turn; `effort` is low, medium, high, xhigh or max (ignored for Haiku); attachments are upload ids, listed for Claude to Read |
 | POST | `/api/projects/:id/chat/stop` | interrupts the running turn |
 | POST | `/api/projects/:id/chat/new` | starts a fresh session |
 | POST | `/api/decisions/:cardId` | `{ optionId? , custom? }` answer a decision card |

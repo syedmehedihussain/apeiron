@@ -213,6 +213,8 @@ export const ChatSendSchema = z.object({
   text: z.string().min(1).max(20_000),
   planMode: z.boolean().default(false),
   model: z.enum(['sonnet', 'opus', 'haiku']).optional(),
+  /** Reasoning effort for this turn; left out, the model's default is used. */
+  effort: z.enum(['low', 'medium', 'high', 'xhigh', 'max']).optional(),
   /** Stored names returned by the upload route. */
   attachments: z.array(z.string().min(1).max(200)).max(MAX_ATTACHMENTS).default([]),
 });
@@ -233,3 +235,13 @@ export const MODELS = [
   { id: 'opus', label: 'Opus' },
   { id: 'haiku', label: 'Haiku' },
 ] as const;
+
+/** Effort levels offered in the composer. Haiku has no effort setting. */
+export const EFFORTS = [
+  { id: 'low', label: 'Low' },
+  { id: 'medium', label: 'Medium' },
+  { id: 'high', label: 'High' },
+  { id: 'xhigh', label: 'Extra high' },
+  { id: 'max', label: 'Max' },
+] as const;
+export type Effort = (typeof EFFORTS)[number]['id'];

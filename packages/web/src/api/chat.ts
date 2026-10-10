@@ -33,12 +33,14 @@ export const sendChat = (
   planMode: boolean,
   model?: string,
   attachments: string[] = [],
+  effort?: string,
 ) =>
   api<{ turnId: string; conversationId: string }>('POST', `${base(id)}/chat`, {
     text,
     planMode,
     ...(model ? { model } : {}),
     ...(attachments.length ? { attachments } : {}),
+    ...(effort ? { effort } : {}),
   });
 
 /** Sends one file as the raw request body; the daemon stores it under apeiron/uploads/. */

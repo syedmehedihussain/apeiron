@@ -75,6 +75,18 @@ describe('chat', () => {
     expect(log.requests[0]?.allowedTools).not.toContain('Edit');
   });
 
+  it('passes the chosen effort to Claude, but not for Haiku', async () => {
+    script = [{ text: 'ok' }];
+    await api('POST', '/api/projects/core/chat', { text: 'a', model: 'opus', effort: 'max' });
+    await idle();
+    expect(log.requests[0]).toMatchObject({ model: 'opus', effort: 'max' });
+    await api('POST', '/api/projects/core/chat', { text: 'b', model: 'haiku', effort: 'max' });
+    await idle();
+    expect(log.requests[1]?.effort).toBeUndefined();
+    const bad = await api('POST', '/api/projects/core/chat', { text: 'c', effort: 'huge' });
+    expect(bad.status).toBe(400);
+  });
+
   it('resumes the same Claude session on the next message', async () => {
     script = [{ text: 'one' }];
     await api('POST', '/api/projects/core/chat', { text: 'first' });

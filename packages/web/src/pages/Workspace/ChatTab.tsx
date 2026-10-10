@@ -1,6 +1,6 @@
 import { FileText, MessageSquarePlus, RotateCcw } from 'lucide-react';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import type { ChatItem, ChatState } from '@apeiron/shared';
+import type { ChatItem, ChatState, Effort } from '@apeiron/shared';
 import { ApiFailure } from '../../api/client.ts';
 import {
   answerApproval,
@@ -96,6 +96,7 @@ export function ChatTab({ projectId, now }: ChatTabProps) {
   const draft = useChatDraft((s) => s.drafts[projectId]);
   const setDraft = useChatDraft((s) => s.set);
   const [model, setModel] = useState<string | null>(null);
+  const [effort, setEffort] = useState<Effort | null>(null);
   const [error, setError] = useState<string | null>(null);
   const scroller = useRef<HTMLDivElement>(null);
   const stick = useRef(true);
@@ -124,7 +125,7 @@ export function ChatTab({ projectId, now }: ChatTabProps) {
     setError(null);
     stick.current = true;
     try {
-      await sendChat(projectId, text, planMode, m, attachments);
+      await sendChat(projectId, text, planMode, m, attachments, effort ?? undefined);
       if (!state?.conversationId)
         await queryClient.invalidateQueries({ queryKey: chatKey(projectId) });
       return true;
@@ -184,6 +185,7 @@ export function ChatTab({ projectId, now }: ChatTabProps) {
           running={!!state?.running}
           paused={paused}
           model={model ?? state?.model ?? 'sonnet'}
+          effort={effort}
           draft={draft}
           onDraftUsed={() => setDraft(projectId, '')}
           onSend={send}
@@ -191,6 +193,7 @@ export function ChatTab({ projectId, now }: ChatTabProps) {
           onUpload={(file) => uploadAttachment(projectId, file)}
           onDiscard={(file) => void discardAttachment(projectId, file).catch(() => undefined)}
           onModel={setModel}
+          onEffort={setEffort}
         />
       </div>
     </div>

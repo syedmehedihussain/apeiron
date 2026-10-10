@@ -39,6 +39,8 @@ export interface RunRequest {
   /** Claude session id to continue, if any. */
   resume: string | null;
   model: string;
+  /** Reasoning effort; left out, the model's default. */
+  effort?: 'low' | 'medium' | 'high' | 'xhigh' | 'max';
   planMode: boolean;
   appendSystemPrompt: string;
   /** Tools that run without asking (read-only ones). */
@@ -173,6 +175,7 @@ export const sdkRunner: Runner = (req) => {
     options: {
       cwd: req.cwd,
       model: req.model,
+      ...(req.effort ? { effort: req.effort } : {}),
       ...(req.resume ? { resume: req.resume } : {}),
       includePartialMessages: true,
       permissionMode: req.planMode ? 'plan' : 'default',

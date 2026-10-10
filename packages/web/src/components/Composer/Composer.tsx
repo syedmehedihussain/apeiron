@@ -1,4 +1,13 @@
-import { ArrowUp, ChevronDown, FileText, Map as MapIcon, Paperclip, Square, X } from 'lucide-react';
+import {
+  ArrowUp,
+  ChevronDown,
+  FileText,
+  Gauge,
+  Map as MapIcon,
+  Paperclip,
+  Square,
+  X,
+} from 'lucide-react';
 import {
   useEffect,
   useId,
@@ -8,7 +17,14 @@ import {
   type DragEvent,
   type KeyboardEvent,
 } from 'react';
-import { MAX_ATTACHMENTS, MAX_UPLOAD_BYTES, MODELS, type UploadedFile } from '@apeiron/shared';
+import {
+  EFFORTS,
+  MAX_ATTACHMENTS,
+  MAX_UPLOAD_BYTES,
+  MODELS,
+  type Effort,
+  type UploadedFile,
+} from '@apeiron/shared';
 import styles from './Composer.module.css';
 
 interface ComposerProps {
@@ -17,6 +33,8 @@ interface ComposerProps {
   paused: boolean;
   disabled?: string | null;
   model: string;
+  /** Reasoning effort; null leaves it to the model's default. */
+  effort: Effort | null;
   draft?: string;
   onDraftUsed?: () => void;
   onSend(text: string, planMode: boolean, model: string, attachments: string[]): Promise<boolean>;
@@ -26,6 +44,7 @@ interface ComposerProps {
   onDiscard?: (id: string) => void;
   onStop(): void;
   onModel(model: string): void;
+  onEffort(effort: Effort | null): void;
 }
 
 export function Composer({
@@ -33,17 +52,19 @@ export function Composer({
   paused,
   disabled,
   model,
+  effort,
   draft,
   onDraftUsed,
   onSend,
   onStop,
   onModel,
+  onEffort,
   onUpload,
   onDiscard,
 }: ComposerProps) {
   const [text, setText] = useState('');
   const [plan, setPlan] = useState(false);
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState<'model' | 'effort' | null>(null);
   const [sending, setSending] = useState(false);
   const id = useId();
   const area = useRef<HTMLTextAreaElement>(null);
@@ -161,6 +182,7 @@ export function Composer({
     }
   };
   const modelLabel = MODELS.find((m) => m.id === model)?.label ?? model;
+  const effortLabel = EFFORTS.find((e) => e.id === effort)?.label ?? 'Default';
 
   return (
     <div className={styles.wrap}>
@@ -282,13 +304,13 @@ export function Composer({
               type="button"
               className={styles.chip}
               aria-haspopup="menu"
-              aria-expanded={menu}
-              onClick={() => setMenu(!menu)}
+              aria-expanded={menu === 'model'}
+              onClick={() => setMenu(menu === 'model' ? null : 'model')}
             >
               {modelLabel}
               <ChevronDown size={12} strokeWidth={2} aria-hidden="true" />
             </button>
-            {menu && (
+            {menu === 'model' && (
               <div className={styles.menu} role="menu">
                 {MODELS.map((m) => (
                   <button
@@ -298,7 +320,7 @@ export function Composer({
                     aria-checked={m.id === model}
                     onClick={() => {
                       onModel(m.id);
-                      setMenu(false);
+                      setMenu(null);
                     }}
                   >
                     {m.label}
@@ -307,6 +329,41 @@ export function Composer({
               </div>
             )}
           </div>
+          {model !== 'haiku' && (
+            <div className={styles.modelWrap}>
+              <button
+                type="button"
+                className={styles.chip}
+                aria-haspopup="menu"
+                aria-expanded={menu === 'effort'}
+                aria-label={`Effort: ${effortLabel}`}
+                title="How much Claude thinks before answering"
+                onClick={() => setMenu(menu === 'effort' ? null : 'effort')}
+              >
+                <Gauge size={12} strokeWidth={1.8} aria-hidden="true" />
+                {effort ? effortLabel : 'Effort'}
+                <ChevronDown size={12} strokeWidth={2} aria-hidden="true" />
+              </button>
+              {menu === 'effort' && (
+                <div className={styles.menu} role="menu" aria-label="Effort">
+                  {[{ id: null, label: 'Default' }, ...EFFORTS].map((e) => (
+                    <button
+                      key={e.id ?? 'default'}
+                      type="button"
+                      role="menuitemradio"
+                      aria-checked={e.id === effort}
+                      onClick={() => {
+                        onEffort(e.id);
+                        setMenu(null);
+                      }}
+                    >
+                      {e.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
           <span className={styles.spacer} />
           {running ? (
             <button type="button" className={styles.stop} onClick={onStop}>
