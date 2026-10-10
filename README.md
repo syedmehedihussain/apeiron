@@ -8,36 +8,60 @@ software engineer would: **survey first, decide, document, then build.** It runs
 computer at `127.0.0.1`, reads your `~/Projects` folder, and drives your local `claude` CLI.
 
 It is not a code editor and not a vibe-coding tool. You read code and docs here, you make the
-decisions here, and Claude does the typing — only after you approve.
+decisions here, and Claude does the typing, only after you approve.
 
-**Status:** M0 and M1 done: `apeiron` starts the daemon and Home lists your projects.
-See [`docs/roadmap.md`](docs/roadmap.md).
+![The workspace: file tree, a scan report in the centre, agents on the right](docs/images/workspace-report.png)
 
-## Names
+## What it does
 
-| Thing | Name |
-| --- | --- |
-| App | Apeiron |
-| Command | `apeiron` (published on npm as `apeiron-cli`) |
-| Repo | `syedmehedihussain/apeiron` |
-| Assistant | Magnet |
-| Config folder | `~/.apeiron/` |
-| License | MIT |
+- **Home**: every project in `~/Projects` with its state, phase, git status and next step.
+- **New project survey**: seven decision cards (who it is for, scope, stack, data, …), then
+  Claude writes `CLAUDE.md`, a PRD, ADRs, the architecture, `STATUS.md` and the first commit.
+- **Calibration**: for an existing project, Claude reads it read-only, asks a few questions and
+  proposes docs. Nothing is written until you tick the files.
+- **Workspace**: file tree with git status, read-only file and diff viewer, Docs reader,
+  Notes & Tasks, and a chat with Claude (plan mode, model, effort, attachments). Every edit and
+  command waits for your approval.
+- **Scan agents**: one click runs a read-only Security review, Test runner, Code health or
+  Dependency audit and saves a report you read in the centre. Add your own in
+  `~/.apeiron/agents/`.
+- **Background agents**: give a task; it works on its own git worktree and branch while you
+  keep chatting, then you review the diff and Accept or Discard.
+- **GitHub**: pull, push (after approval), open pull requests.
+- **Magnet**: an assistant across all your projects ("What's stuck this week?"), read-only,
+  with proposed actions you approve.
 
-## Where to start reading
+## Requirements
 
-1. [`CLAUDE.md`](CLAUDE.md) — the short front door for Claude Code (and for you).
-2. [`docs/README.md`](docs/README.md) — the map of every document and what it is for.
-3. [`docs/roadmap.md`](docs/roadmap.md) — what to build, in what order, and how we know a
-   milestone is done.
+- Linux (macOS and Windows are not supported yet).
+- [Claude Code](https://claude.com/claude-code), signed in (`claude auth login`).
+- git. [GitHub CLI](https://cli.github.com) `gh` is optional (GitHub box, Push, new repos).
+- [mise](https://mise.jdx.dev), or Node 22 and pnpm 12 on your own.
 
-## Quick start (once milestone 1 exists)
+## Install
 
 ```bash
+git clone https://github.com/syedmehedihussain/apeiron.git
+cd apeiron
+mise install               # Node 22 + pnpm from mise.toml
 pnpm install
-pnpm dev            # daemon on 127.0.0.1:4317 + web UI with hot reload
-pnpm apeiron        # the real CLI: start the daemon, print the link, open the browser
+./scripts/install-cli.sh   # puts `apeiron` in ~/.local/bin
+apeiron                    # starts Apeiron and opens it in your browser
 ```
+
+`apeiron` prints a one-time login link and opens it. Your projects are read from `~/Projects`
+(change it in Settings). Apeiron only listens on `127.0.0.1`.
+
+| Command | Does |
+| --- | --- |
+| `apeiron` | start and open the browser (`--no-open` only prints the link) |
+| `apeiron down` / `status` | stop / show whether it runs |
+| `apeiron open <project>` | open a project's workspace |
+| `apeiron doctor` | check Node, git, gh and Claude Code |
+| `apeiron logout` | end every browser session |
+| `apeiron install-service` | start at login (systemd user service) |
+
+To update: `git pull && pnpm install`, then `apeiron down && apeiron`.
 
 ## Claude Code skill
 
@@ -50,11 +74,35 @@ automatically inside this repo. To have it in every project:
 mkdir -p ~/.claude/skills && cp -r .claude/skills/apeiron ~/.claude/skills/
 ```
 
-## Install the `apeiron` command
+## Safety
+
+- The daemon binds `127.0.0.1` only and every request needs a session cookie from the login
+  link; Host and Origin are checked ([`docs/security.md`](docs/security.md)).
+- Claude never edits a file or runs a command in chat without your approval. `sudo`, force
+  pushes to main and `rm -rf` outside the project are blocked outright.
+- Secret files (`.env`, keys) are never read.
+- Your notes in `_project/` stay out of git.
+
+## Develop
 
 ```bash
-mise install             # Node 22 + pnpm from mise.toml
-pnpm install
-./scripts/install-cli.sh # puts `apeiron` in ~/.local/bin
-apeiron                  # start, print the login link, open the browser
+pnpm dev          # daemon (127.0.0.1:4317) + web (127.0.0.1:5173) with live reload
+pnpm test         # unit tests (vitest)
+pnpm test:e2e     # browser tests (playwright)
+pnpm lint && pnpm typecheck
 ```
+
+`pnpm dev` and `apeiron` cannot run at the same time. Start with [`CLAUDE.md`](CLAUDE.md), then
+[`docs/README.md`](docs/README.md) (a map of every document) and
+[`docs/roadmap.md`](docs/roadmap.md).
+
+## Names
+
+| Thing | Name |
+| --- | --- |
+| App | Apeiron |
+| Command | `apeiron` |
+| Repo | `syedmehedihussain/apeiron` |
+| Assistant | Magnet |
+| Config folder | `~/.apeiron/` |
+| License | MIT |

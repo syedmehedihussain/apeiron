@@ -102,6 +102,21 @@ branch.
 **Done when:** one click on Run in the Agents view scans the project without asking anything,
 and Report opens the result in its own centre tab with the history of earlier runs.
 
+## M9 — Release 1.0.0 (ADR-0013)
+
+- [x] CI green again (daemon EPIPE crash outside git repos; fake Claude reports Claude ready).
+- [ ] Fix the security review findings: agent/Magnet edit guard through symlinks (high), read
+      tools outside the project and narrow secret list (medium), editor fallback (low).
+- [ ] Run Test runner, Code health and Dependency audit on Apeiron; fix anything high.
+- [x] README rewritten for users: what it is, requirements, install, first run, features, skill.
+- [x] `CHANGELOG.md` (1.0.0 unreleased).
+- [ ] Version 1.0.0 in every package and `apeiron --version` (in the release commit).
+- [ ] Fresh install check: clone into a temp folder, empty `APEIRON_HOME`, install, first run.
+- [ ] Tag `v1.0.0` and publish the GitHub release (ask first).
+
+**Done when:** someone on Linux follows the README from a fresh clone, opens Apeiron, and every
+check in CI is green on the tagged commit.
+
 ## After the MVP
 
 Notes & Tasks polish · usage heatmap · terminal tab · Tailscale access · light theme · runner
