@@ -232,3 +232,44 @@ CREATE TABLE usage_days (
 
 Transcripts are stored as JSONL files (one event per line), not in SQLite, so they are easy to
 read and delete.
+
+## 8. Scan agents and reports (ADR-0012)
+
+Custom scan agent, `~/.apeiron/agents/<id>.md` (the file name is the id):
+
+```markdown
+---
+name: Accessibility check            # required
+description: Labels, alt text and contrast
+icon: shield                         # shield | flask | heart | package | bot (default bot)
+model: sonnet                        # sonnet | opus | haiku (default sonnet)
+commands: pnpm lint, pnpm test       # comma-separated; exact command or it plus arguments
+---
+What to look for and how to judge it. Apeiron adds the read-only rules and the report format.
+```
+
+Report, `<project>/apeiron/reports/<agentId>/<YYYY-MM-DD-HHmmss>.md` (git-ignored):
+
+```markdown
+---
+agent: security
+title: Security review
+status: done                         # done | failed
+verdict: warn                        # pass | warn | fail | none
+summary: One high finding: the session token is written to the log.
+critical: 0                          # the four counts are present only when given
+high: 1
+medium: 1
+low: 0
+model: opus
+started: 2026-10-11T05:19:02.000Z
+finished: 2026-10-11T05:21:40.000Z
+---
+## Summary
+...
+## Findings
+### High · Session token in the log
+...
+## What to do next
+...
+```

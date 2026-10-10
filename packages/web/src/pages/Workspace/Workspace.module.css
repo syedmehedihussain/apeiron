@@ -370,3 +370,50 @@
   border-radius: 50%;
   background: var(--warning);
 }
+
+/* Agent reports (ReportTab): reuses the Docs reader, plus a verdict dot per history row. */
+.reportDot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  margin: 0 4px;
+  background: var(--t3);
+}
+.reportDot[data-tone='pass'] {
+  background: var(--success);
+}
+.reportDot[data-tone='warn'] {
+  background: var(--warning);
+}
+.reportDot[data-tone='fail'],
+.reportDot[data-tone='failed'] {
+  background: var(--danger);
+}
+.reportCounts {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--t3);
+  font-weight: 400;
+}
+.reportKicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--t3);
+}
+.reportSummary {
+  margin: 18px 0 0;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-chat);
+  color: var(--t1);
+}
+.reportError {
+  align-self: center;
+  font-size: var(--fs-sm);
+  color: var(--danger-text);
+}

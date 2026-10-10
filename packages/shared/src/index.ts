@@ -8,4 +8,5 @@ export * from './schemas/chat.ts';
 export * from './schemas/calibration.ts';
 export * from './schemas/survey.ts';
 export * from './schemas/agent.ts';
+export * from './schemas/scan.ts';
 export * from './schemas/magnet.ts';

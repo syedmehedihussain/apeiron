@@ -1,7 +1,7 @@
 import type { StatusDoc } from '@apeiron/shared';
 
 /** Splits `---` front matter (simple `key: value` lines) from the Markdown body. */
-function frontMatter(md: string): { fields: Record<string, string>; body: string } {
+export function frontMatter(md: string): { fields: Record<string, string>; body: string } {
   const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(md);
   if (!m) return { fields: {}, body: md };
   const fields: Record<string, string> = {};

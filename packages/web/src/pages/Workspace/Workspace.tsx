@@ -16,10 +16,12 @@ import { Pill } from '../../components/Pill/Pill.tsx';
 import { ChatTab, NewChatButton, useSessionMeta } from './ChatTab.tsx';
 import { DocsTab } from './DocsTab.tsx';
 import { NotesTab } from './NotesTab.tsx';
+import { ReportTab } from './ReportTab.tsx';
+import { useScanAgents } from '../../api/scans.ts';
 import { SidePanel } from './SidePanel.tsx';
 import styles from './Workspace.module.css';
 
-type Tab = 'chat' | 'docs' | 'notes' | 'file';
+type Tab = 'chat' | 'docs' | 'notes' | 'file' | 'report';
 
 /** The last file opened per project, so its tab stays while you visit other tabs. */
 const useOpenFiles = create<{
@@ -30,9 +32,19 @@ const useOpenFiles = create<{
   set: (id, path) => set((s) => ({ files: { ...s.files, [id]: path } })),
 }));
 
+/** The last scan agent whose reports were open, per project (`<agentId>` or `<agentId>/<id>`). */
+const useOpenReports = create<{
+  reports: Record<string, string | undefined>;
+  set(id: string, path: string | undefined): void;
+}>((set) => ({
+  reports: {},
+  set: (id, path) => set((s) => ({ reports: { ...s.reports, [id]: path } })),
+}));
+
 function parseSplat(splat: string): { tab: Tab; path: string | null } {
   if (splat.startsWith('docs')) return { tab: 'docs', path: splat.slice(5) || null };
   if (splat.startsWith('files/')) return { tab: 'file', path: splat.slice(6) || null };
+  if (splat.startsWith('reports/')) return { tab: 'report', path: splat.slice(8) || null };
   if (splat === 'notes') return { tab: 'notes', path: null };
   return { tab: 'chat', path: null };
 }
@@ -58,6 +70,15 @@ export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
   useEffect(() => {
     if (tab === 'file' && path) setOpenFile(id, path);
   }, [tab, path, id, setOpenFile]);
+
+  const openReport = useOpenReports((s) => s.reports[id]);
+  const setOpenReport = useOpenReports((s) => s.set);
+  useEffect(() => {
+    if (tab === 'report' && path) setOpenReport(id, path);
+  }, [tab, path, id, setOpenReport]);
+  const scans = useScanAgents(id);
+  const reportAgent = openReport?.split('/')[0] ?? '';
+  const reportName = scans.data?.agents.find((a) => a.id === reportAgent)?.name ?? reportAgent;
 
   const base = `/p/${encodeURIComponent(id)}`;
 
@@ -148,6 +169,29 @@ export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
                 </span>
               </>
             )}
+            {openReport && (
+              <>
+                <span className={styles.tabSep} aria-hidden="true" />
+                <span className={styles.fileTab} data-active={tab === 'report' || undefined}>
+                  <Link
+                    to={`${base}/reports/${openReport}`}
+                    aria-current={tab === 'report' ? 'page' : undefined}
+                  >
+                    {reportName} report
+                  </Link>
+                  <button
+                    type="button"
+                    aria-label={`Close ${reportName} report`}
+                    onClick={() => {
+                      setOpenReport(id, undefined);
+                      if (tab === 'report') void navigate(base);
+                    }}
+                  >
+                    <X size={12} aria-hidden="true" />
+                  </button>
+                </span>
+              </>
+            )}
             <span className={styles.tabSpacer} />
             <StatusNotch
               status={detail.data ? detail.data.status : undefined}
@@ -190,6 +234,15 @@ export function Workspace({ right }: { right?: (id: string) => ReactNode }) {
             )}
             {tab === 'notes' && <NotesTab projectId={id} />}
             {tab === 'file' && path && <FileViewer key={path} projectId={id} path={path} />}
+            {tab === 'report' && path && (
+              <ReportTab
+                key={path.split('/')[0]}
+                projectId={id}
+                agentId={path.split('/')[0]!}
+                reportId={path.split('/')[1] || null}
+                now={now}
+              />
+            )}
           </div>
         </section>
 

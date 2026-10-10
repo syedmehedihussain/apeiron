@@ -6,6 +6,7 @@ import { ApiFailure } from '../../api/client.ts';
 import { startAgent, useAgentDiff, useAgents, useLiveAgents } from '../../api/agents.ts';
 import { AgentCard } from '../AgentCard/AgentCard.tsx';
 import { FileDiff } from '../ApprovalCard/ApprovalCard.tsx';
+import { ScanAgents } from '../ScanAgents/ScanAgents.tsx';
 import styles from './AgentsPanel.module.css';
 
 type Model = 'sonnet' | 'opus' | 'haiku';
@@ -41,7 +42,13 @@ export function AgentsPanel({
 
   return (
     <section className={styles.panel} aria-label="Agents">
+      {!limit && <ScanAgents projectId={projectId} now={now} />}
       <div className={styles.feed}>
+        {!limit && (
+          <div className="label" style={{ padding: '8px 0 6px' }}>
+            Tasks
+          </div>
+        )}
         {list.length === 0 ? (
           <p className={styles.empty}>
             Give an agent a task below. It works on its own branch while you keep chatting, and you

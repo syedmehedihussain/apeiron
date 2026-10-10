@@ -93,6 +93,15 @@ branch.
 
 **Done when:** "What's stuck this week?" gives a correct answer from your real projects.
 
+## After the MVP: scan agents
+
+- [x] Ready-made scan agents (Security review, Test runner, Code health, Dependency audit),
+      custom ones from `~/.apeiron/agents/`, reports in `apeiron/reports/` read in the centre
+      (ADR-0012).
+
+**Done when:** one click on Run in the Agents view scans the project without asking anything,
+and Report opens the result in its own centre tab with the history of earlier runs.
+
 ## After the MVP
 
 Notes & Tasks polish · usage heatmap · terminal tab · Tailscale access · light theme · runner

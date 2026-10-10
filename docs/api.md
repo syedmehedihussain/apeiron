@@ -108,6 +108,19 @@ proposal and the create progress, and is pushed as `survey.updated` on every cha
 | POST | `/api/agents/:agentId/retry` | new run with the same task |
 | POST | `/api/agents/:agentId/stop` | interrupt |
 
+## Scan agents and reports (ADR-0012)
+
+| Method | Path | Does |
+| --- | --- | --- |
+| GET | `/api/projects/:id/scans` | `{ agents: [{ id, name, description, icon, source, model, commands, run, last }], problems }`; `problems` lists custom agent files that could not be read |
+| POST | `/api/projects/:id/scans/:agentId/run` | starts a read-only scan → `{ id, agentId, startedAt, activity }`; 409 if that agent is already running here |
+| POST | `/api/projects/:id/scans/:agentId/stop` | interrupt; nothing is saved |
+| GET | `/api/projects/:id/reports/:agentId` | `{ reports: ReportMeta[] }`, newest first |
+| GET | `/api/projects/:id/reports/:agentId/:reportId` | `{ meta, markdown }` |
+
+Event `scan.updated { projectId, agentId }` on the project topic when a scan starts, makes
+progress or saves a report.
+
 ## Magnet
 
 | Method | Path | Does |
