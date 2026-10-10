@@ -46,6 +46,24 @@
   --edited-fill: rgba(163, 113, 247, 0.16);
   --neutral-fill: rgba(255, 255, 255, 0.06);
 
+  /* File type tags in the file tree (language colours, lightened to read on --s1) */
+  --ft-ts: #5b9cf0;
+  --ft-js: #e8cf5a;
+  --ft-json: #d9a54a;
+  --ft-md: #7fb8e8;
+  --ft-yml: #e07a7a;
+  --ft-toml: #c9875f;
+  --ft-css: #b58cf0;
+  --ft-html: #ef8a5f;
+  --ft-py: #6fb3d9;
+  --ft-rs: #e09a6f;
+  --ft-go: #5ec8d8;
+  --ft-sh: #8fd17a;
+  --ft-sql: #e6a0c4;
+  --ft-env: #d6c46a;
+  --ft-lock: #85858f;
+  --ft-img: #d68fd0;
+
   /* Scrollbars: thin overlay-style thumb, no track or arrows */
   --scroll-thumb: rgba(255, 255, 255, 0.12);
   --scroll-thumb-hover: rgba(255, 255, 255, 0.24);

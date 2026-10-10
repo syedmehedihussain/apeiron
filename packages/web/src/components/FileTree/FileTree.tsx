@@ -250,7 +250,7 @@ function Row({
           />
         )}
       </span>
-      <span className={styles.type} aria-hidden="true">
+      <span className={styles.type} data-tag={entry.tag ?? undefined} aria-hidden="true">
         {entry.type === 'dir' ? <Folder size={14} strokeWidth={1.6} /> : entry.tag}
       </span>
       <span className={styles.name}>{entry.name}</span>

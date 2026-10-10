@@ -60,7 +60,71 @@
 .row[data-ignored] {
   opacity: 0.5;
 }
-.row[data-deleted] .name {
+.row[data-deleted] /* Colour each file type tag by language. Unknown types stay --t3. */
+.type[data-tag='TS'],
+.type[data-tag='TSX'] {
+  color: var(--ft-ts);
+}
+.type[data-tag='JS'],
+.type[data-tag='JSX'] {
+  color: var(--ft-js);
+}
+.type[data-tag='JSON'] {
+  color: var(--ft-json);
+}
+.type[data-tag='MD'],
+.type[data-tag='MDX'] {
+  color: var(--ft-md);
+}
+.type[data-tag='YML'] {
+  color: var(--ft-yml);
+}
+.type[data-tag='TOML'],
+.type[data-tag='INI'] {
+  color: var(--ft-toml);
+}
+.type[data-tag='CSS'],
+.type[data-tag='SCSS'] {
+  color: var(--ft-css);
+}
+.type[data-tag='HTML'] {
+  color: var(--ft-html);
+}
+.type[data-tag='PY'] {
+  color: var(--ft-py);
+}
+.type[data-tag='RS'] {
+  color: var(--ft-rs);
+}
+.type[data-tag='GO'] {
+  color: var(--ft-go);
+}
+.type[data-tag='SH'],
+.type[data-tag='BASH'],
+.type[data-tag='ZSH'] {
+  color: var(--ft-sh);
+}
+.type[data-tag='SQL'] {
+  color: var(--ft-sql);
+}
+.type[data-tag='ENV'],
+.type[data-tag='DOCK'] {
+  color: var(--ft-env);
+}
+.type[data-tag='LOCK'],
+.type[data-tag='TXT'] {
+  color: var(--ft-lock);
+}
+.type[data-tag='PNG'],
+.type[data-tag='JPG'],
+.type[data-tag='JPEG'],
+.type[data-tag='SVG'],
+.type[data-tag='GIF'],
+.type[data-tag='WEBP'],
+.type[data-tag='ICO'] {
+  color: var(--ft-img);
+}
+.name {
   text-decoration: line-through;
   color: var(--t3);
 }
