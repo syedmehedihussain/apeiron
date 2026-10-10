@@ -46,6 +46,10 @@
   --edited-fill: rgba(163, 113, 247, 0.16);
   --neutral-fill: rgba(255, 255, 255, 0.06);
 
+  /* Scrollbars: thin overlay-style thumb, no track or arrows */
+  --scroll-thumb: rgba(255, 255, 255, 0.12);
+  --scroll-thumb-hover: rgba(255, 255, 255, 0.24);
+
   /* Diff */
   --diff-add-text: #7ee08a;
   --diff-add-bg: rgba(63, 185, 80, 0.14);

@@ -5,6 +5,38 @@ body {
   line-height: var(--lh-body);
 }
 
+/* Scrollbars: a slim rounded thumb that brightens on hover, no track, no arrow buttons.
+   Chromium/WebKit use the pseudo-elements; Firefox falls back to scrollbar-width/color.
+   (Setting scrollbar-color in Chromium would disable the pseudo-elements, hence @supports.) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+::-webkit-scrollbar-button {
+  display: none;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: var(--r-pill);
+  min-height: 32px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scroll-thumb-hover);
+  border-width: 2px;
+}
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) transparent;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
